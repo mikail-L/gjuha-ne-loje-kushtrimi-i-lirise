@@ -1,0 +1,198 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Lojë Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+			background: white;
+        }
+		
+        .quiz-container {
+            background: #21CBF3;
+            padding: 20px;
+            width: 600px;
+            border-radius: 30px;
+            text-align: center;
+        }
+		
+        button {
+            display: block;
+            width: 100%;
+            margin: 8px 0;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+			background: white;
+			border-radius: 15px;
+        }
+
+        .correct {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .wrong {
+            background-color: #f44336;
+            color: white;
+        }
+
+        #nextBtn {
+            display: none;
+            background: white;
+            color: black;
+        }
+		
+		a{
+		color:black;
+		}
+		
+        #timer {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h2 id="question">Pyetja</h2>
+    <div id="timer">Koha: 20</div>
+    <div id="answers"></div>
+    <button id="nextBtn" onclick="nextQuestion()">Pyetja tjetër</button>
+</div>
+
+<script>
+    const quiz = [
+        {
+            question: "Gjej fjalën e përngjitur.",
+            answers: ["ulur", "gjithmonë", "punëtor", "ribëj"],
+            correct: 1
+        },
+        {
+            question: "Dalloni fjalët e shkruara gabim:",
+            answers: ["baras, rishtas, fytas", "barazi, rishtazi, haptazi", "standarde, digjte, humbte", "barasi, rishtasi, fytasi"],
+            correct: 3
+        },
+        {
+            question: "Emër i dygjinishëm është:",
+            answers: ["male", "të mësuarit", "shoqe", "kodra"],
+            correct: 0
+        },
+        {
+            question: "Mbiemri në shkallën sipërore është në fjalinë:",
+            answers: ["Vajza dukej e bukur sot.", "Ajo ishte shumë e bukur.", "Sot i mbarova mësimet më shpejt se zakonisht.", "E veshi vajzën e vogël bukur dhe u nis për në festë."],
+            correct: 1
+        },
+        {
+            question: "Unë jam ulur në një stol. Folja ''jam'' është:",
+            answers: ["me kuptim të plotë leksikor", "folje gjysmëndihmëse", "folje ndihmëse", "me vlerë modale"],
+            correct: 2
+        },
+		{
+            question: "Në cilën fjali është përdorur trajta e shkurtër?",
+            answers: ["Nëna u tregoi fëmijëve ushqimin.", "Ajo u nis për më punë.", "Ne kemi dëshirë të shikojmë ndeshjen.", "Mos u mërzit, gjërat do të rregullohen."],
+            correct: 0
+        },
+		{
+            question: "Dallo kundrinorin e zhdrejtë pa parafjalë.",
+            answers: ["Kjo gjë dihet nga të gjithë", "Papritur e humba nga sytë, por e rigjeta sakaq.", "Jetoni për Shqipërinë dhe punoni për të.", "Atij i erdhi keq për nënën."],
+            correct: 3
+        },
+		{
+            question: "Cilat nga alternativat ka kallëzues emëror?",
+            answers: ["Bababi ishte nisur herët.", "Qielli ishte i vrenjtur.", "Fjala kishte marrë udhë.", "Kjo detyrë qenka punuar me kujdes."],
+            correct: 1
+        },
+		{
+            question: "Cila fjali ka rrethanor shkaku?",
+            answers: ["Ata vijnë këtu për punë.", "Nesër kemi konkurs midis klasave.", "Nxënësja nga Durrësi u zgjodh fituese në atë konkurs.", "Sytë i shkëlqenin nga lumuturia."],
+            correct: 3
+        },
+		{
+            question: "Dalloni fjalinë e përbërë me bashkërenditje.",
+            answers: ["Meqë ishte ftohtë, ndezëm dhe zjarrin.", "Dimë se Toka rrotullohet rreth Diellit.", "Dikush përshëndeti, por ai nuk e vuri re.", "Edhe historitë që unë tregoj i kam mësuar prej tij."],
+            correct: 2
+        }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let timeLeft = 20;
+    let timer;
+
+    function loadQuestion() {
+        clearInterval(timer);
+        timeLeft = 20;
+        document.getElementById("timer").innerText = "Koha: " + timeLeft;
+
+        timer = setInterval(() => {
+            timeLeft--;
+            document.getElementById("timer").innerText = "Koha: " + timeLeft;
+            if (timeLeft === 0) {
+                clearInterval(timer);
+                disableButtons();
+                document.getElementById("nextBtn").style.display = "block";
+            }
+        }, 1000);
+
+        const q = quiz[currentQuestion];
+        document.getElementById("question").innerText = q.question;
+
+        const answersDiv = document.getElementById("answers");
+        answersDiv.innerHTML = "";
+
+        q.answers.forEach((answer, index) => {
+            const btn = document.createElement("button");
+            btn.innerText = answer;
+            btn.onclick = () => checkAnswer(index, btn);
+            answersDiv.appendChild(btn);
+        });
+
+        document.getElementById("nextBtn").style.display = "none";
+    }
+
+    function checkAnswer(index, button) {
+        clearInterval(timer);
+        const correctIndex = quiz[currentQuestion].correct;
+
+        if (index === correctIndex) {
+            button.classList.add("correct");
+            score++;
+        } else {
+            button.classList.add("wrong");
+        }
+
+        disableButtons();
+        document.getElementById("nextBtn").style.display = "block";
+    }
+
+    function disableButtons() {
+        const buttons = document.querySelectorAll("#answers button");
+        buttons.forEach(btn => btn.disabled = true);
+    }
+
+    function nextQuestion() {
+        currentQuestion++;
+        if (currentQuestion < quiz.length) {
+            loadQuestion();
+        } else {
+            document.querySelector(".quiz-container").innerHTML = `
+                <h2>Quiz përfundoi 🎉</h2>
+                <p>Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
+
+            <button><a href ="Konkursi Website.html"> Kthehu ne main menu </a>
+            `;
+        }
+    }
+
+    loadQuestion();
+
+</script>
+
+</body>
+</html>

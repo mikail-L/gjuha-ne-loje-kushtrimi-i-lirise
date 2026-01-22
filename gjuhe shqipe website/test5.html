@@ -1,0 +1,178 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gjuha në lojë</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f44336, #ff7961);
+            text-align: center;
+            color: #333;
+        }
+
+        header {
+            background: white;
+            padding: 30px 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            animation: slideDown 1.2s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        header h1 {
+            color: #d32f2f;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 18px;
+            margin: 0;
+        }
+
+        .menu {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 40px 0;
+			margin-bottom: 87px;
+        }
+
+        .menu a {
+            background: white;
+            width: 200px;
+            padding: 20px;
+            border-radius: 15px;
+            text-decoration: none;
+            color: black;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .menu a:hover {
+            transform: scale(1.08);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .menu img {
+            width: 120px;
+            height: 120px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .menu p {
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        form {
+            background: white;
+            width: 320px;
+            margin: 40px auto;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+            text-align: left;
+            margin-bottom: 186px;
+        }
+
+        form label {
+            font-weight: bold;
+        }
+
+        form textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0 15px 0;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        form button {
+            width: 100%;
+            padding: 12px;
+            background: #d32f2f;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background: #b71c1c;
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+
+<header>
+    <h1>Gjuha në lojë</h1>
+    <p>Mëso, sfido veten dhe përmirëso gjuhën shqipe!</p>
+</header>
+
+<div class="menu">
+    <a href="zgjidh klasen letersi.html">
+        <img src="letersi.jpeg" alt="Letërsi">
+        <p>📚 Letërsi</p>
+    </a>
+
+    <a href="zgjidh klasen gramatike.html">
+        <img src="gramatike.jpeg" alt="Gramatikë">
+        <p>✏️ Gramatikë</p>
+    </a>
+
+    <a href="leksikologji.html">
+        <img src="sin ant.jpeg" alt="Leksikologji">
+        <p>🧠 Leksikologji</p>
+    </a>
+
+    <a href="fjalekryq 2.html">
+        <img src="fjalekryq.PNG" alt="Fjalëkryq">
+        <p>🧩 Fjalëkryq</p>
+    </a>
+</div>
+
+<form onsubmit="dergoMesazh(); return false;">
+    <label for="message">Mesazhi juaj:</label><br>
+    <textarea id="message" name="message" rows="4"
+    placeholder="Shkruani mendimin ose sugjerimin tuaj..."></textarea><br>
+    <button type="submit">Dërgo</button>
+</form>
+
+<footer>&copy; Gjuha në lojë - 2026</footer>
+
+</button>
+
+<script>
+    function dergoMesazh() {
+        alert("Faleminderit për mesazhin! 📩");
+        document.getElementById("message").value = "";
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+<meta charset="UTF-8">
+<title>Ndërto Fjalinë</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f2f6ff;
+        text-align: center;
+        padding: 20px;
+    }
+
+    h1 {
+        color: #2c3e50;
+    }
+
+    .words, .sentence {
+        margin: 20px auto;
+        padding: 15px;
+        width: 80%;
+        min-height: 60px;
+        border: 2px dashed #3498db;
+        background: #fff;
+    }
+
+    .word {
+        display: inline-block;
+        margin: 5px;
+        padding: 10px 15px;
+        background: #3498db;
+        color: white;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        margin: 10px;
+        cursor: pointer;
+        display: none;
+    }
+
+    #result {
+        font-size: 18px;
+        margin-top: 15px;
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+
+<h1>🎮 Ndërto Fjalinë e Saktë</h1>
+<p id="level"></p>
+
+<div class="words" id="words"></div>
+
+<h3>Fjalia jote:</h3>
+<div class="sentence" id="sentence"></div>
+
+<button id="checkBtn" onclick="checkSentence()">Kontrollo</button>
+<button id="restartBtn" onclick="restartGame()">Restart</button>
+<button id="nextBtn" onclick="nextLevel()">Loja tjetër</button>
+
+<div id="result"></div>
+
+<script>
+const sentences = [
+    ["Nxënësit", "lexojnë", "libra", "në", "bibliotekë"],
+    ["Fëmijët", "luajnë", "në", "oborr"],
+    ["Mësuesja", "shpjegon", "mësimin", "qartë"],
+    ["Familja", "han", "darkë", "së", "bashku"]
+];
+
+let currentLevel = 0;
+let userSentence = [];
+
+const wordsContainer = document.getElementById("words");
+const sentenceContainer = document.getElementById("sentence");
+const result = document.getElementById("result");
+const levelText = document.getElementById("level");
+
+const checkBtn = document.getElementById("checkBtn");
+const restartBtn = document.getElementById("restartBtn");
+const nextBtn = document.getElementById("nextBtn");
+
+function loadLevel() {
+    wordsContainer.innerHTML = "";
+    sentenceContainer.textContent = "";
+    result.textContent = "";
+    userSentence = [];
+
+    levelText.textContent = "Niveli " + (currentLevel + 1);
+
+    const shuffled = [...sentences[currentLevel]].sort(() => Math.random() - 0.5);
+
+    shuffled.forEach(word => {
+        const span = document.createElement("span");
+        span.className = "word";
+        span.textContent = word;
+        span.onclick = () => addWord(word, span);
+        wordsContainer.appendChild(span);
+    });
+
+    checkBtn.style.display = "inline-block";
+    restartBtn.style.display = "none";
+    nextBtn.style.display = "none";
+}
+
+function addWord(word, element) {
+    userSentence.push(word);
+    sentenceContainer.textContent = userSentence.join(" ");
+    element.style.display = "none";
+}
+
+function checkSentence() {
+    if (JSON.stringify(userSentence) === JSON.stringify(sentences[currentLevel])) {
+        result.textContent = "✅ Bravo! Fjalia është e saktë.";
+        result.style.color = "green";
+        nextBtn.style.display = "inline-block";
+        checkBtn.style.display = "none";
+    } else {
+        result.textContent = "❌ Gabim. Provo përsëri.";
+        result.style.color = "red";
+        restartBtn.style.display = "inline-block";
+        checkBtn.style.display = "none";
+    }
+}
+
+function restartGame() {
+    loadLevel();
+}
+
+function nextLevel() {
+    currentLevel++;
+    if (currentLevel < sentences.length) {
+        loadLevel();
+    } else {
+        levelText.textContent = "🎉 I përfundove të gjitha nivelet!";
+        wordsContainer.innerHTML = "";
+        sentenceContainer.textContent = "";
+        result.textContent = "Urime! Ke mbaruar lojën.";
+        nextBtn.style.display = "none";
+        restartBtn.style.display = "none";
+        checkBtn.style.display = "none";
+		 document.querySelector("#result").innerHTML = `
+                
+            <button><a href ="Konkursi Website.html"> Kthehu ne main menu </a>;
+			`;
+			
+    }
+}
+
+loadLevel();
+</script>
+
+</body>
+</html>

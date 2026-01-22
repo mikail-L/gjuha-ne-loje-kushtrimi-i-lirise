@@ -1,0 +1,176 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Lojë Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .quiz-container {
+            background: white;
+            padding: 20px;
+            width: 600px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            margin: 8px 0;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .correct {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .wrong {
+            background-color: #f44336;
+            color: white;
+        }
+
+        #nextBtn {
+            display: none;
+            background: #2196F3;
+            color: white;
+        }
+
+        a{
+            color:black;
+        }
+
+        #timer {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h2 id="question">Pyetja</h2>
+    <div id="timer">Koha: 15</div>
+    <div id="answers"></div>
+    <button id="nextBtn" onclick="nextQuestion()">Pyetja tjetër</button>
+</div>
+
+<script>
+    const quiz = [
+        {
+            question: "Sinonimi i fjalës 'i bukur' është:",
+            answers: ["i shëmtuar", "i madh", "i hijshëm", "i errët"],
+            correct: 2
+        },
+        {
+            question: "Antonimi i fjalës 'ditë' është:",
+            answers: ["mëngjes", "dritë", "diell", "natë"],
+            correct: 3
+        },
+        {
+            question: "Antonimi i fjalës 'i ftohtë' është:",
+            answers: ["i ngrohtë", "i lehtë", "i butë", "i errët"],
+            correct: 0
+        },
+        {
+            question: "Në cilën fjali përdoret shprehja 'hap sytë'?",
+            answers: ["Ai hapi sytë në mëngjes.", "Hap sytë kur kalon rrugën!", "Sytë i ka blu.", "Ai mbyll sytë."],
+            correct: 1
+        },
+        {
+            question: "Fjala e urtë 'Më mirë vonë se kurrë' tregon se:",
+            answers: ["Vonë është gabim.", "Është mirë të mos bësh asgjë.", "Është mirë të bësh diçka, edhe pse vonë.", "Gjithçka bëhet shpejtë."],
+            correct: 2
+        },
+        {
+            question: "Çfarë kuptimi ka shprehja frazeologjike 'i ra pika'?",
+            answers: ["U lag nga shiu", "U sëmur", "U zemërua", "U pikëllua shumë"],
+            correct: 3
+        }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let timeLeft = 15;
+    let timer;
+
+    function loadQuestion() {
+        clearInterval(timer);
+        timeLeft = 15;
+        document.getElementById("timer").innerText = "Koha: " + timeLeft;
+
+        timer = setInterval(() => {
+            timeLeft--;
+            document.getElementById("timer").innerText = "Koha: " + timeLeft;
+            if (timeLeft === 0) {
+                clearInterval(timer);
+                disableButtons();
+                document.getElementById("nextBtn").style.display = "block";
+            }
+        }, 1000);
+
+        const q = quiz[currentQuestion];
+        document.getElementById("question").innerText = q.question;
+
+        const answersDiv = document.getElementById("answers");
+        answersDiv.innerHTML = "";
+
+        q.answers.forEach((answer, index) => {
+            const btn = document.createElement("button");
+            btn.innerText = answer;
+            btn.onclick = () => checkAnswer(index, btn);
+            answersDiv.appendChild(btn);
+        });
+
+        document.getElementById("nextBtn").style.display = "none";
+    }
+
+    function checkAnswer(index, button) {
+        clearInterval(timer);
+        const correctIndex = quiz[currentQuestion].correct;
+
+        if (index === correctIndex) {
+            button.classList.add("correct");
+            score++;
+        } else {
+            button.classList.add("wrong");
+        }
+
+        disableButtons();
+        document.getElementById("nextBtn").style.display = "block";
+    }
+
+    function disableButtons() {
+        const buttons = document.querySelectorAll("#answers button");
+        buttons.forEach(btn => btn.disabled = true);
+    }
+
+    function nextQuestion() {
+        currentQuestion++;
+        if (currentQuestion < quiz.length) {
+            loadQuestion();
+        } else {
+            document.querySelector(".quiz-container").innerHTML = `
+                <h2>Quiz përfundoi 🎉</h2>
+                <p>Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
+
+            <button><a href ="Konkursi Website.html"> Kthehu ne main menu </a>
+            `;
+        }
+    }
+
+    loadQuestion();
+
+</script>
+
+</body>
+</html>
