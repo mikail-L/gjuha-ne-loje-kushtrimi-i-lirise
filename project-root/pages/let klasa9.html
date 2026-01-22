@@ -1,0 +1,188 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Lojë Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+			background: white;
+        }
+		
+        .quiz-container {
+            background: #21CBF3;
+            padding: 20px;
+            width: 600px;
+            border-radius: 30px;
+            text-align: center;
+        }
+		
+        button {
+            display: block;
+            width: 100%;
+            margin: 8px 0;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+			background: white;
+			border-radius: 15px;
+        }
+
+        .correct {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .wrong {
+            background-color: #f44336;
+            color: white;
+        }
+
+        #nextBtn {
+            display: none;
+            background: white;
+            color: black;
+        }
+		
+		a{
+		color:black;
+		}
+		
+        #timer {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h2 id="question">Pyetja</h2>
+    <div id="timer">Koha: 20</div>
+    <div id="answers"></div>
+    <button id="nextBtn" onclick="nextQuestion()">Pyetja tjetër</button>
+</div>
+
+<script>
+    const quiz = [
+        {
+            question: "Tekstet letrare i përdorim:",
+            answers: ["për t'u informuar", "për zhvillimin e imagjinatës", "për të marrë udhëzime", "për tu bërë pjesë e shoqërisë"],
+            correct: 1
+        },
+        {
+            question: "Veçori e tekstit dramatik nuk është:",
+            answers: ["dialogu", "fjalët didaskalitë", "monologu", "shprehja e botës së brëndshme"],
+            correct: 3
+        },
+        {
+            question: "Autori i romanit ''Kështjella'' është:",
+            answers: ["Dritëro Agolli", "Ismail Kadare", "Migjeni", "Ernest Koliqi"],
+            correct: 1
+        },
+        {
+            question: "Trajtoi temën e mjerimit në veprat e tij:",
+            answers: ["Dritëro Agolli", "Ernest Koliqi", "Migjeni", "Kasem Trebeshina"],
+            correct: 2
+        },
+        {
+            question: "Vepra ''Iliada'' e Homerit është:",
+            answers: ["poemë epike", "poemë didaktike", "poemë idilike", "këngë legjendare"],
+            correct: 0
+        },
+        {
+            question: "Trajtohet tema e luftës së vazhdueshme të njeriut përmbi jetës te:",
+            answers: ["''Kthimi i Ululës''", "''Drita është si uji''", "''Kumbulla përtej muri''", "''Plaku dhe deti"],
+            correct: 3
+        },
+		{
+            question: "Baladat janë kallëzime poetike epiko-lirike, sepse:",
+            answers: ["gjejmë rrëfimin e ngjarjes", "shprehet bota shpirtërore e personazhit", "gjejmë rrëfim të ngjarjes, por edhe shprehet bota shpritërore e personazhit", "ka elemente fantastike"],
+            correct: 2
+        },
+		{
+            question: "Në vargjet: ''Lulet të bardha / lule të bukura'' figura letrare është:",
+            answers: ["metafora", "anafora", "krahasimi", "ironia"],
+            correct: 1
+        }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let timeLeft = 20;
+    let timer;
+
+    function loadQuestion() {
+        clearInterval(timer);
+        timeLeft = 20;
+        document.getElementById("timer").innerText = "Koha: " + timeLeft;
+
+        timer = setInterval(() => {
+            timeLeft--;
+            document.getElementById("timer").innerText = "Koha: " + timeLeft;
+            if (timeLeft === 0) {
+                clearInterval(timer);
+                disableButtons();
+                document.getElementById("nextBtn").style.display = "block";
+            }
+        }, 1000);
+
+        const q = quiz[currentQuestion];
+        document.getElementById("question").innerText = q.question;
+
+        const answersDiv = document.getElementById("answers");
+        answersDiv.innerHTML = "";
+
+        q.answers.forEach((answer, index) => {
+            const btn = document.createElement("button");
+            btn.innerText = answer;
+            btn.onclick = () => checkAnswer(index, btn);
+            answersDiv.appendChild(btn);
+        });
+
+        document.getElementById("nextBtn").style.display = "none";
+    }
+
+    function checkAnswer(index, button) {
+        clearInterval(timer);
+        const correctIndex = quiz[currentQuestion].correct;
+
+        if (index === correctIndex) {
+            button.classList.add("correct");
+            score++;
+        } else {
+            button.classList.add("wrong");
+        }
+
+        disableButtons();
+        document.getElementById("nextBtn").style.display = "block";
+    }
+
+    function disableButtons() {
+        const buttons = document.querySelectorAll("#answers button");
+        buttons.forEach(btn => btn.disabled = true);
+    }
+
+    function nextQuestion() {
+        currentQuestion++;
+        if (currentQuestion < quiz.length) {
+            loadQuestion();
+        } else {
+            document.querySelector(".quiz-container").innerHTML = `
+                <h2>Quiz përfundoi 🎉</h2>
+                <p>Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
+
+            <button><a href ="Konkursi Website.html"> Kthehu ne main menu </a>
+            `;
+        }
+    }
+
+    loadQuestion();
+
+</script>
+
+</body>
+</html>

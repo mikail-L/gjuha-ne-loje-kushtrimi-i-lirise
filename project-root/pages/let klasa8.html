@@ -1,0 +1,188 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Lojë Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+			background: white;
+        }
+		
+        .quiz-container {
+            background: #21CBF3;
+            padding: 20px;
+            width: 600px;
+            border-radius: 30px;
+            text-align: center;
+        }
+		
+        button {
+            display: block;
+            width: 100%;
+            margin: 8px 0;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+			background: white;
+			border-radius: 15px;
+        }
+
+        .correct {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .wrong {
+            background-color: #f44336;
+            color: white;
+        }
+
+        #nextBtn {
+            display: none;
+            background: white;
+            color: black;
+        }
+		
+		a{
+		color:black;
+		}
+		
+        #timer {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h2 id="question">Pyetja</h2>
+    <div id="timer">Koha: 20</div>
+    <div id="answers"></div>
+    <button id="nextBtn" onclick="nextQuestion()">Pyetja tjetër</button>
+</div>
+
+<script>
+    const quiz = [
+        {
+            question: "Autori i romanit ''Kush e solli Doruntinën'' është:",
+            answers: ["Dritëro Agolli", "Ismail Kadare", "Migjeni", "Sterjo Spasse"],
+            correct: 1
+        },
+        {
+            question: "''Ideja se loja luftash e adoleshentëve u shëndrrua në nje betejë serioze, si parapërgatitje për luftën e jetës'', jepet në veprën:",
+            answers: ["Një kryqëzim", "Kolombreja", "Bota e Sofisë", "Djemtë e rrugës ''Pal''"],
+            correct: 3
+        },
+        {
+            question: "Kanë temë heroike, trajtojnë ngjarje historike, luftëra të vërteta dhe në fatin e heronjve luajnë rol dhe hyjnitë:",
+            answers: ["Poema epike", "Përralla", "Legjenda", "Balada"],
+            correct: 0
+        },
+        {
+            question: "I përket letërsisë gojore:",
+            answers: ["Martesa me Orën-zonjë", "Lumi i madh", "Kthimi i odisesë", "Kënga e Dhoqinës"],
+            correct: 3
+        },
+        {
+            question: "Është cilësuar si shkrimtar i Brezit të humbur:",
+            answers: ["Ismail Kadare", "Mitrush Kuteli", "Petro Marko", "Dritëro Agolli"],
+            correct: 2
+        },
+        {
+            question: "Trajtohet tema e varësisë së fëmijëve ndaj lojërave elektronike në pjesën:",
+            answers: ["Bota e Sofisë", "Fliberi dhe fëmija", "Kolobreja", "Një kryqëzim"],
+            correct: 1
+        },
+		{
+            question: "I përket llojit të tekstit argumentues pjesa:",
+            answers: ["Kostandini i vogëlith", "Krijimi i Kozmosit", "Prijësit shpirtëror të Fan Nolit", "Fliberi dhe fëmija"],
+            correct: 0
+        },
+		{
+            question: "Veprat që kanë si qëllim vënien në skenë përfshihen në:",
+            answers: ["gjininë epike", "gjininë dramatike", "gjininë lirike", "teksti poetik"],
+            correct: 1
+        }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let timeLeft = 20;
+    let timer;
+
+    function loadQuestion() {
+        clearInterval(timer);
+        timeLeft = 20;
+        document.getElementById("timer").innerText = "Koha: " + timeLeft;
+
+        timer = setInterval(() => {
+            timeLeft--;
+            document.getElementById("timer").innerText = "Koha: " + timeLeft;
+            if (timeLeft === 0) {
+                clearInterval(timer);
+                disableButtons();
+                document.getElementById("nextBtn").style.display = "block";
+            }
+        }, 1000);
+
+        const q = quiz[currentQuestion];
+        document.getElementById("question").innerText = q.question;
+
+        const answersDiv = document.getElementById("answers");
+        answersDiv.innerHTML = "";
+
+        q.answers.forEach((answer, index) => {
+            const btn = document.createElement("button");
+            btn.innerText = answer;
+            btn.onclick = () => checkAnswer(index, btn);
+            answersDiv.appendChild(btn);
+        });
+
+        document.getElementById("nextBtn").style.display = "none";
+    }
+
+    function checkAnswer(index, button) {
+        clearInterval(timer);
+        const correctIndex = quiz[currentQuestion].correct;
+
+        if (index === correctIndex) {
+            button.classList.add("correct");
+            score++;
+        } else {
+            button.classList.add("wrong");
+        }
+
+        disableButtons();
+        document.getElementById("nextBtn").style.display = "block";
+    }
+
+    function disableButtons() {
+        const buttons = document.querySelectorAll("#answers button");
+        buttons.forEach(btn => btn.disabled = true);
+    }
+
+    function nextQuestion() {
+        currentQuestion++;
+        if (currentQuestion < quiz.length) {
+            loadQuestion();
+        } else {
+            document.querySelector(".quiz-container").innerHTML = `
+                <h2>Quiz përfundoi 🎉</h2>
+                <p>Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
+
+            <button><a href ="Konkursi Website.html"> Kthehu ne main menu </a>
+            `;
+        }
+    }
+
+    loadQuestion();
+
+</script>
+
+</body>
+</html>
