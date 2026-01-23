@@ -1,0 +1,198 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Lojë Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+			background: white;
+        }
+		
+        .quiz-container {
+            background: #21CBF3;
+            padding: 20px;
+            width: 600px;
+            border-radius: 30px;
+            text-align: center;
+        }
+		
+        button {
+            display: block;
+            width: 100%;
+            margin: 8px 0;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+			background: white;
+			border-radius: 15px;
+        }
+
+        .correct {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .wrong {
+            background-color: #f44336;
+            color: white;
+        }
+
+        #nextBtn {
+            display: none;
+            background: white;
+            color: black;
+        }
+		
+		a{
+		color:black;
+		}
+		
+        #timer {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h2 id="question">Pyetja</h2>
+    <div id="timer">Koha: 20</div>
+    <div id="answers"></div>
+    <button id="nextBtn" onclick="nextQuestion()">Pyetja tjetër</button>
+</div>
+
+<script>
+    const quiz = [
+        {
+            question: "Përcaktoni fushën leksikore që kanë këto fjalë të veçanta: e bardha, e zeza, e verdha, e kuqja",
+            answers: ["emra", "mbiemra", "folje", "ndajfolje"],
+            correct: 0
+        },
+        {
+            question: "Sinonimi i fjalës ''i bukur'' është:",
+            answers: ["i shëmtuar", "i madh", "i hijshëm", "i errët"],
+            correct: 2
+        },
+        {
+            question: "Antonimi i fjalës ''ditë'' është:",
+            answers: ["mëngjes", "dritë", "diell", "natë"],
+            correct: 3
+        },
+        {
+            question: "Fjala ''dorë'' është përdorur në kuptim të drejtpërdrejtë në alternativën:",
+            answers: ["dora e drejtësisë", "ka rënë në duar të mira", "kishte vrarë dorën", "i jep dorë (në punë)"],
+            correct: 2
+        },
+        {
+            question: "Fjala ''udhë'' mund të ketë kuptime të ndryshme. Cila është figurative?",
+            answers: ["Gjetëm udhën për në fshat.", "Ai gjeti udhën e suksesit.", "Udhët janë të gjata.", "Një udhë e re u hap."],
+            correct: 1
+        },
+        {
+            question: "Çfarë kuptimi ka fjala e urtë: ''Mos i bëj gropën tjetrit, se bie vetë brenda''?",
+            answers: ["E keqja kthehet te ai që e bën.", "Të mos bëjmë shaka.", "Gropa është e rrezikshme.", "Duhet të punosh fort."],
+            correct: 0
+        },
+		{
+            question: "Çfarë kuptimi ka shprehja frazeologjike: ''Mos e shiku gunën, por shiko punën''?",
+            answers: ["Rrobat janë të rëndësishme.", "Njeriu gjykohet nga pamja.", "Njeriu gjykohet nga veprat.", "Duhet të vishes bukur."],
+            correct: 2
+        },
+		{
+            question: "Dalloni shprehjen frazeologjike.",
+            answers: ["Gur-gur bëhet kalaja.", "Gjykon puna, s'gjykon guna.", "Bashkimi bën fuqinë.", "S'lë dy gur bashkë."],
+            correct: 3
+        },
+		{
+            question: "Dalloni fjalën e urtë.",
+            answers: ["S'i zënë këmbët dhe.", "Guna e huaj s'të mban ngrohtë.", "U bë pikë e vrer.", "S'e nxjerr qimen nga qulli."],
+            correct: 1
+        },
+		{
+            question: "Fjala e huaj ''abuzoj'' ka fjalën gjegjëse shqipe:",
+            answers: ["nënshtroj", "dhunoj", "shpërdoroj", "përçmoj"],
+            correct: 2
+        }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let timeLeft = 20;
+    let timer;
+
+    function loadQuestion() {
+        clearInterval(timer);
+        timeLeft = 20;
+        document.getElementById("timer").innerText = "Koha: " + timeLeft;
+
+        timer = setInterval(() => {
+            timeLeft--;
+            document.getElementById("timer").innerText = "Koha: " + timeLeft;
+            if (timeLeft === 0) {
+                clearInterval(timer);
+                disableButtons();
+                document.getElementById("nextBtn").style.display = "block";
+            }
+        }, 1000);
+
+        const q = quiz[currentQuestion];
+        document.getElementById("question").innerText = q.question;
+
+        const answersDiv = document.getElementById("answers");
+        answersDiv.innerHTML = "";
+
+        q.answers.forEach((answer, index) => {
+            const btn = document.createElement("button");
+            btn.innerText = answer;
+            btn.onclick = () => checkAnswer(index, btn);
+            answersDiv.appendChild(btn);
+        });
+
+        document.getElementById("nextBtn").style.display = "none";
+    }
+
+    function checkAnswer(index, button) {
+        clearInterval(timer);
+        const correctIndex = quiz[currentQuestion].correct;
+
+        if (index === correctIndex) {
+            button.classList.add("correct");
+            score++;
+        } else {
+            button.classList.add("wrong");
+        }
+
+        disableButtons();
+        document.getElementById("nextBtn").style.display = "block";
+    }
+
+    function disableButtons() {
+        const buttons = document.querySelectorAll("#answers button");
+        buttons.forEach(btn => btn.disabled = true);
+    }
+
+    function nextQuestion() {
+        currentQuestion++;
+        if (currentQuestion < quiz.length) {
+            loadQuestion();
+        } else {
+            document.querySelector(".quiz-container").innerHTML = `
+                <h2>Quiz përfundoi 🎉</h2>
+                <p>Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
+
+            <button><a href ="Konkursi Website.html"> Kthehu ne main menu </a>
+            `;
+        }
+    }
+
+    loadQuestion();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,193 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Lojë Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+			background: white;
+        }
+		
+        .quiz-container {
+            background: #21CBF3;
+            padding: 20px;
+            width: 600px;
+            border-radius: 30px;
+            text-align: center;
+        }
+		
+        button {
+            display: block;
+            width: 100%;
+            margin: 8px 0;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+			background: white;
+			border-radius: 15px;
+        }
+
+        .correct {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .wrong {
+            background-color: #f44336;
+            color: white;
+        }
+
+        #nextBtn {
+            display: none;
+            background: white;
+            color: black;
+        }
+		
+		a{
+		color:black;
+		}
+		
+        #timer {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h2 id="question">Pyetja</h2>
+    <div id="timer">Koha: 20</div>
+    <div id="answers"></div>
+    <button id="nextBtn" onclick="nextQuestion()">Pyetja tjetër</button>
+</div>
+
+<script>
+    const quiz = [
+        {
+            question: "Fjala ''i pabesueshëm'' është:",
+            answers: ["e thjeshtë", "e përbërë", "e përngjitur", "e prejardhur"],
+            correct: 3
+        },
+        {
+            question: "Zgjidhni alternativën ku është përdorur përemrin i pacaktuar:",
+            answers: ["A erdhi kush?", "Kush trokiti në derë?", "Kush mëson fiton.", "Kush je ti?"],
+            correct: 0
+        },
+        {
+            question: "Dallo fjalinë që ka folje njëvetore:",
+            answers: ["Unë po mësoj.", "Sa më pëlqejnë ditët kur bie borë.", "A shkohet rrotull?", "Ana po këndon në dhomën e saj."],
+            correct: 1
+        },
+        {
+            question: "Dallo kur fjala ''rrotull'' është përdorur si parafjalë:",
+            answers: ["Ai bleu një rrotull djathi.", "Ajo po shikonte rrotull.", "Ana bëri një shetitje rrotull kopshtit.", "Ajo bleu nje rrotull letre të re."],
+            correct: 2
+        },
+        {
+            question: "Në fjalinë ''Mjeshtrinë e të gdhendurit ai e kishte mësuar nga babai plak'', fjala ''mjeshtrinë'' është:",
+            answers: ["kundrinor i zhdrejtë me parafjalë", "kundrinor i drejtë", "kundrinor i zhdrejtë pa parafjalë", "rrethanor"],
+            correct: 1
+        },
+        {
+            question: "Kur filluam pushimet dimërore, ne të gjithë u gëzuam. Pjesa e nënrenditur është:",
+            answers: ["ftilluese", "kohore", "vendore", "rrjedhimore"],
+            correct: 1
+        },
+		{
+            question: "Unë ndihesha i plogët dhe nuk guxoja të bëja asnjë hap. Fjala ''i plogët'' kryen funksionin e:",
+            answers: ["rrethanorit", "përcaktorit", "pëcaktorit kallëzuesor të kryefjalës", "përcaktorit kallëzuesor të kundrinorit"],
+            correct: 2
+        },
+		{
+            question: "Cila fjali nga alternativat është shkruar saktë:",
+            answers: ["Gazetari e pyeti këngëtaren:''a mund të bëjmë një emision për kengën qytetare?''", "Gazetari e pyeti këngëtaren ''A mund të bëjmë një emision për kengën qytetare?''", "Gazetari e pyeti këngëtaren: A mund të bëjmë një emision për kengën qytetare?", "Gazetari e pyeti këngëtaren:''A mund të bëjmë një emision për kengën qytetare?''"],
+            correct: 3
+        },
+		{
+            question: "Dalloni fjalinë pyetëse tërësore.",
+            answers: ["Mos jeni dhe ju në grupin tonë?", "Ku banon?", "Zgjidheni menjëherë këtë çështje.", "Kush jeni ju?"],
+            correct: 0
+        }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let timeLeft = 20;
+    let timer;
+
+    function loadQuestion() {
+        clearInterval(timer);
+        timeLeft = 20;
+        document.getElementById("timer").innerText = "Koha: " + timeLeft;
+
+        timer = setInterval(() => {
+            timeLeft--;
+            document.getElementById("timer").innerText = "Koha: " + timeLeft;
+            if (timeLeft === 0) {
+                clearInterval(timer);
+                disableButtons();
+                document.getElementById("nextBtn").style.display = "block";
+            }
+        }, 1000);
+
+        const q = quiz[currentQuestion];
+        document.getElementById("question").innerText = q.question;
+
+        const answersDiv = document.getElementById("answers");
+        answersDiv.innerHTML = "";
+
+        q.answers.forEach((answer, index) => {
+            const btn = document.createElement("button");
+            btn.innerText = answer;
+            btn.onclick = () => checkAnswer(index, btn);
+            answersDiv.appendChild(btn);
+        });
+
+        document.getElementById("nextBtn").style.display = "none";
+    }
+
+    function checkAnswer(index, button) {
+        clearInterval(timer);
+        const correctIndex = quiz[currentQuestion].correct;
+
+        if (index === correctIndex) {
+            button.classList.add("correct");
+            score++;
+        } else {
+            button.classList.add("wrong");
+        }
+
+        disableButtons();
+        document.getElementById("nextBtn").style.display = "block";
+    }
+
+    function disableButtons() {
+        const buttons = document.querySelectorAll("#answers button");
+        buttons.forEach(btn => btn.disabled = true);
+    }
+
+    function nextQuestion() {
+        currentQuestion++;
+        if (currentQuestion < quiz.length) {
+            loadQuestion();
+        } else {
+            document.querySelector(".quiz-container").innerHTML = `
+                <h2>Quiz përfundoi 🎉</h2>
+                <p>Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
+
+            <button><a href ="Konkursi Website.html"> Kthehu ne main menu </a>
+            `;
+        }
+    }
+
+    loadQuestion();
+
+</script>
+
+</body>
+</html>
