@@ -48,6 +48,20 @@
             margin-top: 20px;
         }
 
+        .btn {
+    display: inline-block;
+    padding: 10px 16px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
         #message {
             font-weight: bold;
             margin-top: 15px;
@@ -57,6 +71,7 @@
         .instructions {
             margin-top: 10px;
         }
+    
     </style>
 </head>
 <body>
@@ -76,6 +91,10 @@
 2. Cili eshte ai shkrimtar që ka shënuar një numër rekord të përkthimeve të veprave te tij në  mbi 45 gjuhë? (rreshti 4)<br>
 3. Si quhet ai lloj arti që e pasqyron jetën nëpermjet figurave artistike të krijuara me anë të fjalës?. (rreshti 7)<br>
 4. Përemër vetor, numri shumës. (rreshti 10)
+
+<br>
+
+<button onclick="copyE()">Kopjo ë</button>
 
 <div class="grid">
 <div class="block"></div>
@@ -184,6 +203,11 @@
 <p id="message"></p>
 
 <script>
+
+function copyE() {
+    navigator.clipboard.writeText("ë");
+}
+
 let fjalaSakte = {
     //Rreshti pare
     3: "K",
@@ -220,12 +244,16 @@ function kontrollo() {
         }
     }
 
-    if (!gabim) {
-        document.getElementById("message").innerText = "🎉 SAKTË! E gjete fjalëkryqin!";
-    } else {
-        document.getElementById("message").innerText = "❌ Ka gabime. Kontrollo kutitë me ngjyrë të kuqe."
-        ;
-    }
+   if (!gabim) {
+    document.getElementById("message").innerHTML = `
+        🎉 <strong>SAKTË!</strong> E gjete fjalëkryqin! <br><br>
+        <a href="pages/fjalekryq 3.html" class="btn">➡️ Vazhdo </a>
+    `;
+} else {
+    document.getElementById("message").innerText =
+        "❌ Ka gabime. Kontrollo kutitë me ngjyrë të kuqe.";
+}
+
 }
 </script>
 
