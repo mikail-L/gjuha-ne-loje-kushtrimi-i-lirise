@@ -61,7 +61,7 @@
 
 <div class="quiz-container">
     <h2 id="question">Pyetja</h2>
-    <div id="timer">Koha: 20</div>
+    <div id="timer">Koha: 40</div>
     <div id="answers"></div>
     <button id="nextBtn" onclick="nextQuestion()">Pyetja tjetër</button>
 </div>
@@ -69,55 +69,55 @@
 <script>
     const quiz = [
         {
-            question: "Tekstet letrare i përdorim:",
-            answers: ["për t'u informuar", "për zhvillimin e imagjinatës", "për të marrë udhëzime", "për tu bërë pjesë e shoqërisë"],
+            question: "1. Tekstet letrare i përdorim:",
+            answers: ["A) për t'u informuar;", "B) për zhvillimin e imagjinatës;", "C) për t'u udhëzuar;", "D) për tu bërë pjesë e shoqërisë."],
             correct: 1
         },
         {
-            question: "Veçori e tekstit dramatik nuk është:",
-            answers: ["dialogu", "fjalët didaskalitë", "monologu", "shprehja e botës së brëndshme"],
+            question: "2. Veçori e tekstit dramatik nuk është:",
+            answers: ["A) dialogu;", "B) fjalët didaskalitë;", "C) monologu;", "D) shprehja e botës së brëndshme."],
             correct: 3
         },
         {
-            question: "Autori i romanit ''Kështjella'' është:",
-            answers: ["Dritëro Agolli", "Ismail Kadare", "Migjeni", "Ernest Koliqi"],
+            question: "3. Autori i romanit ''Kështjella'' është:",
+            answers: ["A) Dritëro Agolli;", "B) Ismail Kadare;", "C) Migjeni;", "D) Ernest Koliqi."],
             correct: 1
         },
         {
-            question: "Trajtoi temën e mjerimit në veprat e tij:",
-            answers: ["Dritëro Agolli", "Ernest Koliqi", "Migjeni", "Kasem Trebeshina"],
+            question: "4. Trajtoi temën e mjerimit në veprat e tij:",
+            answers: ["A) Dritëro Agolli;", "B) Ernest Koliqi;", "C) Migjeni;", "D) Kasem Trebeshina."],
             correct: 2
         },
         {
-            question: "Vepra ''Iliada'' e Homerit është:",
-            answers: ["poemë epike", "poemë didaktike", "poemë idilike", "këngë legjendare"],
+            question: "5. Vepra ''Iliada'' e Homerit është:",
+            answers: ["A) poemë epike;", "B) poemë didaktike;", "C) poemë idilike;", "D) këngë legjendare."],
             correct: 0
         },
         {
-            question: "Trajtohet tema e luftës së vazhdueshme të njeriut përmbi jetës te:",
-            answers: ["''Kthimi i Ululës''", "''Drita është si uji''", "''Kumbulla përtej muri''", "''Plaku dhe deti"],
+            question: "6. Trajtohet tema e luftës së vazhdueshme të njeriut përmbi jetës te:",
+            answers: ["A) Kthimi i Ululës(Lë Klezio);", "B) Drita është si uji (Markez);", "C) Kumbulla përtej muri (E.Koliqi);", "D) Plaku dhe deti (E.Heminguej)."],
             correct: 3
         },
 		{
-            question: "Baladat janë kallëzime poetike epiko-lirike, sepse:",
-            answers: ["gjejmë rrëfimin e ngjarjes", "shprehet bota shpirtërore e personazhit", "gjejmë rrëfim të ngjarjes, por edhe shprehet bota shpritërore e personazhit", "ka elemente fantastike"],
+            question: "7. Baladat janë kallëzime poetike epiko-lirike, sepse:",
+            answers: ["A) gjejmë rrëfim të ngjarjes;", "B) shprehet bota shpirtërore e personazhit;", "C) gjejmë rrëfim të ngjarjes, por edhe shprehet bota shpritërore e personazhit;", "D) ka elemente fantastike."],
             correct: 2
         },
 		{
-            question: "Në vargjet: ''Lulet të bardha / lule të bukura'' figura letrare është:",
-            answers: ["metafora", "anafora", "krahasimi", "ironia"],
+            question: "8. Në vargjet ''Lulet të bardha / lule të bukura'' figura letrare është:",
+            answers: ["A) metafora;", "B) anafora;", "C) krahasimi;", "D) ironia."],
             correct: 1
         }
     ];
 
     let currentQuestion = 0;
     let score = 0;
-    let timeLeft = 20;
+    let timeLeft = 40;
     let timer;
 
     function loadQuestion() {
         clearInterval(timer);
-        timeLeft = 20;
+        timeLeft = 40;
         document.getElementById("timer").innerText = "Koha: " + timeLeft;
 
         timer = setInterval(() => {
@@ -175,7 +175,7 @@
                 <h2>Quiz përfundoi 🎉</h2>
                 <p>Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
 
-            <button><a href ="Konkursi Website.html"> Kthehu ne main menu </a>
+            <button><a href ="../Konkursi Website.html"> Kthehu ne main menu </a>
             `;
         }
     }
@@ -185,4 +185,5 @@
 </script>
 
 </body>
+
 </html>
