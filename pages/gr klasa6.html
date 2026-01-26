@@ -61,7 +61,7 @@
 
 <div class="quiz-container">
     <h2 id="question">Pyetja</h2>
-    <div id="timer">Koha: 20</div>
+    <div id="timer">Koha: 40</div>
     <div id="answers"></div>
     <button id="nextBtn" onclick="nextQuestion()">Pyetja tjetër</button>
 </div>
@@ -69,65 +69,66 @@
 <script>
     const quiz = [
         {
-            question: "Te fjala ''rrufehedhësit''. -it është:",
-            answers: ["mbaresë", "prapashtesë", "parashtesë", "temë"],
+            question: "1. Te fjala ''rrufehedhësit'', -it është:",
+            answers: ["A) mbaresë;", "B) prapashtesë;", "C) parashtesë;", "D) temë."],
             correct: 0
         },
 		{
-            question: "Cila fjalë është futur gabim sipas klasës ku bën pjesë?",
-            answers: ["bukur", "i trëndafiltë", "ftohtë", "lehtë"],
+            question: "2. Cila fjalë është futur gabim sipas klasës ku bën pjesë?",
+            answers: ["A) bukur;", "B) i trëndafiltë;", "C) ftohtë;", "D) lehtë."],
             correct: 1
         },
 		{
-            question: "Dalloni grupin e emrave:",
-            answers: ["vrapon, mëson, dëgjon", "bukur, mirë, qartë", "të ecurit, të ngrohtët, të folurit", "i shpejtë, e mirë, e qetë"],
+            question: "3. Dalloni grupin e emrave:",
+            answers: ["A) vrapon, mëson, dëgjon;", "B) bukur, mirë, qartë;", "C) të ecurit, të ngrohtët, të folurit;", "D) i shpejtë, e mirë, e qetë."],
             correct: 2
         },
-        {
-            question: "Dallo fjalinë dëftore.",
-            answers: ["A po vjen?", "Sa bukur!", "Nxënësit janë në klasë.", "Qetësi!"],
-            correct: 2
-        },
-        {
-            question: "Në cilën alternativë ka folje në kohën e tashme, mënyra dëftore?",
-            answers: ["shkroi", "shkruan", "do të shruaj", "kishte shkruar"],
+		{
+			-
+            question: "4. Në cilën alternativë ka folje në kohën e tashme, mënyra dëftore?",
+            answers: ["A) shkroi;", "B) shkruan;", "C) do të shruaj;", "D) kishte shkruar."],
             correct: 1
         },
         {
-            question: "Në cilën prej alternativave kemi vetëm lidhëza bashkërenditëse:",
-            answers: ["ndaj, andaj, apo, por, edhe", "se, që, në nëse nga", "porsi, sa, si, sesa, sepse", "që, ku, kur, me qëllim që"],
+            question: "5. Në cilën prej alternativave kemi vetëm lidhëza bashkërenditëse?",
+            answers: ["A) ndaj, andaj, apo, por, edhe;", "B) se, që, në, nëse, nga;", "C) porsi, sa, si, sesa, sepse;", "D) që, ku, kur, me qëllim që."],
             correct: 0
         },
+		{
+            question: "6. Dalloni fjalinë dëftore.",
+            answers: ["A) A po vjen?", "B) Sa bukur!", "C) Nxënësit janë në klasë.", "D) Qetësi!"],
+            correct: 2
+        },
         {
-            question: "Cilat janë gjymtyrët kryesore të fjalisë?",
-            answers: ["Kallëzuesi dhe kundrinori", "Kryefjala dhe kallëzuesi", "Ndajshtimi dhe rrethanori", "Përcaktori dhe kundrinori"],
+            question: "7. Gjymtyrët kryesore të fjalisë janë:",
+            answers: ["A) kallëzuesi dhe kundrinori;", "B) kryefjala dhe kallëzuesi;", "C) ndajshtimi dhe rrethanori;", "D) përcaktori dhe kundrinori."],
             correct: 1
         },
 		{
-            question: "Ai veronte në një kasolle kashte pranë lumit. Fjala ''kashte'' kryen funksionin si: ",
-            answers: ["rrethanor", "pëcaktor me përshtatje", "përcaktor me bashkim", "përcaktor me drejtim"],
+            question: "8. Ai veronte në një kasolle kashte pranë lumit. Fjala ''kashte'' kryen funksionin si: ",
+            answers: ["A) rrethanor;", "B) pëcaktor me përshtatje;", "C) përcaktor me bashkim;", "D) përcaktor me drejtim."],
             correct: 3
         },
 		{
-            question: "Ai u nis me vrap drejt mësuesit. Fjala ''me vrap'' kryen funksionin si:",
-            answers: ["rrethanor", "kundrinor", "ndajshtim", "përcaktor me drejtim"],
+            question: "9. Ai u nis me vrap drejt mësuesit. Fjala ''me vrap'' kryen funksionin si:",
+            answers: ["A) rrethanor;", "B) kundrinor;", "C) ndajshtim;", "D) përcaktor me drejtim."],
             correct: 0
         },
 		{
-            question: "Në fjalitë e dhëna dalloni fjalinë e thjeshtë:",
-            answers: ["Kodrinat ishin të pjerrëta dhe majat e mbuluar me borë dukeshin më larg.", "Luani i plagosur nuk dinte se ç'ishte frika e vdekjes.", "Me mijëra anije janë mbytur në këtë ngushtice të zymtë.", "Magelani ishte i pari që kaloi përmes asaj ngushticë."],
+            question: "10. Në fjalitë e dhëna dalloni fjalinë e thjeshtë.",
+            answers: ["A) Kodrinat ishin të pjerrëta dhe majat e mbuluar me borë dukeshin më larg.", "B) Luani i plagosur nuk dinte se ç'ishte frika e vdekjes.", "C) Me mijëra anije janë mbytur në këtë ngushtice të zymtë.", "D) Magelani ishte i pari që kaloi përmes asaj ngushticë."],
             correct: 2
         }
     ];
 
     let currentQuestion = 0;
     let score = 0;
-    let timeLeft = 20;
+    let timeLeft = 40;
     let timer;
 
     function loadQuestion() {
         clearInterval(timer);
-        timeLeft = 20;
+        timeLeft = 40;
         document.getElementById("timer").innerText = "Koha: " + timeLeft;
 
         timer = setInterval(() => {
@@ -185,7 +186,7 @@
                 <h2>Quiz përfundoi 🎉</h2>
                 <p>Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
 
-            <button><a href ="Konkursi Website.html"> Kthehu ne main menu </a>
+            <button><a href ="../Konkursi Website.html"> Kthehu në faqen kryesore </a>
             `;
         }
     }
@@ -195,4 +196,5 @@
 </script>
 
 </body>
+
 </html>
