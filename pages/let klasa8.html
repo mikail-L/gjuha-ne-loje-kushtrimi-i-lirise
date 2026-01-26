@@ -61,7 +61,7 @@
 
 <div class="quiz-container">
     <h2 id="question">Pyetja</h2>
-    <div id="timer">Koha: 20</div>
+    <div id="timer">Koha: 40</div>
     <div id="answers"></div>
     <button id="nextBtn" onclick="nextQuestion()">Pyetja tjetër</button>
 </div>
@@ -69,55 +69,55 @@
 <script>
     const quiz = [
         {
-            question: "Autori i romanit ''Kush e solli Doruntinën'' është:",
-            answers: ["Dritëro Agolli", "Ismail Kadare", "Migjeni", "Sterjo Spasse"],
+            question: "1. Autori i romanit ''Kush e solli Doruntinën'' është:",
+            answers: ["A) Dritëro Agolli;", "B) Ismail Kadare;", "C) Migjeni;", "D) Sterjo Spasse."],
             correct: 1
         },
         {
-            question: "''Ideja se loja luftash e adoleshentëve u shëndrrua në nje betejë serioze, si parapërgatitje për luftën e jetës'', jepet në veprën:",
-            answers: ["Një kryqëzim", "Kolombreja", "Bota e Sofisë", "Djemtë e rrugës ''Pal''"],
+            question: "2. ''Ideja se loja luftash e adoleshentëve u shëndrrua në nje betejë serioze, si parapërgatitje për luftën e jetës'', jepet në veprën:",
+            answers: ["A) Një kryqëzim (F.Kafka);", "B) Kolombreja (D.Buxati);", "C) Bota e Sofisë(J.Garder);", "D) Djemtë e rrugës ''Pal''(F.Molnar)."],
             correct: 3
         },
         {
-            question: "Kanë temë heroike, trajtojnë ngjarje historike, luftëra të vërteta dhe në fatin e heronjve luajnë rol dhe hyjnitë:",
-            answers: ["Poema epike", "Përralla", "Legjenda", "Balada"],
+            question: "3. Kanë temë heroike, trajtojnë ngjarje historike, luftëra të vërteta dhe në fatin e heronjve luajnë rol dhe hyjnitë te:",
+            answers: ["A) poema epike;", "B) përralla;", "C) legjenda;", "D) balada."],
             correct: 0
         },
         {
-            question: "I përket letërsisë gojore:",
-            answers: ["Martesa me Orën-zonjë", "Lumi i madh", "Kthimi i odisesë", "Kënga e Dhoqinës"],
+            question: "4. I përket letërsisë gojore:",
+            answers: ["A) Martesa me Orën-zonjë;", "B) Lumi i madh;", "C) Kthimi i Odisesë;", "D) Kënga e Dhoqinës."],
             correct: 3
         },
         {
-            question: "Është cilësuar si shkrimtar i Brezit të humbur:",
-            answers: ["Ismail Kadare", "Mitrush Kuteli", "Petro Marko", "Dritëro Agolli"],
+            question: "5. Është cilësuar si shkrimtar i Brezit të Humbur:",
+            answers: ["A) Ismail Kadare;", "B) Mitrush Kuteli;", "C) Petro Marko", "D) Dritëro Agolli."],
             correct: 2
         },
         {
-            question: "Trajtohet tema e varësisë së fëmijëve ndaj lojërave elektronike në pjesën:",
-            answers: ["Bota e Sofisë", "Fliberi dhe fëmija", "Kolobreja", "Një kryqëzim"],
+            question: "6. Trajtohet tema e varësisë së fëmijëve ndaj lojërave elektronike në pjesën:",
+            answers: ["A) Bota e Sofisë;", "B) Fliberi dhe fëmija;", "C) Kolobreja;", "D) Një kryqëzim;"],
             correct: 1
         },
 		{
-            question: "I përket llojit të tekstit argumentues pjesa:",
-            answers: ["Kostandini i vogëlith", "Krijimi i Kozmosit", "Prijësit shpirtëror të Fan Nolit", "Fliberi dhe fëmija"],
+            question: "7. I përket llojit të tekstit argumentues pjesa:",
+            answers: ["A) Kostandini i vogëlith;", "B) Krijimi i Kozmosit;", "C) Prijësit shpirtëror të Fan Nolit;", "D) Fliberi dhe fëmija."],
             correct: 0
         },
 		{
-            question: "Veprat që kanë si qëllim vënien në skenë përfshihen në:",
-            answers: ["gjininë epike", "gjininë dramatike", "gjininë lirike", "teksti poetik"],
+            question: "8. Veprat që kanë si qëllim vënien në skenë përfshihen në:",
+            answers: ["A) gjininë epike;", "B) gjininë dramatike;", "C) gjininë lirike;", "D) teksti poetik."],
             correct: 1
         }
     ];
 
     let currentQuestion = 0;
     let score = 0;
-    let timeLeft = 20;
+    let timeLeft = 40;
     let timer;
 
     function loadQuestion() {
         clearInterval(timer);
-        timeLeft = 20;
+        timeLeft = 40;
         document.getElementById("timer").innerText = "Koha: " + timeLeft;
 
         timer = setInterval(() => {
@@ -175,7 +175,7 @@
                 <h2>Quiz përfundoi 🎉</h2>
                 <p>Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
 
-            <button><a href ="Konkursi Website.html"> Kthehu ne main menu </a>
+            <button><a href ="../Konkursi Website.html"> Kthehu ne main menu </a>
             `;
         }
     }
@@ -185,4 +185,5 @@
 </script>
 
 </body>
+
 </html>
