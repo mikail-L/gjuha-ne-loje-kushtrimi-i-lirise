@@ -61,7 +61,7 @@
 
 <div class="quiz-container">
     <h2 id="question">Pyetja</h2>
-    <div id="timer">Koha: 20</div>
+    <div id="timer">Koha: 40</div>
     <div id="answers"></div>
     <button id="nextBtn" onclick="nextQuestion()">Pyetja tjetër</button>
 </div>
@@ -69,65 +69,65 @@
 <script>
     const quiz = [
         {
-            question: "Cila fjalë është futur gabim sipas formimit?",
-            answers: ["ditë", "ushqim", "ditar", "mësoj"],
+            question: "1. Fjala e futur gabim sipas formimit është:",
+            answers: ["A) ditë;", "B) ushqim;", "C) ditar;", "D) mësoj."],
             correct: 0
         },
         {
-            question: "Është në formën joveprore, mënyra dëshirore, folja në fjalinë:",
-            answers: ["Njeriu u mësuakësh dhe me këto kushte.", "Ai qenkësh emëruar diku tjetër këto kohë.", "Po ti u rritsh e u bëfsh sa malet!", "Do të ndihesha më mirë, po të kishe ardhur dhe ti."],
+            question: "2. Është në formën joveprore, mënyra dëshirore, folja në fjalinë:",
+            answers: ["A) Njeriu u mësuakësh dhe me këto kushte.", "B) Ai qenkësh emëruar diku tjetër këto kohë.", "C) U rritsh e u bëfsh sa malet!", "D) Do të ndihesha më mirë, po të kishe ardhur dhe ti."],
             correct: 2
         },
         {
-            question: "Cili përemër është futur gabim sipas llojit?",
-            answers: ["shkëlqimin e vet", "peshën e saj", "të ftohtët e tyre", "kangjella të tjera"],
+            question: "3. Përemri që është futur gabim sipas llojit është:",
+            answers: ["A) shkëlqimin e vet;", "B) peshën e saj;", "C) të ftohtët e tyre;", "D) kangjella të tjera."],
             correct: 3
         },
         {
-            question: "Në cilin rast, fjala në thonjëza është ndajfolje?",
-            answers: ["E kaloi dorën ''pas'' qafe.", "Përkujdesej nga ''afër'' për shëndetin tim.", "Bashkohej ''përmes'' një porte të dyfishtë.", "Ajo u ul ''buzë'' krevatit."],
+            question: "4. Në cilin rast, fjala në thonjëza është ndajfolje?",
+            answers: ["A) E kaloi dorën ''pas'' qafe.", "B) Përkujdesej nga ''afër'' për shëndetin tim.", "C) Bashkohej ''përmes'' një porte të dyfishtë.", "D) Ajo u ul ''buzë'' krevatit."],
             correct: 1
         },
         {
-            question: "Gjej fjalën e shkruar gabim:",
-            answers: ["rracë", "rregull", "ëndrra", "radhë"],
+            question: "5. Gjej fjalën e shkruar gabim:",
+            answers: ["A) rracë;", "B) rregull;", "C)ëndrra;", "D) radhë."],
             correct: 0
         },
         {
-            question: "Cila nga alternativat ka kallëzues foljor të përbërë?",
-            answers: ["Cila është gjëja më e rëndëshishme në jetë?", "Babai ka punuar tërë jeten me ndershmëri.", "Shtëpia qe plot dritë.", "Ai nisi të këndonte shumë bukur."],
+            question: "6. Cila nga alternativat ka kallëzues foljor të përbërë?",
+            answers: ["A) Cila është gjëja më e rëndëshishme në jetë?", "B) Babai ka punuar tërë jeten me ndershmëri.", "C) Shtëpia qe plot dritë.", "D) Ai nisi të këndonte shumë bukur."],
             correct: 3
         },
 		{
-            question: "Gjej ndajshtimin në alternativat e dhëna.",
-            answers: ["Ti i the nënës se të solli yt vëlla?", "Ajo është me origjinë shqiptare.", "Mësuese Mira vjen të hënën në mësim.", "Unë e dua këtë qytet."],
+            question: "7. Gjeni ndajshtimin në alternativat e dhëna.",
+            answers: ["A) Ti i the nënës se të solli yt vëlla?", "B) Ajo është me origjinë shqiptare.", "C) Mësuese Mira vjen të hënën në mësim.", "D) Unë e dua këtë qytet."],
             correct: 2
         },
 		{
-            question: "Dalloni kundrinorin e drejtë:",
-            answers: ["U çoi bukë miqve.", "Nxënësit e lavdëruan të gjithë.", "Të foli nëna?", "Më erdhi keq për gjyshen."],
+            question: "8. Dalloni kundrinorin e drejtë:",
+            answers: ["A) U çoi bukë miqve.", "B) Nxënësit e lavdëruan të gjithë.", "C) Të foli nëna?", "D) Më erdhi keq për gjyshen."],
             correct: 1
         },
 		{
-            question: "Në cilën alternativë është përdorur fjalia e përbërë ftilluese?",
-            answers: ["E mira do të ishte që ju të punoni çdo ditë për këtë projekt...", "Në vesh kam shprehjet që ai i përdorte gjithmonë.", "Ishte përqafimi i tim eti, që më bënte të lumtur.", "Kur fillova të lexoja, të gjithë heshtën."],
+            question: "9. Në cilën alternativë është përdorur fjalia me pjesë të nënrenditur ftilluese?",
+            answers: ["A) E mira do të ishte që ju të punoni çdo ditë për këtë projekt.", "B) Në vesh kam shprehjet që ai i përdorte gjithmonë.", "C) Ishte përqafimi i tim eti, që më bënte të lumtur.", "D) Kur fillova të lexoja, të gjithë heshtën."],
             correct: 0
         },
 		{
-            question: "Ata lanë punën, kur dielli kishte perënduar. Pjesa e nënrenditur është:",
-            answers: ["vendore", "qëllimore", "kohore", "përcaktore"],
+            question: "10. Ata lanë punën, kur dielli kishte perënduar. Pjesa e nënrenditur është:",
+            answers: ["A) vendore;", "B) qëllimore;", "C) kohore;", "D) përcaktore."],
             correct: 2
         }
     ];
 
     let currentQuestion = 0;
     let score = 0;
-    let timeLeft = 20;
+    let timeLeft = 40;
     let timer;
 
     function loadQuestion() {
         clearInterval(timer);
-        timeLeft = 20;
+        timeLeft = 40;
         document.getElementById("timer").innerText = "Koha: " + timeLeft;
 
         timer = setInterval(() => {
@@ -185,7 +185,7 @@
                 <h2>Quiz përfundoi 🎉</h2>
                 <p>Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
 
-            <button><a href ="Konkursi Website.html"> Kthehu ne main menu </a>
+            <button><a href ="../Konkursi Website.html"> Kthehu në faqen kryesore </a>
             `;
         }
     }
@@ -195,4 +195,5 @@
 </script>
 
 </body>
+
 </html>
