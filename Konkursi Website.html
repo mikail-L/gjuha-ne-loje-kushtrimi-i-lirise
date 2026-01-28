@@ -213,38 +213,8 @@ const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
  div.className = 'comment';
  // Përdorim escapeHtml për siguri (shih më poshtë)
  div.innerHTML = `
- 
-async function merrKomentet() {
-  const container = document.getElementById('lista-komenteve');
-
-  const { data, error } = await supabaseClient
-    .from('comments')
-    .select('emri, komenti, created_at')
-    .order('created_at', { ascending: false });
-
-  if (error) {
-    console.error("Gabim:", error);
-    container.innerHTML = "Pati një problem me ngarkimin e komenteve.";
-    return;
-  }
-
-  container.innerHTML = '';
-
-  data.forEach(koment => {
-    const div = document.createElement('div');
-    div.className = 'comment';
-
-    div.innerHTML = `
-      <strong>${escapeHtml(koment.emri)}</strong>
-      <p>${escapeHtml(koment.komenti)}</p>
-      <small>${new Date(koment.created_at).toLocaleString()}</small>
-    `;
-
-    container.appendChild(div);
-  });
-}
-
- 
+ <strong>${escapeHtml(koment.username)}</strong>
+ <p>${escapeHtml(koment.message)}</p>
  `;
  container.appendChild(div);
  });
@@ -265,40 +235,7 @@ async function merrKomentet() {
  // Dërgojmë të dhënat në tabelën 'comments'
  const { error } = await supabaseClient
  .from('comments')
-	 
- async function shtoKoment() {
-  const emriInput = document.getElementById('emri');
-  const mesazhiInput = document.getElementById('mesazhi');
-
-  const emri = emriInput.value;
-  const mesazhi = mesazhiInput.value;
-
-  if (!emri || !mesazhi) {
-    alert("Ju lutem plotësoni të dyja fushat!");
-    return;
-  }
-
-  const { error } = await supabaseClient
-    .from('comments')
-    .insert([
-      {
-        emri: emri,
-        komenti: mesazhi,
-        faqja: window.location.href
-      }
-    ]);
-
-  if (error) {
-    console.error("Gabim:", error);
-    alert("Komentet nuk u dërgua.");
-  } else {
-    emriInput.value = '';
-    mesazhiInput.value = '';
-    merrKomentet();
-  }
-}
-
-	 
+ .insert([{ username: emri, message: mesazhi }]);
  if (error) {
  console.error("Gabim:", error);
  alert("Komentet nuk u dërgua. Kontrolloni konsolën.");
@@ -333,6 +270,7 @@ async function merrKomentet() {
 
 </body>
 </html>
+
 
 
 
