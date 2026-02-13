@@ -12,7 +12,7 @@
             background: linear-gradient(135deg, #f44336, #ff7961);
             text-align: center;
             color: #333;
-			padding-bottom: 45px;
+			padding-bottom: 56px;
         }
 		
         header {
@@ -128,6 +128,26 @@
             bottom: 0;
             width: 100%;
         }
+		
+		nav ul li a{
+			color:black;
+			display:block;
+			padding: 0px 10px;
+		}
+		
+		nav ul{
+			display:flex;
+			justify-content:flex-end;
+			list-style:none;
+			position:relative;
+			top:-57px;
+			right:20px;
+		}
+		
+		a{
+			color:white;
+			padding:20px;
+		}
     </style>
 </head>
 
@@ -135,9 +155,18 @@
 
 
 <header>
-    <h1>Gjuha në lojë</h1>
+    <h1 id="back">Gjuha në lojë</h1>
     <p>Mëso, sfido veten dhe përmirëso gjuhën shqipe!</p>
 </header>
+
+
+<nav>
+<ul>
+<li><a href="pages/rreth nesh.html">Rreth nesh</a></li>
+<li><a href="pages/kontakt.html">Na kontaktoni</a></li>
+</ul>
+</nav>
+
 
 <div class="menu">
     <a href="pages/zgjidh klasen letersi.html">
@@ -202,7 +231,6 @@ h2, h3 {
       padding: 12px;
       margin-bottom: 12px;
       border-radius: 6px;
-      width: 100%;
 		margin-left:auto;
 		margin-right:auto;
     }
@@ -313,10 +341,14 @@ const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 </script>
 
+<button><a href="#back">Kthehuni në fillim</a></button>
+
 <footer>&copy; Gjuha në lojë - 2026</footer>
 
 </body>
 </html>
+
+
 
 
 
