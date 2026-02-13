@@ -178,18 +178,50 @@
     }
 
     function nextQuestion() {
-        currentQuestion++;
-        if (currentQuestion < quiz.length) {
-            loadQuestion();
-        } else {
-            document.querySelector(".quiz-container").innerHTML = `
-                <h2>Quiz përfundoi 🎉</h2>
-                <p>Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
+    currentQuestion++;
 
-            <button><a href ="../Konkursi Website.html"> Kthehu në faqen kryesore </a>
-            `;
+    if (currentQuestion < quiz.length) {
+        loadQuestion();
+    } else {
+
+        let content = `
+            <h2>Quiz përfundoi 🎉</h2>
+            <p>Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
+        `;
+
+        if (score === 10) {
+            content += `<p>Suksesi është fryt i dijes. Urime për arritjen maksimale! 🏆</p>`;
+		} else if (score === 9) {
+			content += `<p>Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;
+		} else if (score === 8) {
+			content += `<p>Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;
+		} else if (score === 7) {
+			content += `<p>Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
+		} else if (score === 6) {
+			content += `<p>Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
+		} else if (score === 5) {
+			content += `<p>Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
+		} else if (score === 4) {
+			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
+		} else if (score === 3) {
+			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
+		} else if (score === 2) {
+			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
+		} else if (score === 1) {
+			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
+        } else if (score === 0) {
+            content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
         }
+
+        content += `
+            <button onclick="window.location.href='../Konkursi Website.html'">
+                Kthehu në faqen kryesore
+            </button>
+        `;
+
+        document.querySelector(".quiz-container").innerHTML = content;
     }
+}
 
     loadQuestion();
 
@@ -198,5 +230,6 @@
 </body>
 
 </html>
+
 
 
