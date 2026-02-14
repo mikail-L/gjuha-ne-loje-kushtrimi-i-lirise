@@ -1,0 +1,309 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Fjalëkryq – Gjuha Shqipe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, 50px);
+            grid-template-rows: repeat(11, 50px);
+            gap: 0px;
+            justify-content: center;
+            margin: 20px auto;
+        }
+
+        input {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            font-size: 22px;
+            text-transform: uppercase;
+        }
+
+        .block {
+            background-color: #95a5a6;
+        }
+
+        .correct {
+            background-color: #a5d6a7;
+        }
+
+        .wrong {
+            background-color: #ef9a9a;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        .btn {
+    display: inline-block;
+    padding: 10px 16px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+        #message {
+            font-weight: bold;
+            margin-top: 15px;
+            font-size: 18px;
+        }
+
+        .instructions {
+            margin-top: 10px;
+        }
+    
+    </style>
+</head>
+<body>
+
+<h1>🧩 Fjalëkryq</h1>
+
+<p><b>Gjej kryefjalën në fjalitë e mëposhtme dhe vendosi në fjalëkryq.</b></p>
+1. Sytë i kishte të skuqur, ngaqë s'e zinte gjumi.<br>
+2. Të gjithë nxituan që të blinin bileta.<br>
+3. Ai ishte më i shpejtë nga sa mendonim ne.<br>
+4. Era ishte aq e fortë, sa përmbysi gjithçka.<br>
+5. Kush mëson, fiton.<br>
+6. M'u krijua përshtypja sikur e kishe parë më parë.<br>
+7. Tek ka rrejdhur, do të pikojë.<br>
+8. Sapo mabroi mësimi, ne u takuam në oborrin e shkollës.<br>
+9. Le të bëhet, si thoni ju.<br>
+10. Do të lexoj, sa të mundem.<br>
+11. Ta dija kështu, nuk do të kisha ardhur fare.<br>
+<br>
+
+<button onclick="copyE()">Kopjo "ë"</button>
+
+<div class="grid">
+
+<h1>1. </h1>
+<input id="0" maxlength="1">
+<input id="1" maxlength="1">
+<input id="2" maxlength="1">
+<input id="3" maxlength="1">
+<input id="4" maxlength="1">
+<input id="5" maxlength="1">
+<input id="6" maxlength="1">
+<input id="7" maxlength="1">
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+
+<h1>2. </h1>
+<input id="11" maxlength="1">
+<input id="12" maxlength="1">
+<input id="13" maxlength="1">
+<input id="14" maxlength="1">
+<input id="15" maxlength="1">
+<input id="16" maxlength="1">
+<input id="17" maxlength="1">
+<input id="18" maxlength="1">
+<input id="19" maxlength="1">
+<div class="block"></div>
+<div class="block"></div>
+
+<h1>3. </h1>
+<input id="22" maxlength="1">
+<input id="23" maxlength="1">
+<input id="24" maxlength="1">
+<input id="25" maxlength="1">
+<input id="26" maxlength="1">
+<input id="27" maxlength="1">
+<input id="28" maxlength="1">
+<input id="29" maxlength="1">
+<input id="30" maxlength="1">
+<div class="block"></div>
+<div class="block"></div>
+
+<h1>4. </h1>
+<input id="33" maxlength="1">
+<input id="34" maxlength="1">
+<input id="35" maxlength="1">
+<input id="36" maxlength="1">
+<input id="37" maxlength="1">
+<input id="38" maxlength="1">
+<input id="39" maxlength="1">
+<input id="40" maxlength="1">
+<input id="41" maxlength="1">
+<input id="42" maxlength="1">
+<input id="43" maxlength="1">
+
+<h1>5. </h1>
+<input id="44" maxlength="1">
+<input id="45" maxlength="1">
+<input id="46" maxlength="1">
+<input id="47" maxlength="1">
+<input id="48" maxlength="1">
+<input id="49" maxlength="1">
+<input id="50" maxlength="1">
+<input id="51" maxlength="1">
+<input id="52" maxlength="1">
+<div class="block"></div>
+<div class="block"></div>
+
+<h1>6. </h1>
+<input id="55" maxlength="1">
+<input id="56" maxlength="1">
+<input id="57" maxlength="1">
+<input id="58" maxlength="1">
+<input id="59" maxlength="1">
+<input id="60" maxlength="1">
+<input id="61" maxlength="1">
+<input id="62" maxlength="1">
+<input id="63" maxlength="1">
+<input id="64" maxlength="1">
+<div class="block"></div>
+
+<h1>7. </h1>
+<input id="66" maxlength="1">
+<input id="67" maxlength="1">
+<input id="68" maxlength="1">
+<input id="69" maxlength="1">
+<input id="70" maxlength="1">
+<input id="71" maxlength="1">
+<input id="72" maxlength="1">
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+
+<h1>8. </h1>
+<input id="77" maxlength="1">
+<input id="78" maxlength="1">
+<input id="79" maxlength="1">
+<input id="80" maxlength="1">
+<input id="81" maxlength="1">
+<input id="82" maxlength="1">
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+
+<h1>9. </h1>
+<input id="88" maxlength="1">
+<input id="89" maxlength="1">
+<input id="90" maxlength="1">
+<input id="91" maxlength="1">
+<input id="92" maxlength="1">
+<input id="93" maxlength="1">
+<input id="94" maxlength="1">
+<input id="95" maxlength="1">
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+
+<h1>10. </h1>
+<input id="99" maxlength="1">
+<input id="100" maxlength="1">
+<input id="101" maxlength="1">
+<input id="102" maxlength="1">
+<input id="103" maxlength="1">
+<input id="104" maxlength="1">
+<input id="105" maxlength="1">
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+
+<h1>11. </h1>
+<input id="110" maxlength="1">
+<input id="111" maxlength="1">
+<input id="112" maxlength="1">
+<input id="113" maxlength="1">
+<input id="114" maxlength="1">
+<input id="115" maxlength="1">
+<input id="116" maxlength="1">
+<input id="117" maxlength="1">
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+
+</div>
+
+<button onclick="kontrollo()">Kontrollo</button>
+
+<p id="message"></p>
+
+<script>
+
+function copyE() {
+    navigator.clipboard.writeText("ë");
+}
+
+let fjalaSakte = {
+    //Rreshti pare
+    0: "S", 1: "H", 2: "K", 3: "A", 4: "K", 5: "O", 6: "R", 7: "E", 
+    //Rreshti dyte
+    11: "Q", 12: "Ë", 13: "L", 14: "L", 15: "I", 16: "M", 17: "O", 18: "R", 19: "E", 
+    //Rreshti trete
+    22: "K", 23: "R", 24: "A", 25: "H", 26: "A", 27: "S", 28: "O", 29: "R", 30: "E", 
+    //Rreshti katert
+    33: "R", 34: "R", 35: "J", 36: "E", 37: "D", 38: "H", 39: "I", 40: "M", 41: "O", 42: "R", 43: "E", 
+    //Rreshti peste
+    44: "F", 45: "T", 46: "I", 47: "L", 48: "L", 49: "U", 50: "E", 51: "S", 52: "E", 
+    //Rreshti gjashte
+    55: "P", 56: "Ë", 57: "R", 58: "C", 59: "A", 60: "K", 61: "T", 62: "O", 63: "R", 64: "E", 
+    //Rreshti shtate
+    66: "V", 67: "E", 68: "N", 69: "D", 70: "O", 71: "R", 72: "E", 
+    //Rreshti tete
+    77: "K", 78: "O", 79: "H", 80: "O", 81: "R", 82: "E", 
+    //Rreshti nente
+    88: "M", 89: "Ë", 90: "N", 91: "Y", 92: "R", 93: "O", 94: "R", 95: "E", 
+    //Rreshti dhjete
+    99: "S", 100: "A", 101: "S", 102: "I", 103: "O", 104: "R", 105: "E", 
+    //Rreshti njembedhjete
+    110: "K", 111: "U", 112: "S", 113: "H", 114: "T", 115: "O", 116: "R", 117: "E"
+};
+
+function kontrollo() {
+    let gabim = false;
+
+    for (let id in fjalaSakte) {
+        let kutia = document.getElementById(id);
+        let shkronja = kutia.value.toUpperCase();
+
+        if (shkronja === fjalaSakte[id]) {
+            kutia.className = "correct";
+        } else {
+            kutia.className = "wrong";
+            gabim = true;
+        }
+    }
+
+   if (!gabim) {
+    document.getElementById("message").innerHTML = `
+        🎉 <strong>SAKTË!</strong> E gjete fjalëkryqin! <br><br>
+        <a href="../Konkursi Website.html" class="btn">Shko në faqen kryesore </a>
+    `;
+} else {
+    document.getElementById("message").innerText =
+        "❌ Ka gabime. Kontrollo kutitë me ngjyrë të kuqe.";
+}
+
+}
+</script>
+
+</body>
+
+</html>
