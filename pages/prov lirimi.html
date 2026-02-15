@@ -118,7 +118,47 @@
             question: "10. Fjala e huaj ''abuzoj'' ka fjalën gjegjëse shqipe:",
             answers: ["A) nënshtroj;", "B) dhunoj;", "C) shpërdoroj;", "D) përçmoj."],
             correct: 2
-        }
+        },
+		{
+            question: "11. Fjala e huaj ''abuzoj'' ka fjalën gjegjëse shqipe:",
+            answers: ["A) nënshtroj;", "B) dhunoj;", "C) shpërdoroj;", "D) përçmoj."],
+            correct: 2
+        },
+		{
+            question: "12. Fjala e huaj ''abuzoj'' ka fjalën gjegjëse shqipe:",
+            answers: ["A) nënshtroj;", "B) dhunoj;", "C) shpërdoroj;", "D) përçmoj."],
+            correct: 2
+        },
+		{
+            question: "13. Fjala e huaj ''abuzoj'' ka fjalën gjegjëse shqipe:",
+            answers: ["A) nënshtroj;", "B) dhunoj;", "C) shpërdoroj;", "D) përçmoj."],
+            correct: 2
+        },
+		{
+            question: "14. Fjala e huaj ''abuzoj'' ka fjalën gjegjëse shqipe:",
+            answers: ["A) nënshtroj;", "B) dhunoj;", "C) shpërdoroj;", "D) përçmoj."],
+            correct: 2
+        },
+		{
+            question: "15. Fjala e huaj ''abuzoj'' ka fjalën gjegjëse shqipe:",
+            answers: ["A) nënshtroj;", "B) dhunoj;", "C) shpërdoroj;", "D) përçmoj."],
+            correct: 2
+        },
+		{
+            question: "16. Fjala e huaj ''abuzoj'' ka fjalën gjegjëse shqipe:",
+            answers: ["A) nënshtroj;", "B) dhunoj;", "C) shpërdoroj;", "D) përçmoj."],
+            correct: 2
+        },
+		{
+            question: "17. Fjala e huaj ''abuzoj'' ka fjalën gjegjëse shqipe:",
+            answers: ["A) nënshtroj;", "B) dhunoj;", "C) shpërdoroj;", "D) përçmoj."],
+            correct: 2
+        },
+		{
+            question: "18. Fjala e huaj ''abuzoj'' ka fjalën gjegjëse shqipe:",
+            answers: ["A) nënshtroj;", "B) dhunoj;", "C) shpërdoroj;", "D) përçmoj."],
+            correct: 2
+        },
     ];
 
     let currentQuestion = 0;
@@ -189,28 +229,44 @@
             <p>Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
         `;
 
-        if (score === 10) {
-            content += `<p>Suksesi është fryt i dijes. Urime për arritjen maksimale! 🏆</p>`;
+        if (score === 18) {
+            content += `<p>Shkëlqyeshëm! Sukses i merituar! Jeni plotesisht të përgatitur për Provimin Kombëtar. 🏆🌟</p>`;
+		} else if (score === 17) {
+			content += `<p>Shumë mirë! Vazhdoni të synoni nivelin maksimal! 👏✨</p>`;
+		} else if (score === 16) {
+			content += `<p>Shumë mirë! Vazhdoni të synoni nivelin maksimal! 👏✨</p>`;
+		} else if (score === 15) {
+			content += `<p>Rezultat i mirë dhe premtues! Jeni në rrugën drejt suksesit në provim. 📚📈</p>`;
+		} else if (score === 14) {
+			content += `<p>Rezultat i mirë dhe premtues! Jeni në rrugën drejt suksesit në provim. 📚📈</p>`;
+		} else if (score === 13) {
+			content += `<p>Rezultat i mirë dhe premtues! Jeni në rrugën drejt suksesit në provim. 📚📈</p>`;
+		} else if (score === 12) {
+			content += `<p>Jeni në rrugën e duhur! Me këmbëngulje, çdo rezultat mund të përmirësohet. 💡🚀</p>`;
+		} else if (score === 11) {
+			content += `<p>Jeni në rrugën e duhur! Me këmbëngulje, çdo rezultat mund të përmirësohet. 💡🚀</p>`;
+		} else if (score === 10) {
+			content += `<p>Jeni në rrugën e duhur! Me këmbëngulje, çdo rezultat mund të përmirësohet. 💡🚀</p>`;
 		} else if (score === 9) {
-			content += `<p>Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;
+			content += `<p>Mos u ndalni! Çdo provë ju bën më të fortë! 💪🔥 </p>`;
 		} else if (score === 8) {
-			content += `<p>Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;
+			content += `<p>Mos u ndalni! Çdo provë ju bën më të fortë! 💪🔥 </p>`;
 		} else if (score === 7) {
-			content += `<p>Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
+			content += `<p>Mos u ndalni! Çdo provë ju bën më të fortë! 💪🔥</p>`;
 		} else if (score === 6) {
-			content += `<p>Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
+			content += `<p>Mos u ndalni! Çdo provë ju bën më të fortë! 💪🔥</p>`;
 		} else if (score === 5) {
-			content += `<p>Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
+			content += `<p>Mos u ndalni! Çdo provë ju bën më të fortë! 💪🔥</p>`;
 		} else if (score === 4) {
-			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
+			content += `<p>Besoni në aftësitë tuaja! Çdo fillim është një hap drejt përmirësimit. 😊</p>`;
 		} else if (score === 3) {
-			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
+			content += `<p>Besoni në aftësitë tuaja! Çdo fillim është një hap drejt përmirësimit. 😊</p>`;
 		} else if (score === 2) {
-			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
+			content += `<p>Besoni në aftësitë tuaja! Çdo fillim është një hap drejt përmirësimit. 😊</p>`;
 		} else if (score === 1) {
-			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
+			content += `<p>Besoni në aftësitë tuaja! Çdo fillim është një hap drejt përmirësimit. 😊</p>`;
         } else if (score === 0) {
-            content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
+            content += `<p>Besoni në aftësitë tuaja! Çdo fillim është një hap drejt përmirësimit. 😊</p>`;
         }
 
         content += `
@@ -228,5 +284,6 @@
 </script>
 
 </body>
+
 
 </html>
