@@ -56,6 +56,16 @@
             font-weight: bold;
             margin-bottom: 10px;
         }
+		
+		.menu button{
+		 box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+		
+		.menu button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
     </style>
 </head>
 <body>
@@ -64,7 +74,9 @@
     <h2 id="question">Pyetja</h2>
     <div id="timer">Koha: 40</div>
     <div id="answers"></div>
+	<div class="menu">
     <button id="nextBtn" onclick="nextQuestion()">Pyetja tjetër</button>
+	</div>
 </div>
 
 <script>
@@ -230,6 +242,7 @@
 </body>
 
 </html>
+
 
 
 
