@@ -1,8 +1,7 @@
-<!DOCTYPE html>
-<html lang="sq">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lojë Quiz</title>
     <style>
         body {
@@ -11,9 +10,9 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: white;
+			background: white;
         }
-
+		
         .quiz-container {
             background: #21CBF3;
             padding: 20px;
@@ -21,7 +20,7 @@
             border-radius: 30px;
             text-align: center;
         }
-
+		
         button {
             display: block;
             width: 100%;
@@ -29,14 +28,17 @@
             padding: 10px;
             font-size: 16px;
             cursor: pointer;
-            background: white;
-            border-radius: 15px;
-            border: none;
-            transition: background 0.3s;
+			background: white;
+			border-radius: 15px;
         }
 
-        button.correct {
+        .correct {
             background-color: #4CAF50;
+            color: white;
+        }
+
+        .wrong {
+            background-color: #f44336;
             color: white;
         }
 
@@ -45,17 +47,24 @@
             background: white;
             color: black;
         }
-
+		
+		a{
+		color:black;
+		}
+		
         #timer {
             font-weight: bold;
             margin-bottom: 10px;
-            font-size: 20px;
-            color: black;
         }
-
-        #result {
-            height: 24px;
-            margin-bottom: 10px;
+		
+		.menu button{
+		 box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+		
+		.menu button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
         }
     </style>
 </head>
@@ -65,13 +74,16 @@
     <h2 id="question">Pyetja</h2>
     <div id="timer">Koha: 40</div>
     <div id="answers"></div>
-    <div id="result"></div>
+	
+	<div class="menu">
     <button id="nextBtn" onclick="nextQuestion()">Pyetja tjetër</button>
+	</div>
+	
 </div>
 
 <script>
-const quiz = [
-    {
+    const quiz = [
+         {
         question: "1. Sipas formimit, fjala e përbërë është:",
         answers: ["A) gjithmonë;", "B) mësuar;", "C) faqebardhë;", "D) të fuqishëm."],
         correct: 2
@@ -123,7 +135,7 @@ const quiz = [
     },
     {
         question: "11. Dalloni foljen në mënyrën lidhore, forma joveprore.",
-        answers: ["A) Vamë t'i flisnim s'u përgjigj.", "B) Sikur të ishte përgatitur më shumë!", "C) Në majën e lartë u ngrit një mjegull e bardhë.", "D) Të kishte zgjatur dhe tri orë më shumë kjo mbrëmje."],
+        answers: ["A) Vamë t'i flisnim, s'u përgjigj.", "B) Sikur të ishte përgatitur më shumë!", "C) Në majën e lartë u ngrit një mjegull e bardhë.", "D) Të kishte zgjatur dhe tri orë më shumë kjo mbrëmje."],
         correct: 1
     },
     {
@@ -132,7 +144,7 @@ const quiz = [
         correct: 0
     },
     {
-        question: "13. Ky mendim nuk na pëlqeu. Në këtë fjali kryefjala është shprehur me:",
+        question: "13. Ky mendim nuk na pëlqeu. Në këtë fjali, kryefjala është shprehur me:",
         answers: ["A) emër;", "B) përemër;", "C) grup emëror;", "D) numëror."],
         correct: 2
     },
@@ -158,7 +170,7 @@ const quiz = [
     },
     {
         question: "18. Fjalia që përmban gjymtyrë homogjene është:",
-        answers: ["A) Ajo po sheh fushat e zbehta dhe kodrat gjethezëna.", "B) Filmi ishte i bukur, por i gjatë.", "C) Koha u prish, por unë do të shkoj nesër.", "D) Gjelbërimi i drurëve të kopshtit dhe lulet kacavjerrëse kujtuan fëmijërinë."],
+        answers: ["A) Ajo po sheh fushat e zbehta dhe kodrat gjethezëna.", "B) Filmi ishte i bukur, por i gjatë.", "C) Koha u prish, por unë do të shkoj nesër.", "D) Gjelbërimi i drurëve të kopshtit dhe lulet kacavjerrëse i kujtuan fëmijërinë."],
         correct: 1
     },
     {
@@ -188,120 +200,104 @@ const quiz = [
     },
     {
         question: "24. Në cilën alternativë ligjërata e drejtë është shkruar saktë?",
-        answers: ["A) Mësuesja i tha: erdhi radha e recitimit tënd.", "B) Mësuesja i tha: ''erdhi radha e recitimit tënd''. ", "C) Mësuesja i tha:''Erdhi radha e recitimit tënd''.", "D) Mësuesja i tha ''Erdhi radha e recitimit tënd''. "],
+        answers: ["A) Mësuesja i tha: erdhi radha e recitimit tënd.", "B) Mësuesja i tha: ''erdhi radha e recitimit tënd''. ", "C) Mësuesja i tha: ''Erdhi radha e recitimit tënd''.", "D) Mësuesja i tha ''Erdhi radha e recitimit tënd''. "],
         correct: 2
     }
-];
+		];
 
-let currentQuestion = 0;
-let score = 0;
-let timeLeft = 40;
-let timer;
+    let currentQuestion = 0;
+    let score = 0;
+    let timeLeft = 40;
+    let timer;
 
-function loadQuestion() {
-    clearInterval(timer);
-    timeLeft = 40;
-    document.getElementById("timer").innerText = "Koha: " + timeLeft;
-
-    const q = quiz[currentQuestion];
-    document.getElementById("question").innerText = q.question;
-
-    const answersDiv = document.getElementById("answers");
-    answersDiv.innerHTML = "";
-    document.getElementById("result").textContent = "";
-    document.getElementById("nextBtn").style.display = "none";
-
-    q.answers.forEach((answer, index) => {
-        const btn = document.createElement("button");
-        btn.innerText = answer;
-        btn.onclick = () => checkAnswer(index);
-        answersDiv.appendChild(btn);
-    });
-
-    timer = setInterval(() => {
-        timeLeft--;
+    function loadQuestion() {
+        clearInterval(timer);
+        timeLeft = 40;
         document.getElementById("timer").innerText = "Koha: " + timeLeft;
-        if(timeLeft === 0) {
-            clearInterval(timer);
-            revealCorrect();
-            document.getElementById("nextBtn").style.display = "block";
-        }
-    }, 1000);
-}
 
-function checkAnswer(index) {
-    clearInterval(timer);
-    const correctIndex = quiz[currentQuestion].correct;
+        timer = setInterval(() => {
+            timeLeft--;
+            document.getElementById("timer").innerText = "Koha: " + timeLeft;
+            if (timeLeft === 0) {
+                clearInterval(timer);
+                disableButtons();
+                document.getElementById("nextBtn").style.display = "block";
+            }
+        }, 1000);
 
-    if(index === correctIndex) {
-        score++;
+        const q = quiz[currentQuestion];
+        document.getElementById("question").innerText = q.question;
+
+        const answersDiv = document.getElementById("answers");
+        answersDiv.innerHTML = "";
+
+        q.answers.forEach((answer, index) => {
+            const btn = document.createElement("button");
+            btn.innerText = answer;
+            btn.onclick = () => checkAnswer(index, btn);
+            answersDiv.appendChild(btn);
+        });
+
+        document.getElementById("nextBtn").style.display = "none";
     }
 
-    revealCorrect();
-    document.getElementById("nextBtn").style.display = "block";
-}
+    function checkAnswer(index, button) {
+        clearInterval(timer);
+        const correctIndex = quiz[currentQuestion].correct;
 
-function revealCorrect() {
-    const buttons = document.querySelectorAll("#answers button");
-    const correctIndex = quiz[currentQuestion].correct;
-
-    buttons.forEach((btn, i) => {
-        btn.disabled = true;
-        if(i === correctIndex) {
-            btn.classList.add("correct");
+        if (index === correctIndex) {
+            button.classList.add("correct");
+            score++;
+        } else {
+            button.classList.add("wrong");
         }
-    });
-}
 
-function nextQuestion() {
+        disableButtons();
+        document.getElementById("nextBtn").style.display = "block";
+    }
+
+    function disableButtons() {
+        const buttons = document.querySelectorAll("#answers button");
+        buttons.forEach(btn => btn.disabled = true);
+    }
+
+    function nextQuestion() {
     currentQuestion++;
-    if(currentQuestion < quiz.length) {
+
+    if (currentQuestion < quiz.length) {
         loadQuestion();
     } else {
-        showResults();
+
+        let content = `
+            <h2>Quiz përfundoi 🎉</h2>
+            <p>Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
+        `;
+
+        if(score >= 24){ content += "<p>Shkëlqyeshëm! Sukses i merituar! Jeni plotësisht i përgatitur për Provimin Kombëtar. 🏆💯</p>"; }
+		else if(score >= 21){ content += "<p>Shumë mirë! Vazhdoni të synoni nivelin maksimal! 🌟🔥</p>"; }
+        else if(score >= 17){ content += "<p>Rezultat i mirë dhe premtues! Jeni në rrugën drejt suksesit në provim. 📚</p>"; }
+        else if(score >= 12){ content += "<p>Jeni në rrugën e duhur! Çdo këmbngulje, çdo rezultat mund të përmirësohet. 🚀📈</p>"; }
+		else if(score >= 7){ content += "<p>Mos u ndalni! Çdo provë ju bën më të fortë! 🙂✨</p>"; }
+        else { content += "<p>Besoni në aftësitë tuaja! Çdo fillim është një hap drejt përmirësimit.  😊💡</p>"; }
+
+        content += `
+            <button onclick="window.location.href='../Konkursi Website.html'">
+                Kthehu në faqen kryesore
+            </button>
+        `;
+
+        document.querySelector(".quiz-container").innerHTML = content;
     }
 }
 
-function showResults() {
-    const messages = {
-        18: "Shkëlqyeshëm! Sukses i merituar! 🏆🌟",
-        17: "Shumë mirë! Vazhdoni të synoni nivelin maksimal! 👏✨",
-        16: "Shumë mirë! Vazhdoni të synoni nivelin maksimal! 👏✨",
-        15: "Rezultat i mirë dhe premtues! 📚📈",
-        14: "Rezultat i mirë dhe premtues! 📚📈",
-        13: "Rezultat i mirë dhe premtues! 📚📈",
-        12: "Jeni në rrugën e duhur! 💡🚀",
-        11: "Jeni në rrugën e duhur! 💡🚀",
-        10: "Jeni në rrugën e duhur! 💡🚀",
-        9: "Mos u ndalni! Çdo provë ju bën më të fortë! 💪🔥",
-        8: "Mos u ndalni! Çdo provë ju bën më të fortë! 💪🔥",
-        7: "Mos u ndalni! Çdo provë ju bën më të fortë! 💪🔥",
-        6: "Mos u ndalni! Çdo provë ju bën më të fortë! 💪🔥",
-        5: "Mos u ndalni! Çdo provë ju bën më të fortë! 💪🔥",
-        4: "Besoni në aftësitë tuaja! 😊",
-        3: "Besoni në aftësitë tuaja! 😊",
-        2: "Besoni në aftësitë tuaja! 😊",
-        1: "Besoni në aftësitë tuaja! 😊",
-        0: "Besoni në aftësitë tuaja! 😊"
-    };
+    loadQuestion();
 
-    let content = `
-        <h2>Quiz përfundoi 🎉</h2>
-        <p>Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
-        <p>${messages[score]}</p>
-        <button onclick="window.location.href='../Konkursi Website.html'">
-            Kthehu në faqen kryesore
-        </button>
-    `;
-
-    document.querySelector(".quiz-container").innerHTML = content;
-}
-
-loadQuestion();
 </script>
 
 </body>
+
 </html>
+
 
 
 
