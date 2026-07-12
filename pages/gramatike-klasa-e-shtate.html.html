@@ -1,0 +1,253 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lojë Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+			background: white;
+        }
+		
+        .quiz-container {
+            background: #21CBF3;
+            padding: 20px;
+            width: 600px;
+            border-radius: 30px;
+            text-align: center;
+        }
+		
+        button {
+            display: block;
+            width: 100%;
+            margin: 8px 0;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+			background: white;
+			border-radius: 15px;
+        }
+
+        .correct {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .wrong {
+            background-color: #f44336;
+            color: white;
+        }
+
+        #nextBtn {
+            display: none;
+            background: white;
+            color: black;
+        }
+		
+		a{
+		color:black;
+		}
+		
+        #timer {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+		.menu button{
+		 box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+		
+		.menu button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h2 id="question">Pyetja</h2>
+    <div id="timer">Koha: 40</div>
+    <div id="answers"></div>
+   <div class="menu">
+    <button id="nextBtn" onclick="nextQuestion()">Pyetja tjetër</button>
+	</div>
+</div>
+
+<script>
+    const quiz = [
+        {
+            question: "1. Fjala e përngjitur është:",
+            answers: ["A) ulur;", "B) gjithmonë;", "C) punëtor;", "D) ribëj."],
+            correct: 1
+        },
+        {
+            question: "2. Dalloni fjalët e shkruara gabim:",
+            answers: ["A) baras, rishtas, fytas;", "B) barazi, rishtazi, haptazi;", "C) standarde, digjte, humbte;", "D) barasi, rishtasi, fytasi."],
+            correct: 3
+        },
+        {
+            question: "3. Emër i dygjinishëm është:",
+            answers: ["A) male;", "B) të mësuarit;", "C) shoqe;", "D) kodra."],
+            correct: 0
+        },
+        {
+            question: "4. Mbiemri në shkallën sipërore është në fjalinë:",
+            answers: ["A) Vajza dukej e bukur sot.", "B) Ajo ishte shumë e bukur.", "C) Sot i mbarova mësimet më shpejt se zakonisht.", "D) E veshi vajzën e vogël bukur dhe u nis për në festë."],
+            correct: 1
+        },
+        {
+            question: "5. Unë jam ulur në një stol. Folja ''jam'' është:",
+            answers: ["A) me kuptim të plotë leksikor;", "B) folje gjysmëndihmëse;", "C) folje ndihmëse;", "D) me vlerë modale."],
+            correct: 2
+        },
+		{
+            question: "6. Dalloni fjalinë ku është përdorur trajta e shkurtër.",
+            answers: ["A) Nëna u tregoi fëmijëve ushqimin.", "B) Ajo u nis për në punë.", "C) Ne kemi dëshirë ta shikojmë ndeshjen.", "D) Mos u mërzit, gjërat do të rregullohen."],
+            correct: 0
+        },
+		{
+            question: "7. Dalloni kundrinorin e zhdrejtë pa parafjalë.",
+            answers: ["A) Kjo gjë dihet nga të gjithë.", "B) Papritur e humba nga sytë, por e rigjeta përsëri.", "C) Jetoni për Shqipërinë dhe punoni për të.", "D) Atij i erdhi keq për nënën."],
+            correct: 3
+        },
+		{
+            question: "8. Cila nga alternativat ka kallëzues emëror?",
+            answers: ["A) Babai ishte nisur herët.", "B) Qielli ishte i vrenjtur.", "C) Fjala kishte marrë dhenë.", "D) Kjo detyrë qenka punuar me kujdes."],
+            correct: 1
+        },
+		{
+            question: "9. Cila fjali ka rrethanor shkaku?",
+            answers: ["A) Ata vijnë këtu për punë.", "B) Nesër kemi konkurs midis klasave.", "C) Nxënësja nga Durrësi u zgjodh fituese në atë konkurs.", "D) Sytë i shkëlqenin nga lumturia."],
+            correct: 3
+        },
+		{
+            question: "10. Dalloni fjalinë e përbërë me bashkërenditje.",
+            answers: ["A) Meqë ishte ftohtë, ndezëm dhe zjarrin.", "B) Dimë se Toka rrotullohet rreth Diellit.", "C) Dikush përshëndeti, por ai nuk e vuri re.", "D) Edhe historitë që unë tregoj i kam mësuar prej tij."],
+            correct: 2
+        }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let timeLeft = 40;
+    let timer;
+
+    function loadQuestion() {
+        clearInterval(timer);
+        timeLeft = 40;
+        document.getElementById("timer").innerText = "Koha: " + timeLeft;
+
+        timer = setInterval(() => {
+            timeLeft--;
+            document.getElementById("timer").innerText = "Koha: " + timeLeft;
+            if (timeLeft === 0) {
+                clearInterval(timer);
+                disableButtons();
+                document.getElementById("nextBtn").style.display = "block";
+            }
+        }, 1000);
+
+        const q = quiz[currentQuestion];
+        document.getElementById("question").innerText = q.question;
+
+        const answersDiv = document.getElementById("answers");
+        answersDiv.innerHTML = "";
+
+        q.answers.forEach((answer, index) => {
+            const btn = document.createElement("button");
+            btn.innerText = answer;
+            btn.onclick = () => checkAnswer(index, btn);
+            answersDiv.appendChild(btn);
+        });
+
+        document.getElementById("nextBtn").style.display = "none";
+    }
+
+    function checkAnswer(index, button) {
+        clearInterval(timer);
+        const correctIndex = quiz[currentQuestion].correct;
+
+        if (index === correctIndex) {
+            button.classList.add("correct");
+            score++;
+        } else {
+            button.classList.add("wrong");
+        }
+
+        disableButtons();
+        document.getElementById("nextBtn").style.display = "block";
+    }
+
+    function disableButtons() {
+        const buttons = document.querySelectorAll("#answers button");
+        buttons.forEach(btn => btn.disabled = true);
+    }
+
+    function nextQuestion() {
+    currentQuestion++;
+
+    if (currentQuestion < quiz.length) {
+        loadQuestion();
+    } else {
+
+        let content = `
+            <h2>Quiz përfundoi 🎉</h2>
+            <p>Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
+        `;
+
+        if (score === 10) {
+            content += `<p>Suksesi është fryt i dijes. Urime për arritjen maksimale! 🏆</p>`;
+		} else if (score === 9) {
+			content += `<p>Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;
+		} else if (score === 8) {
+			content += `<p>Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;
+		} else if (score === 7) {
+			content += `<p>Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
+		} else if (score === 6) {
+			content += `<p>Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
+		} else if (score === 5) {
+			content += `<p>Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
+		} else if (score === 4) {
+			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
+		} else if (score === 3) {
+			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
+		} else if (score === 2) {
+			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
+		} else if (score === 1) {
+			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
+        } else if (score === 0) {
+            content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
+        }
+
+        content += `
+            <button onclick="window.location.href='../Konkursi Website.html'">
+                Kthehu në faqen kryesore
+            </button>
+        `;
+
+        document.querySelector(".quiz-container").innerHTML = content;
+    }
+}
+
+    loadQuestion();
+
+</script>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
