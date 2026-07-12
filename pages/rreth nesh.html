@@ -1,132 +1,202 @@
-<html>
+<!DOCTYPE html>
+<html lang="sq">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rreth nesh</title>
+<title>Rreth nesh</title>
 <style>
+:root {
+  --primary: #d32f2f;
+  --primary-dark: #b71c1c;
+  --text: #334155;
+  --muted: #64748b;
+  --bg: #f8fafc;
+  --card: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
 
 body {
-margin: 0;
-font-family: Arial, sans-serif;
-background: linear-gradient(135deg, #f44336, #ff7961);
-text-align: center;
-color: #333;
-padding-bottom: 70px;
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(135deg, #f8fafc 0%, #e3f2fd 45%, #fce4ec 100%);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 24px 16px 90px;
 }
 
-header{
-font-family: Arial, sans-serif;
-background: white;
-padding: 5px 10px;
-box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-animation: slideDown 1.2s ease;
+.page-shell {
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-@keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-h1{
-font-family: Arial, sans-serif;
-color:#d32f2f;
-background-color:white;
-margin:0px;
-padding:20px;
-margin-bottom: 10px;
+.hero {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 12px 35px rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(211, 47, 47, 0.08);
 }
 
-h3{
-text-align: left;
-color:black;
-font-family: Arial, sans-serif;
-padding:10px;
+.eyebrow {
+  display: inline-block;
+  margin: 0 0 10px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(211, 47, 47, 0.1);
+  color: var(--primary);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0 0 10px;
+  font-size: 2.2rem;
+  color: var(--primary);
+}
+
+.hero p {
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 0.9fr;
+  gap: 22px;
+  margin-top: 24px;
+}
+
+.card {
+  background: var(--card);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.07);
+}
+
+.card h2 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  color: var(--primary-dark);
+  font-size: 1.2rem;
+}
+
+.card p {
+  margin: 0 0 12px;
+  line-height: 1.7;
+}
+
+.button-link {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  text-decoration: none;
+  border-radius: 999px;
+  font-weight: 700;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 8px 20px rgba(211, 47, 47, 0.2);
+}
+
+.button-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(211, 47, 47, 0.25);
+}
+
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.image-card {
+  background: var(--card);
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.07);
+}
+
+.image-card img {
+  display: block;
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 14px;
 }
 
 footer {
-background: #333;
-color: white;
-padding: 20px;
-position: fixed;
-bottom: 0;
-width: 100%;
+  background: #0f172a;
+  color: white;
+  padding: 16px;
+  text-align: center;
+  border-radius: 16px;
+  margin-top: 24px;
 }
 
-button{
-margin-top:17px;
-padding: 12px;
-background: #d32f2f;
-border-radius: 10px;
-font-size: 16px;
-cursor: pointer;
-}
-    
-a{
-color:black;
-}
-    
-.image-container {
-display: flex;
-gap: 10px;
-justify-content: center;
+footer a {
+  color: #fca5a5;
+  text-decoration: none;
 }
 
-.image-container img {
-width: 180px; 
-height: 240px; 
-border: 2px solid #ccc;
+@media (max-width: 800px) {
+  .info-grid,
+  .image-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding: 24px;
+  }
 }
-    
 </style>
-
-
 </head>
 <body>
+<div class="page-shell">
+  <header class="hero">
+    <p class="eyebrow">Projekt edukativ i shkollës</p>
+    <h1>Rreth nesh</h1>
+    <p>Kjo faqe është krijuar si një platformë edukative ndërvepruese në shërbim të nxënësve të klasave VI–IX, me synimin për të përforcuar dhe thelluar njohuritë në lëndën e gjuhës shqipe përmes ndërthurjes së metodave bashkëkohore të mësimnxënies me teknologjinë digjitale.</p>
+  </header>
 
-<header>
-<h1>Rreth nesh</h1>
-</header>
+  <section class="info-grid">
+    <article class="card">
+      <h2>Rreth projektit</h2>
+      <p>Projekti u realizua gjatë muajve janar–shkurt 2026 nga një ekip i përbërë nga gjashtë nxënës, nën drejtimin e mësueses së gjuhës shqipe, Etleva Vezi. Puna në grup, përkushtimi dhe fryma bashkëpunuese përbëjnë shtyllat kryesore në ndërtimin dhe finalizimin me sukses të këtij projekti.</p>
+      <p>Më 11 shkurt 2026, projekti u vlerësua me vendin e parë nga DAR Durrës, në kuadër të Konkursit Kombëtar të Gjuhës Shqipe, duke dëshmuar cilësinë dhe ndikimin e tij në përmirësimin e procesit mësimor. Më 16 shkurt 2026, shkolla vlerësohet me vendin e parë edhe nivel DRAP, një vlerësim për arritjet, profesionalizmin në zbatimin e projektit dhe kontributin në zhvillimin e kompetencave gjuhësore dhe digjitale të nxënësve.</p>
+      <p>Faqja ofron kuize me vlerësim të menjëhershëm duke nxitur mësimin aktiv dhe vetëvlerësimin. Kjo faqe shërben si një mjet praktik dhe funksional, i përdorshëm si në mjedisin e klasës, ashtu edhe për studim të pavarur jashtë saj.</p>
+      <p>Misioni ynë është të ndërthurim traditën e pasur të gjuhës shqipe me risitë e teknologjisë digjitale duke ofruar një përvojë mësimore cilësore, motivuese dhe gjithëpërfshirëse në përputhje me standardet e arsimit bashkëkohor.</p>
+    </article>
 
-<h3>
-Kjo faqe është krijuar si një platformë edukative ndërvepruese në shërbim të nxënësve të klasave VI–IX, me synimin për të përforcuar dhe thelluar njohuritë në lëndën e gjuhës shqipe përmes ndërthurjes së metodave bashkëkohore të mësimnxënies me teknologjinë digjitale.<br>
-Projekti u realizua gjatë muajve janar–shkurt 2026 nga një ekip i përbërë nga gjashtë nxënës, nën drejtimin e mësueses së gjuhës shqipe, Etleva Vezi. Puna në grup, përkushtimi dhe fryma bashkëpunuese përbëjnë shtyllat kryesore në ndërtimin dhe finalizimin me sukses të këtij projekti.<br>
- Më 11 shkurt 2026, projekti u vlerësua me vendin  e parë nga DAR Durrës, në kuadër të Konkursit Kombëtar të Gjuhës Shqipe, duke dëshmuar cilësinë dhe ndikimin e tij në përmirësimin e procesit mësimor. Më 16 shkurt 2026, shkolla vlerësohet me vendin e parë edhe  nivel DRAP, një vlerësim  për arritjet, profesionalizmin në zbatimin e projektit dhe kontributin në zhvillimin e kompetencave gjuhësore dhe digjitale të nxënësve.<br>
-Faqja ofron kuize me vlerësim të menjëhershëm duke nxitur mësimin aktiv dhe vetëvlerësimin. Kjo faqe shërben si një mjet praktik dhe funksional, i përdorshëm si në mjedisin e klasës, ashtu edhe për studim të pavarur jashtë saj.
-<br>
-Misioni ynë është të ndërthurim traditën e pasur të gjuhës shqipe me risitë e teknologjisë digjitale duke ofruar një përvojë mësimore cilësore, motivuese dhe gjithëpërfshirëse në përputhje me standardet e arsimit bashkëkohor.
-<br>
-<br>
-Për çdo sugjerim, propozim bashkëpunimi apo informacion shtesë, ju lutemi të na kontaktoni në adresën zyrtare të institucionit:<br>
-Shkolla “Kushtrimi i lirisë”, Durrës<br>
-Posta elektronike e shkollës: kushtrimiliris9vj@yahoo.com<br>
-Facebook-u i shkollës: <a href="https://www.facebook.com/shkollakushtrimiilirisedurres/"> Shkolla 9-vjeçare "Kushtrimi i lirisë" Durrës
- </a>
-</h3>
+    <article class="card">
+      <h2>Kontakt</h2>
+      <p>Për çdo sugjerim, propozim bashkëpunimi apo informacion shtesë, ju lutemi të na kontaktoni në adresën zyrtare të institucionit:</p>
+      <p><strong>Shkolla “Kushtrimi i lirisë”, Durrës</strong><br>
+      Posta elektronike e shkollës: kushtrimiliris9vj@yahoo.com<br>
+      Facebook-u i shkollës: <a href="https://www.facebook.com/shkollakushtrimiilirisedurres/">Shkolla 9-vjeçare "Kushtrimi i lirisë" Durrës</a></p>
+      <a class="button-link" href="../Konkursi Website.html">Kthehu në faqen kryesore</a>
+    </article>
+  </section>
 
-<div class="image-container">
-
-<img src="../assets/trofe.jpeg" alt="Foto" width="250px" height="300px;"/>
-
-<br>
-
-<img src="../assets/certifikate.jpeg" alt="Foto" width="300px" height="250px;"/>
-    
+  <section class="image-grid">
+    <div class="image-card">
+      <img src="../assets/trofe.jpeg" alt="Foto e trofeve të projektit">
+    </div>
+    <div class="image-card">
+      <img src="../assets/certifikate.jpeg" alt="Foto e certifikatës së projektit">
+    </div>
+  </section>
 </div>
-<br>
-    
-<section>
-<button> <a href="../Konkursi Website.html">Kthehu ne faqen kryesore</a></button>
-</section>
 
 <footer>&copy; Gjuha në lojë - 2026</footer>
 </body>
-
 </html>
 
 
