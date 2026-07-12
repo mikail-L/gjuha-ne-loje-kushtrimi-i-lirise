@@ -51,15 +51,15 @@
             transform: scale(1.08);
         }
 
-        form {
+        .entry-card {
             background: white;
             width: 320px;
             margin: 40px auto;
-			margin-bottom:0px;
+            margin-bottom: 0px;
             padding: 25px;
             border-radius: 15px;
             box-shadow: 0 6px 15px rgba(0,0,0,0.3);
-            text-align: left;
+            text-align: center;
             animation: fadeIn 1s ease;
         }
 
@@ -79,26 +79,7 @@
             }
         }
 
-        form label {
-            font-weight: bold;
-        }
-
-        form input {
-            width: 100%;
-            padding: 8px;
-            margin: 8px 0 15px 0;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            font-size: 14px;
-        }
-
-        form input:focus {
-            outline: none;
-            border-color: #2196F3;
-            box-shadow: 0 0 5px rgba(33,150,243,0.5);
-        }
-
-        form button {
+        .entry-button {
             width: 100%;
             padding: 12px;
             background: linear-gradient(135deg, #2196F3, #1e88e5);
@@ -110,20 +91,13 @@
             transition: all 0.3s ease;
         }
 
-        form button:hover {
+        .entry-button:hover {
             transform: scale(1.05);
             background: linear-gradient(135deg, #1e88e5, #1565c0);
         }
 
-        form button:active {
+        .entry-button:active {
             transform: scale(0.98);
-        }
-
-        #welcomeMsg {
-            margin-top: 15px;
-            font-weight: bold;
-            color: #2196F3;
-            text-align: center;
         }
 
         footer {
@@ -152,21 +126,11 @@
     <a href="pages/Udhëzues loje.pdf" target="_blank">📘 Shikoni udhëzuesin</a>
 </div>
 
-<form id="myForm">
-    <label for="fname">Emri:</label>
-    <input type="text" id="fname" required>
-
-    <label for="lname">Mbiemri:</label>
-    <input type="text" id="lname" required>
-
-    <label for="email">Email:</label>
-    <input type="email" id="email" required>
-
-    <button type="button" onclick="checkForm()">Hyni në lojë</button>
-
-    <p id="welcomeMsg"></p>
-</form>
-
+<div class="entry-card">
+    <button class="entry-button" type="button" onclick="window.location.href='Konkursi Website.html'">
+        Hyni në lojë
+    </button>
+</div>
 
 	<div class="students">
 <img src="assets/student.png" alt="Student" height="300px" width="300px"/>
@@ -175,24 +139,6 @@
 <footer>
 	&copy Gjuha në lojë - 2026
 </footer>
-
-<script>
-function checkForm() {
-    const form = document.getElementById("myForm");
-    const fname = document.getElementById("fname").value;
-    const msg = document.getElementById("welcomeMsg");
-
-    if (form.checkValidity()) {
-        msg.textContent = "Mirë se erdhe, " + fname + "! Po ju dërgojmë në faqen kryesore...";
-
-        setTimeout(() => {
-            window.location.href = "Konkursi Website.html";
-        }, 1500);
-    } else {
-        form.reportValidity();
-    }
-}
-</script>
 
 </body>
 </html>
