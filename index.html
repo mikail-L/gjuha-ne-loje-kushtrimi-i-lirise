@@ -80,6 +80,7 @@
         }
 
         .entry-button {
+            display: block;
             width: 100%;
             padding: 12px;
             background: linear-gradient(135deg, #2196F3, #1e88e5);
@@ -89,6 +90,8 @@
             font-size: 16px;
             cursor: pointer;
             transition: all 0.3s ease;
+            text-decoration: none;
+            box-sizing: border-box;
         }
 
         .entry-button:hover {
@@ -162,21 +165,21 @@
 
 <div class="entry-card">
     <div class="button-grid">
-        <button class="entry-button" type="button" onclick="window.location.href='pages/klasa-e-gjashte.html'">
+        <a class="entry-button" href="pages/klasa-e-gjashte.html">
             Klasa e gjashtë
-        </button>
-        <button class="entry-button" type="button" onclick="window.location.href='pages/klasa-e-shtate.html'">
+        </a>
+        <a class="entry-button" href="pages/klasa-e-shtate.html">
             Klasa e shtatë
-        </button>
-        <button class="entry-button" type="button" onclick="window.location.href='pages/klasa-e-tete.html'">
+        </a>
+        <a class="entry-button" href="pages/klasa-e-tete.html">
             Klasa e tetë
-        </button>
-        <button class="entry-button" type="button" onclick="window.location.href='pages/klasa-e-nente.html'">
+        </a>
+        <a class="entry-button" href="pages/klasa-e-nente.html">
             Klasa e nëntë
-        </button>
-        <button class="entry-button secondary" type="button" onclick="window.location.href='pages/lojera-gjuhesore.html'">
+        </a>
+        <a class="entry-button secondary" href="pages/lojera-gjuhesore.html">
             Lojëra gjuhësore
-        </button>
+        </a>
     </div>
 </div>
 
