@@ -130,6 +130,57 @@
             question: "10. Dalloni fjalinë pyetëse tërësore.",
             answers: ["A) Mos jeni dhe ju në grupin tonë?", "B) Ku banon?", "C) Kush e pati mendjen te ne?", "D) Kush jeni ju?"],
             correct: 0
+
+            {
+            question: "11. Përcaktoni fushën leksikore që kanë këto fjalë të veçanta: e bardha, e zeza, e verdha, e kuqja.",
+            answers: ["A) Emra;", "B) Mbiemra;", "C) Folje;", "D) Ndajfolje."],
+            correct: 0
+        },
+        {
+            question: "12. Sinonimi i fjalës ''i bukur'' është:",
+            answers: ["A) i shëmtuar;", "B) i madh;", "C) i hijshëm;", "D) i errët."],
+            correct: 2
+        },
+        {
+            question: "13. Antonimi i fjalës ''ditë'' është:",
+            answers: ["A) mëngjes;", "B) dritë;", "C) diell;", "D) natë."],
+            correct: 3
+        },
+        {
+            question: "14. Fjala ''dorë'' është përdorur në kuptim të drejtpërdrejtë në alternativën:",
+            answers: ["A) ...dora e drejtësisë;", "B) ...ka rënë në duar të mira;", "C) ...kishte vrarë dorën;", "D) ...i jep dorë (në punë)."],
+            correct: 2
+        },
+        {
+            question: "15. Fjala ''udhë'' mund të ketë kuptime të ndryshme. Cila është figurative?",
+            answers: ["A) Gjetëm udhën për në fshat.", "B) Ai gjeti udhën e suksesit.", "C) Ai u nis për një udhë të gjatë.", "D) Punëtorët hapën një udhë të re."],
+            correct: 1
+        },
+        {
+            question: "16. Çfarë kuptimi ka fjala e urtë ''Mos i bëj gropën tjetrit, se bie vetë brenda''?",
+            answers: ["A) E keqja kthehet tek ai që e bën.", "B) Të mos bëjmë shaka.", "C) Gropa është e rrezikshme.", "D) Duhet të punosh fort."],
+            correct: 0
+        },
+		{
+            question: "17. Çfarë kuptimi ka shprehja frazeologjike: ''Mos i shiko gunën, por shikoi punën''?",
+            answers: ["A) Rrobat janë të rëndësishme.", "B) Njeriu gjykohet nga pamja.", "C) Njeriu gjykohet nga veprat.", "D) Duhet të vishesh bukur."],
+            correct: 2
+        },
+		{
+            question: "18. Dalloni shprehjen frazeologjike.",
+            answers: ["A) Gur-gur bëhet kalaja.", "B) Gjykon puna, s'gjykon guna.", "C) Bashkimi bën fuqinë.", "D) S'lë dy gurë bashkë."],
+            correct: 3  
+        },
+		{
+            question: "19. Dalloni fjalën e urtë.",
+            answers: ["A) S'i zënë këmbët dhe.", "B) Guna e huaj s'të mban ngrohtë.", "C) U bë pikë e vrer.", "D) S'e nxjerr qimen nga qulli."],
+            correct: 1
+        },
+		{
+            question: "20. Fjala e huaj ''abuzoj'' ka fjalën gjegjëse shqipe:",
+            answers: ["A) nënshtroj;", "B) dhunoj;", "C) shpërdoroj;", "D) përçmoj."],
+            correct: 2
+        }
         }
     ];
 
@@ -201,29 +252,15 @@
             <p>Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
         `;
 
-        if (score === 10) {
+        if (score >=17 && score <=20) {
             content += `<p>Suksesi është fryt i dijes. Urime për arritjen maksimale! 🏆</p>`;
-		} else if (score === 9) {
+		} else if (score >=12 && score <=16) {
 			content += `<p>Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;
-		} else if (score === 8) {
-			content += `<p>Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;
-		} else if (score === 7) {
-			content += `<p>Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
-		} else if (score === 6) {
-			content += `<p>Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
-		} else if (score === 5) {
-			content += `<p>Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
-		} else if (score === 4) {
-			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
-		} else if (score === 3) {
-			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
-		} else if (score === 2) {
-			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
-		} else if (score === 1) {
-			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
-        } else if (score === 0) {
+		} else if (score >=6 && score <=11) {
+			content += `<p>Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`; 
+		} else if (score >=0 && score <=5) {
             content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
-        }
+		}
 
         content += `
             <button onclick="window.location.href='../Konkursi Website.html'">
