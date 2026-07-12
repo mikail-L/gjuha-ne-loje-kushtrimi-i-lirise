@@ -170,18 +170,20 @@
 
 <script>
 function checkForm() {
-    const form = document.getElementById("myForm");
-    const fname = document.getElementById("fname").value;
-    const msg = document.getElementById("welcomeMsg");
 
     if (form.checkValidity()) {
-        msg.textContent = "Mirë se erdhe, " + fname + "! Po ju dërgojmë në faqen kryesore...";
+        msg.textContent = "Mirë se erdhe! Po ju dërgojmë në faqen kryesore...";
 
         setTimeout(() => {
             window.location.href = "Konkursi Website.html";
         }, 1500);
     } else {
-        form.reportValidity();
+        (form.checkValidity()) {
+        msg.textContent = "Mirë se erdhe! Po ju dërgojmë në faqen kryesore...";
+
+        setTimeout(() => {
+            window.location.href = "Konkursi Website.html";
+        }, 1500);
     }
 }
 </script>
