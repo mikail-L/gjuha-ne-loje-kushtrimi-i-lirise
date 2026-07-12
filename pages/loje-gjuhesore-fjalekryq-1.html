@@ -1,0 +1,349 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Fjalëkryq – Gjuha në lojë</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(10, 50px);
+            grid-template-rows: repeat(14, 50px);
+            gap: 0px;
+            justify-content: center;
+            margin: 20px auto;
+        }
+
+        input {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            font-size: 22px;
+            text-transform: uppercase;
+        }
+
+        .block {
+            background-color: #95a5a6;
+        }
+
+        .correct {
+            background-color: #a5d6a7;
+        }
+
+        .wrong {
+            background-color: #ef9a9a;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        .btn {
+    display: inline-block;
+    padding: 10px 16px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+        #message {
+            font-weight: bold;
+            margin-top: 15px;
+            font-size: 18px;
+        }
+
+        .instructions {
+            margin-top: 10px;
+        }
+    
+    </style>
+</head>
+<body>
+
+<h1>🧩 Fjalëkryq</h1>
+
+<p><b>Plotësoni fjalëkryqin</b></p>
+<p><b>Horizontale:</b><br>
+1. Pjesë e ndryshueshme e  ligjëratës, që emërton një tipar (cilësi, veti, marrëdhënie) të sendit dhe përshtatet në gjini, numër dhe një pjesë në rasë me emrin e këtij sendi. (rreshti 1)<br>
+2. Pjesë e pandryshueshme e ligjëratës, që shpreh marrëdhënie sintaksore varësie midis një emri, një numërori ose një përemri. (rreshti 4)<br>
+3. Pjesë e pandryshueshme e ligjëratës, që shërben për të shprehur ngjyrime kuptimore ose emocionuese plotësuese të një fjale a të një fjalie të tërë. (rreshti 9)<br>
+4. Pjesë e ndryshueshme e ligjëratës, që emërton një veprim si proces dhe që ka kategorinë gramatikore të vetës, numrit, mënyrës dhe kohës. (rreshti 12)<br>
+
+<p><b>Vertikale:</b><br>
+1. Pjesë e ndryshueshme e ligjëratës, që tregon në mënyrë të përgjithshme, pa i emërtuar frymorë, sende, tipare ose sasi të pacaktuara. (kolona 2)<br>
+2. Pjesë e ndryshueshme e ligjëratës, që emërton qënie të gjalla ose sende dhe ka kategorinë gramatikore të gjinisë, numrit, rasës, shquarsisë dhe pashquarsisë. (kolona 4)<br>
+3. Pjesë e ndryshueshme e ligjëratës, që emërton një tipar të veprimit a të gjendjes ose tregon shkallën e një cilësie a të një rrethane. (kolona 5)<br>
+4. Pjesë e pandryshueshme e ligjëratës, që lidh dy gjymtyrë fjalie ose dy fjali dhe shpreh marrëdhënie të ndryshme sintaksore ndërmjet tyre. (kolona 9)
+
+<br>
+
+<button onclick="copyE()">Kopjo "ë"</button>
+
+<div class="grid">
+
+
+<input id="0" maxlength="1">
+<input id="1" maxlength="1">
+<input id="2" maxlength="1">
+<input id="3" maxlength="1">
+<input id="4" maxlength="1">
+<input id="5" maxlength="1">
+<input id="6" maxlength="1">
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+
+
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<input id="7" maxlength="1">
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+
+
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<input id="8" maxlength="1">
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+
+
+<div class="block"></div>
+<input id="9" maxlength="1">
+<input id="10" maxlength="1">
+<input id="11" maxlength="1">
+<input id="12" maxlength="1">
+<input id="13" maxlength="1">
+<input id="14" maxlength="1">
+<input id="15" maxlength="1">
+<input id="16" maxlength="1">
+<input id="17" maxlength="1">
+
+
+<div class="block"></div>
+<input id="18" maxlength="1">
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<input id="19" maxlength="1">
+<div class="block"></div>
+
+
+<div class="block"></div>
+<input id="20" maxlength="1">
+<div class="block"></div>
+<div class="block"></div>
+<input id="21" maxlength="1">
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<input id="22" maxlength="1">
+<div class="block"></div>
+
+
+<div class="block"></div>
+<input id="23" maxlength="1">
+<div class="block"></div>
+<div class="block"></div>
+<input id="24" maxlength="1">
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<input id="25" maxlength="1">
+<div class="block"></div>
+
+
+<div class="block"></div>
+<input id="26" maxlength="1">
+<div class="block"></div>
+<div class="block"></div>
+<input id="27" maxlength="1">
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<input id="28" maxlength="1">
+<div class="block"></div>
+
+
+<div class="block"></div>
+<input id="29" maxlength="1">
+<div class="block"></div>
+<input id="30" maxlength="1">
+<input id="31" maxlength="1">
+<input id="32" maxlength="1">
+<input id="33" maxlength="1">
+<input id="34" maxlength="1">
+<input id="35" maxlength="1">
+<div class="block"></div>
+
+
+<div class="block"></div>
+<input id="36" maxlength="1">
+<div class="block"></div>
+<div class="block"></div>
+<input id="37" maxlength="1">
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+
+
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<input id="38" maxlength="1">
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+
+
+<div class="block"></div>
+<div class="block"></div>
+<input id="39" maxlength="1">
+<input id="40" maxlength="1">
+<input id="41" maxlength="1">
+<input id="42" maxlength="1">
+<input id="43" maxlength="1">
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+
+
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<input id="44" maxlength="1">
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+
+
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<input id="45" maxlength="1">
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+<div class="block"></div>
+
+
+</div>
+
+<button onclick="kontrollo()">Kontrollo</button>
+
+<p id="message"></p>
+
+<script>
+
+function copyE() {
+    navigator.clipboard.writeText("ë");
+}
+
+let fjalaSakte = {
+    //Rreshti pare
+    0: "M", 1: "B", 2: "I", 3: "E", 4: "M", 5: "Ë", 6: "R", 
+    //Rreshti dyte
+    7: "M", 
+    //Rreshti trete
+    8: "Ë", 
+    //Rreshti katert
+    9: "P", 10: "A", 11: "R", 12: "A", 13: "F", 14: "J", 15: "A", 16: "L", 17: "Ë", 
+    //Rreshti peste
+    18: "Ë", 19: "I", 
+    //Rreshti gjashte
+    20: "R", 21: "N", 22: "D", 
+    //Rreshti shtate
+    23: "E", 24: "D", 25: "H", 
+    //Rreshti tete
+    26: "M", 27: "A", 28: "Ë", 
+    //Rreshti nente
+    29: "Ë", 30: "P", 31: "J", 32: "E", 33: "S", 34: "Ë", 35: "Z",
+	//Rreshti dhjete
+	36: "R", 37: "F", 
+	//Rresthi njembedhjete
+	38: "O", 
+	//Rreshti dymbedhjete
+	39: "F", 40: "O", 41: "L", 42: "J", 43: "A",
+	//Rreshti trembedhjete
+	44: "J",
+	//Rreshti katermbedhjete
+	45: "A"
+
+};
+
+function kontrollo() {
+    let gabim = false;
+
+    for (let id in fjalaSakte) {
+        let kutia = document.getElementById(id);
+        let shkronja = kutia.value.toUpperCase();
+
+        if (shkronja === fjalaSakte[id]) {
+            kutia.className = "correct";
+        } else {
+            kutia.className = "wrong";
+            gabim = true;
+        }
+    }
+
+    if (!gabim) {
+    document.getElementById("message").innerHTML = `
+        🎉 <strong>SAKTË!</strong> E gjete fjalëkryqin! <br><br>
+        <a href="../Konkursi Website.html" class="btn">Shko në faqen kryesore </a>
+    `;
+} else {
+    document.getElementById("message").innerText =
+        "❌ Ka gabime. Kontrollo kutitë me ngjyrë të kuqe.";
+}
+
+}
+</script>
+
+</body>
+
+
+</html>
+
+
+
+
+
