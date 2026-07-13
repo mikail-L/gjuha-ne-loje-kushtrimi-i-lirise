@@ -64,7 +64,7 @@ header h1 {
 
 /* Upgrades the Description (The second paragraph) */
 header p:last-of-type {
-    font-size: 16px;
+    font-size: 20px;
     color: var(--text-gray);
     margin: 0 auto;
     max-width: 450px; /* Prevents the text from stretching too wide on big screens */
