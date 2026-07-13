@@ -3,68 +3,133 @@
     <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lojë Quiz</title>
-    <style>
+     <style>
+        /* =========================================
+           All CSS Included Directly to Fix Linking
+           ========================================= */
+        :root {
+            --primary-blue: #1a73e8;       
+            --bg-light: #f8f9fa;           
+            --card-bg: #ffffff;            
+            --text-main: #3c4043;          
+            --border-color: #dadce0;
+            --footer-bg: #303134;
+            --footer-text: #e8eaed;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --transition-speed: 0.2s;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            min-height: 100vh;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+        }
+
+        .main-content {
+            flex: 1; 
+            display: flex;
             align-items: center;
-            height: 100vh;
-			background: white;
-        }
-		
-        .quiz-container {
-            background: #21CBF3;
+            justify-content: center;
             padding: 20px;
-            width: 600px;
-            border-radius: 30px;
-            text-align: center;
         }
-		
-        button {
-            display: block;
+
+        h2 {
+            color: var(--primary-blue);
+            margin-top: 0;
+            margin-bottom: 12px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 32px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
             width: 100%;
-            margin: 8px 0;
-            padding: 10px;
+            max-width: 520px;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: block;
+            padding: 14px 16px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
             font-size: 16px;
             cursor: pointer;
-			background: white;
-			border-radius: 15px;
+            transition: all var(--transition-speed) ease;
+            box-sizing: border-box;
+            text-align: center;
+            width: 100%;
+            margin-bottom: 12px;
+        }
+
+        .btn-outline {
+            background: white;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--bg-light);
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #1557b0;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+            text-align: center;
+            padding: 16px;
+            font-size: 14px;
+            margin-top: auto;
+        }
+
+        /* Quiz Specific */
+        #timer {
+            font-weight: 500;
+            color: #5f6368;
+            margin-bottom: 24px;
+        }
+
+        #answers {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
         }
 
         .correct {
-            background-color: #4CAF50;
-            color: white;
+            background-color: #34a853 !important; 
+            color: white !important;
+            border-color: #34a853 !important;
         }
 
         .wrong {
-            background-color: #f44336;
-            color: white;
+            background-color: #ea4335 !important; 
+            color: white !important;
+            border-color: #ea4335 !important;
         }
 
         #nextBtn {
             display: none;
-            background: white;
-            color: black;
-        }
-		
-		a{
-		color:black;
-		}
-		
-        #timer {
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-		
-		.menu button{
-		 box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-		
-		.menu button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            margin-top: 20px;
         }
     </style>
 </head>
