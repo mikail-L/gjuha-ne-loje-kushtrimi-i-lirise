@@ -136,14 +136,19 @@
 </head>
 <body>
 
-<div class="quiz-container">
-    <h2 id="question">Pyetja</h2>
-    <div id="timer">Koha: 40</div>
-    <div id="answers"></div>
-    <div class="menu">
-    <button id="nextBtn" onclick="nextQuestion()">Pyetja tjetër</button>
-	</div>
+<!-- Notice how the classes here match the CSS now -->
+<div class="main-content">
+    <div class="card" id="quiz-card">
+        <h2 id="question">Pyetja</h2>
+        <div id="timer">Koha: 40</div>
+        <div id="answers"></div>
+        <button id="nextBtn" class="btn btn-primary" onclick="nextQuestion()">Pyetja tjetër</button>
+    </div>
 </div>
+
+<footer>
+    © Gjuha në lojë - 2026
+</footer>
 
 <script>
     const quiz = [
