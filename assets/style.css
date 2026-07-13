@@ -59,6 +59,7 @@ header h1 {
     font-weight: 800;
     /* This creates a sleek gradient text effect instead of a flat color */
     background: linear-gradient(135deg, var(--primary-blue), #0d47a1);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
