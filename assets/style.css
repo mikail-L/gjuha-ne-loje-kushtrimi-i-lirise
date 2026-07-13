@@ -79,43 +79,59 @@ header p {
 }
 
 /* --- BUTTONS --- */
+/* --- BUTTONS & GRID --- */
+.button-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Creates a 2-column grid */
+    gap: 12px;
+}
+
+/* Sleek, minimal style for the classes */
 .entry-button {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    padding: 14px;
-    background-color: var(--primary-blue);
-    color: white;
-    border: none;
+    padding: 16px 10px;
+    background-color: #f8fafc; /* Very light, soft gray-blue */
+    color: var(--text-dark);
+    border: 1px solid #e2e8f0; /* Soft border */
     border-radius: 12px;
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 15px;
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     text-decoration: none;
     box-sizing: border-box;
 }
 
+/* Hover effect: Smoothly turns blue and lifts up */
 .entry-button:hover {
-    transform: translateY(-3px); /* Smooth lift effect */
-    background-color: var(--primary-dark);
-    box-shadow: 0 6px 15px rgba(33, 150, 243, 0.3);
+    background-color: var(--primary-blue);
+    color: white;
+    border-color: var(--primary-blue);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(33, 150, 243, 0.25);
 }
 
 .entry-button:active {
-    transform: scale(0.98);
+    transform: scale(0.96);
 }
 
-/* Ghost Button for Games */
+/* Make the Games button wide and special */
 .entry-button.secondary {
-    background: transparent;
-    color: var(--primary-blue);
-    border: 2px solid var(--primary-blue);
-    margin-top: 5px;
+    grid-column: span 2; /* Stretches across both columns */
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
+    color: white;
+    border: none;
+    margin-top: 8px;
+    font-size: 16px;
+    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.2);
 }
 
 .entry-button.secondary:hover {
-    background: var(--primary-blue);
-    color: white;
+    background: linear-gradient(135deg, var(--primary-dark), #0d47a1);
+    box-shadow: 0 10px 25px rgba(33, 150, 243, 0.4);
 }
 
 /* --- FOOTER & IMAGES --- */
