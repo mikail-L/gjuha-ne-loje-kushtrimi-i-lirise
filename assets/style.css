@@ -21,24 +21,55 @@ body {
 }
 
 /* --- HEADER --- */
+/* --- HEADER --- */
 header {
     background: white;
     width: 100%;
-    padding: 30px 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    padding: 40px 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
     box-sizing: border-box;
+    border-bottom: 1px solid #e2e8f0; /* Crisp line at the bottom */
 }
 
-header h1 {
-    font-size: 30px;
-    color: var(--primary-blue);
-    margin-bottom: 10px;
+/* Upgrades the Logo */
+header img {
+    width: 130px; /* This safely overrides the huge 250px in your HTML */
+    height: 130px;
+    border-radius: 50%; /* Makes the logo a perfect circle */
+    object-fit: cover;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1); /* Gives the logo a 3D floating effect */
+    border: 3px solid white; /* Clean white ring around the logo */
+    margin-bottom: 15px;
 }
 
-header p {
-    font-size: 15px;
+/* Upgrades the School Name (The first paragraph) */
+header p:first-of-type {
+    font-size: 12px;
+    text-transform: uppercase; /* Makes it all caps */
+    letter-spacing: 1.5px; /* Spaces the letters out for a modern look */
     color: var(--text-gray);
-    margin: 0;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+/* Upgrades the Main Title */
+header h1 {
+    font-size: 34px;
+    margin: 5px 0 10px;
+    font-weight: 800;
+    /* This creates a sleek gradient text effect instead of a flat color */
+    background: linear-gradient(135deg, var(--primary-blue), #0d47a1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Upgrades the Description (The second paragraph) */
+header p:last-of-type {
+    font-size: 16px;
+    color: var(--text-gray);
+    margin: 0 auto;
+    max-width: 450px; /* Prevents the text from stretching too wide on big screens */
+    line-height: 1.5;
 }
 
 /* --- MAIN CONTENT & LINKS --- */
