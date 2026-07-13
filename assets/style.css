@@ -77,7 +77,7 @@ header p:last-of-type {
     display: inline-block;
     margin: 20px 0 10px;
     font-size: 15px;
-    color: var(--text-gray);
+    color: var(--primary-blue), #0d47a1;
     text-decoration: none;
     font-weight: bold;
 }
