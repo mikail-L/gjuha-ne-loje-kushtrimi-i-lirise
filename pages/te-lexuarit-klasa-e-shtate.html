@@ -93,6 +93,10 @@
             background-color: #1557b0;
         }
 
+        .btn, .btn:visited, .btn:link {
+            color: var(--text-main) !important;
+        }
+
         /* Footer */
         footer {
             background-color: var(--footer-bg);
@@ -222,6 +226,7 @@
 
         q.answers.forEach((answer, index) => {
             const btn = document.createElement("button");
+            btn.classList.add("btn", "btn-outline");
             btn.innerText = answer;
             btn.onclick = () => checkAnswer(index, btn);
             answersDiv.appendChild(btn);

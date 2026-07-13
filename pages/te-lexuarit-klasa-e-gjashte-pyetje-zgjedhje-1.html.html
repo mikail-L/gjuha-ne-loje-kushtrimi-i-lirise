@@ -6,7 +6,7 @@
     <title>Lojë Quiz</title>
     <style>
         /* =========================================
-           All CSS Included Directly to Fix Linking
+           All CSS Included Directly
            ========================================= */
         :root {
             --primary-blue: #1a73e8;       
@@ -93,10 +93,6 @@
             background-color: #1557b0;
         }
 
-        .btn, .btn:visited, .btn:link {
-            color: var(--text-main) !important;
-        }
-
         /* Footer */
         footer {
             background-color: var(--footer-bg);
@@ -140,6 +136,7 @@
 </head>
 <body>
 
+<!-- Notice how the classes here match the CSS now -->
 <div class="main-content">
     <div class="card" id="quiz-card">
         <h2 id="question">Pyetja</h2>
@@ -156,54 +153,44 @@
 <script>
     const quiz = [
         {
-            question: "1. Fjala e përngjitur është:",
-            answers: ["A) ulur;", "B) gjithmonë;", "C) punëtor;", "D) ribëj."],
+            question: "1. Ftesa është:",
+            answers: ["A) një tregim i shkurtër;", "B) një tekst funksional për të ftuar dikë;", "C) një mjet elektronik;", "D) një lajm."],
             correct: 1
         },
         {
-            question: "2. Dalloni fjalët e shkruara gabim:",
-            answers: ["A) baras, rishtas, fytas;", "B) barazi, rishtazi, haptazi;", "C) standarde, digjte, humbte;", "D) barasi, rishtasi, fytasi."],
-            correct: 3
+            question: "2. Gjinitë letrare janë:",
+            answers: ["A) poezia, romani, tregimi;", "B) përralla, fabula, legjenda;", "C) epika, lirika, dramatika;", "D) komedia, tragjedia, drama."],
+            correct: 2
         },
         {
-            question: "3. Emër i dygjinishëm është:",
-            answers: ["A) male;", "B) të mësuarit;", "C) shoqe;", "D) kodra."],
+            question: "3. Veprat që kanë si qëllim rrëfimin përfshihen në:",
+            answers: ["A) gjininë epike;", "B) gjininë dramatike;", "C) gjininë lirike;", "D) tekstin poetik."],
             correct: 0
         },
         {
-            question: "4. Mbiemri në shkallën sipërore është në fjalinë:",
-            answers: ["A) Vajza dukej e bukur sot.", "B) Ajo ishte shumë e bukur.", "C) Sot i mbarova mësimet më shpejt se zakonisht.", "D) E veshi vajzën e vogël bukur dhe u nis për në festë."],
+            question: "4. Te fragmenti ''Kënga e Rolandit'', Rolandi nuk pranoi t'i binte bririt, sepse:",
+            answers: ["A) ishte krenar;", "B) ishte betuar që do të luftonte deri në vdekje për Francën;", "C) ishte mendjemadh;", "D) nuk i dhimbsej ushtria e tij."],
             correct: 1
         },
         {
-            question: "5. Unë jam ulur në një stol. Folja ''jam'' është:",
-            answers: ["A) me kuptim të plotë leksikor;", "B) folje gjysmëndihmëse;", "C) folje ndihmëse;", "D) me vlerë modale."],
-            correct: 2
-        },
-		{
-            question: "6. Dalloni fjalinë ku është përdorur trajta e shkurtër.",
-            answers: ["A) Nëna u tregoi fëmijëve ushqimin.", "B) Ajo u nis për në punë.", "C) Ne kemi dëshirë ta shikojmë ndeshjen.", "D) Mos u mërzit, gjërat do të rregullohen."],
-            correct: 0
-        },
-		{
-            question: "7. Dalloni kundrinorin e zhdrejtë pa parafjalë.",
-            answers: ["A) Kjo gjë dihet nga të gjithë.", "B) Papritur e humba nga sytë, por e rigjeta përsëri.", "C) Jetoni për Shqipërinë dhe punoni për të.", "D) Atij i erdhi keq për nënën."],
+            question: "5. I përket letërsisë gojore:",
+            answers: ["A) E bija e Hënës dhe e Diellit;", "B) Nuk është e lehtë të harrosh;", "C) Poezia e parë;", "D) Kënga e Rolandit."],
             correct: 3
         },
-		{
-            question: "8. Cila nga alternativat ka kallëzues emëror?",
-            answers: ["A) Babai ishte nisur herët.", "B) Qielli ishte i vrenjtur.", "C) Fjala kishte marrë dhenë.", "D) Kjo detyrë qenka punuar me kujdes."],
+        {
+            question: "6. Poezia ''Mëngjes'' është shkruar nga poeti:",
+            answers: ["A) Naim Frashëri;", "B) Ndre Mjeda;", "C) Lasgush Poradeci;", "D) Ismail Kadare."],
+            correct: 2
+        },
+        {
+            question: "7. Mesazhi se e ardhmja e një kombi varet nga brezi i ri që ai edukon, del te poezia:",
+            answers: ["A) ''Deti'' F.Arapi;", "B) ''Me jetue'' A.Podrimja;", "C) ''Atdheu'' N.Frashëri;", "D) ''Pamje'' Asdreni."],
             correct: 1
         },
-		{
-            question: "9. Cila fjali ka rrethanor shkaku?",
-            answers: ["A) Ata vijnë këtu për punë.", "B) Nesër kemi konkurs midis klasave.", "C) Nxënësja nga Durrësi u zgjodh fituese në atë konkurs.", "D) Sytë i shkëlqenin nga lumturia."],
-            correct: 3
-        },
-		{
-            question: "10. Dalloni fjalinë e përbërë me bashkërenditje.",
-            answers: ["A) Meqë ishte ftohtë, ndezëm dhe zjarrin.", "B) Dimë se Toka rrotullohet rreth Diellit.", "C) Dikush përshëndeti, por ai nuk e vuri re.", "D) Edhe historitë që unë tregoj i kam mësuar prej tij."],
-            correct: 2
+        {
+            question: "8. Figura letrare ''dielli u shua në mal'' është:",
+            answers: ["A) metaforë;", "B) personifikim;", "C) epitet;", "D) hiperbolë."],
+            correct: 0
         }
     ];
 
@@ -235,8 +222,9 @@
 
         q.answers.forEach((answer, index) => {
             const btn = document.createElement("button");
-            btn.classList.add("btn", "btn-outline");
             btn.innerText = answer;
+            // Added the CSS class so the javascript generates styled buttons
+            btn.className = "btn btn-outline"; 
             btn.onclick = () => checkAnswer(index, btn);
             answersDiv.appendChild(btn);
         });
@@ -265,57 +253,43 @@
     }
 
     function nextQuestion() {
-    currentQuestion++;
+        currentQuestion++;
 
-    if (currentQuestion < quiz.length) {
-        loadQuestion();
-    } else {
+        if (currentQuestion < quiz.length) {
+            loadQuestion();
+        } else {
+            // Formatted the results screen to match the clean card style
+            let content = `
+                <h2>Quiz përfundoi 🎉</h2>
+                <p style="margin-bottom: 24px; color: var(--text-muted);">Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
+            `;
 
-        let content = `
-            <h2>Quiz përfundoi 🎉</h2>
-            <p>Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
-        `;
+            if (score === 8) {
+                content += `<p style="margin-bottom: 24px;">Suksesi është fryt i dijes. Urime për arritjen maksimale! 🏆</p>`;
+            } else if (score >= 6) {
+                content += `<p style="margin-bottom: 24px;">Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;
+            } else if (score >= 4) {
+                content += `<p style="margin-bottom: 24px;">Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
+            } else {
+                content += `<p style="margin-bottom: 24px;">Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
+            }
 
-        if (score === 10) {
-            content += `<p>Suksesi është fryt i dijes. Urime për arritjen maksimale! 🏆</p>`;
-		} else if (score === 9) {
-			content += `<p>Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;
-		} else if (score === 8) {
-			content += `<p>Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;
-		} else if (score === 7) {
-			content += `<p>Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
-		} else if (score === 6) {
-			content += `<p>Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
-		} else if (score === 5) {
-			content += `<p>Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
-		} else if (score === 4) {
-			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
-		} else if (score === 3) {
-			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
-		} else if (score === 2) {
-			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
-		} else if (score === 1) {
-			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
-        } else if (score === 0) {
-            content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
+            // Styled the return button using our btn classes
+            content += `
+                <button class="btn btn-primary" onclick="window.location.href='../index.html'">
+                    Kthehuni në faqen kryesore
+                </button>
+            `;
+
+            document.getElementById("quiz-card").innerHTML = content;
         }
-
-        content += `
-            <button onclick="window.location.href='../index.html'">
-                Kthehuni në faqen kryesore
-            </button>
-        `;
-
-        document.querySelector(".quiz-container").innerHTML = content;
     }
-}
 
     loadQuestion();
 
 </script>
 
 </body>
-
 </html>
 
 

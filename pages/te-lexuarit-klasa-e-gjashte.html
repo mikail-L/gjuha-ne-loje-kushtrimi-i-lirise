@@ -1,302 +1,115 @@
 <!DOCTYPE html>
 <html lang="sq">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lojë Quiz</title>
-    <style>
-        /* =========================================
-           All CSS Included Directly
-           ========================================= */
-        :root {
-            --primary-blue: #1a73e8;       
-            --bg-light: #f8f9fa;           
-            --card-bg: #ffffff;            
-            --text-main: #3c4043;          
-            --border-color: #dadce0;
-            --footer-bg: #303134;
-            --footer-text: #e8eaed;
-            --border-radius: 12px;
-            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            --transition-speed: 0.2s;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Klasa e gjashtë</title>
+  <style>
+    :root {
+      --primary-blue: #1a73e8;       
+      --bg-light: #f8f9fa;           
+      --card-bg: #ffffff;            
+      --text-main: #3c4043;          
+      --border-color: #dadce0;
+      --footer-bg: #303134;
+      --footer-text: #e8eaed;
+      --border-radius: 12px;
+      --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      --transition-speed: 0.2s;
+    }
 
-        body {
-            margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-light);
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
-        .main-content {
-            flex: 1; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
+    .main-content {
+      flex: 1; 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
 
-        h2 {
-            color: var(--primary-blue);
-            margin-top: 0;
-            margin-bottom: 12px;
-        }
+    h1 {
+      color: var(--primary-blue);
+      margin-top: 0;
+      margin-bottom: 24px;
+    }
 
-        .card {
-            background-color: var(--card-bg);
-            padding: 32px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            text-align: center;
-            width: 100%;
-            max-width: 520px;
-        }
+    .card {
+      background-color: var(--card-bg);
+      padding: 32px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      text-align: center;
+      width: 100%;
+      max-width: 520px;
+    }
 
-        /* Button Styles */
-        .btn {
-            display: block;
-            padding: 14px 16px;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all var(--transition-speed) ease;
-            box-sizing: border-box;
-            text-align: center;
-            width: 100%;
-            margin-bottom: 12px;
-        }
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
 
-        .btn-outline {
-            background: white;
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-        }
+    .btn {
+      display: block;
+      padding: 14px 16px;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all var(--transition-speed) ease;
+      box-sizing: border-box;
+      text-align: center;
+      width: 100%;
+    }
 
-        .btn-outline:hover {
-            background-color: var(--bg-light);
-            border-color: var(--primary-blue);
-            color: var(--primary-blue);
-        }
+    .btn-outline {
+      background: white;
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+    }
 
-        .btn-primary {
-            background-color: var(--primary-blue);
-            color: white;
-            border: none;
-        }
+    .btn-outline:hover {
+      background-color: var(--bg-light);
+      border-color: var(--primary-blue);
+      color: var(--primary-blue);
+    }
 
-        .btn-primary:hover {
-            background-color: #1557b0;
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--footer-bg);
-            color: var(--footer-text);
-            text-align: center;
-            padding: 16px;
-            font-size: 14px;
-            margin-top: auto;
-        }
-
-        /* Quiz Specific */
-        #timer {
-            font-weight: 500;
-            color: #5f6368;
-            margin-bottom: 24px;
-        }
-
-        #answers {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 10px;
-        }
-
-        .correct {
-            background-color: #34a853 !important; 
-            color: white !important;
-            border-color: #34a853 !important;
-        }
-
-        .wrong {
-            background-color: #ea4335 !important; 
-            color: white !important;
-            border-color: #ea4335 !important;
-        }
-
-        #nextBtn {
-            display: none;
-            margin-top: 20px;
-        }
-    </style>
+    footer {
+      background-color: var(--footer-bg);
+      color: var(--footer-text);
+      text-align: center;
+      padding: 16px;
+      font-size: 14px;
+      margin-top: auto;
+    }
+  </style>
 </head>
 <body>
-
-<!-- Notice how the classes here match the CSS now -->
-<div class="main-content">
-    <div class="card" id="quiz-card">
-        <h2 id="question">Pyetja</h2>
-        <div id="timer">Koha: 40</div>
-        <div id="answers"></div>
-        <button id="nextBtn" class="btn btn-primary" onclick="nextQuestion()">Pyetja tjetër</button>
+  
+  <div class="main-content">
+    <div class="card">
+      <h1>Te lexuarit e teksteve të ndryshme</h1>
+      <div class="button-group">
+        <a class="btn btn-outline" href="te-lexuarit-klasa-e-gjashte-pyetje-zgjedhje.html
+">Pyetje me zgjedhje të shumëfishtë</a>
+        <a class="btn btn-outline" href="te-lexuarit-klasa-e-gjashte-pyetje-sakte-gabim.html">Pyetje e saktë/e gabuar</a>
+      </div>
     </div>
-</div>
+  </div>
 
-<footer>
+  <footer>
     © Gjuha në lojë - 2026
-</footer>
-
-<script>
-    const quiz = [
-        {
-            question: "1. Ftesa është:",
-            answers: ["A) një tregim i shkurtër;", "B) një tekst funksional për të ftuar dikë;", "C) një mjet elektronik;", "D) një lajm."],
-            correct: 1
-        },
-        {
-            question: "2. Gjinitë letrare janë:",
-            answers: ["A) poezia, romani, tregimi;", "B) përralla, fabula, legjenda;", "C) epika, lirika, dramatika;", "D) komedia, tragjedia, drama."],
-            correct: 2
-        },
-        {
-            question: "3. Veprat që kanë si qëllim rrëfimin përfshihen në:",
-            answers: ["A) gjininë epike;", "B) gjininë dramatike;", "C) gjininë lirike;", "D) tekstin poetik."],
-            correct: 0
-        },
-        {
-            question: "4. Te fragmenti ''Kënga e Rolandit'', Rolandi nuk pranoi t'i binte bririt, sepse:",
-            answers: ["A) ishte krenar;", "B) ishte betuar që do të luftonte deri në vdekje për Francën;", "C) ishte mendjemadh;", "D) nuk i dhimbsej ushtria e tij."],
-            correct: 1
-        },
-        {
-            question: "5. I përket letërsisë gojore:",
-            answers: ["A) E bija e Hënës dhe e Diellit;", "B) Nuk është e lehtë të harrosh;", "C) Poezia e parë;", "D) Kënga e Rolandit."],
-            correct: 3
-        },
-        {
-            question: "6. Poezia ''Mëngjes'' është shkruar nga poeti:",
-            answers: ["A) Naim Frashëri;", "B) Ndre Mjeda;", "C) Lasgush Poradeci;", "D) Ismail Kadare."],
-            correct: 2
-        },
-        {
-            question: "7. Mesazhi se e ardhmja e një kombi varet nga brezi i ri që ai edukon, del te poezia:",
-            answers: ["A) ''Deti'' F.Arapi;", "B) ''Me jetue'' A.Podrimja;", "C) ''Atdheu'' N.Frashëri;", "D) ''Pamje'' Asdreni."],
-            correct: 1
-        },
-        {
-            question: "8. Figura letrare ''dielli u shua në mal'' është:",
-            answers: ["A) metaforë;", "B) personifikim;", "C) epitet;", "D) hiperbolë."],
-            correct: 0
-        }
-    ];
-
-    let currentQuestion = 0;
-    let score = 0;
-    let timeLeft = 40;
-    let timer;
-
-    function loadQuestion() {
-        clearInterval(timer);
-        timeLeft = 40;
-        document.getElementById("timer").innerText = "Koha: " + timeLeft;
-
-        timer = setInterval(() => {
-            timeLeft--;
-            document.getElementById("timer").innerText = "Koha: " + timeLeft;
-            if (timeLeft === 0) {
-                clearInterval(timer);
-                disableButtons();
-                document.getElementById("nextBtn").style.display = "block";
-            }
-        }, 1000);
-
-        const q = quiz[currentQuestion];
-        document.getElementById("question").innerText = q.question;
-
-        const answersDiv = document.getElementById("answers");
-        answersDiv.innerHTML = "";
-
-        q.answers.forEach((answer, index) => {
-            const btn = document.createElement("button");
-            btn.innerText = answer;
-            // Added the CSS class so the javascript generates styled buttons
-            btn.className = "btn btn-outline"; 
-            btn.onclick = () => checkAnswer(index, btn);
-            answersDiv.appendChild(btn);
-        });
-
-        document.getElementById("nextBtn").style.display = "none";
-    }
-
-    function checkAnswer(index, button) {
-        clearInterval(timer);
-        const correctIndex = quiz[currentQuestion].correct;
-
-        if (index === correctIndex) {
-            button.classList.add("correct");
-            score++;
-        } else {
-            button.classList.add("wrong");
-        }
-
-        disableButtons();
-        document.getElementById("nextBtn").style.display = "block";
-    }
-
-    function disableButtons() {
-        const buttons = document.querySelectorAll("#answers button");
-        buttons.forEach(btn => btn.disabled = true);
-    }
-
-    function nextQuestion() {
-        currentQuestion++;
-
-        if (currentQuestion < quiz.length) {
-            loadQuestion();
-        } else {
-            // Formatted the results screen to match the clean card style
-            let content = `
-                <h2>Quiz përfundoi 🎉</h2>
-                <p style="margin-bottom: 24px; color: var(--text-muted);">Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
-            `;
-
-            if (score === 8) {
-                content += `<p style="margin-bottom: 24px;">Suksesi është fryt i dijes. Urime për arritjen maksimale! 🏆</p>`;
-            } else if (score >= 6) {
-                content += `<p style="margin-bottom: 24px;">Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;
-            } else if (score >= 4) {
-                content += `<p style="margin-bottom: 24px;">Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
-            } else {
-                content += `<p style="margin-bottom: 24px;">Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
-            }
-
-            // Styled the return button using our btn classes
-            content += `
-                <button class="btn btn-primary" onclick="window.location.href='../index.html'">
-                    Kthehuni në faqen kryesore
-                </button>
-            `;
-
-            document.getElementById("quiz-card").innerHTML = content;
-        }
-    }
-
-    loadQuestion();
-
-</script>
+  </footer>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
