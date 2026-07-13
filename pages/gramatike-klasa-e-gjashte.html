@@ -1,28 +1,8 @@
-Ah, seeing the full code reveals exactly what went wrong!
-
-The reason everything broke (the fireworks didn't fire and the return button disappeared) is because you called fireworks(); in your script, but you forgot to include two things:
-
-The library script tag in your <head>.
-
-The actual fireworks() function definition inside your <script> block.
-
-Because they were missing, JavaScript encountered an error at fireworks(), crashed instantly, and never made it down to render your button.
-
-Here is your complete, fully fixed, and ready-to-use HTML file. I have imported the library, optimized the score checks to keep it clean, and appended the fireworks logic safely at the bottom.
-
-The Fixed Code
-You can completely replace your entire file with this:
-
-HTML
-<!DOCTYPE html>
-<html lang="sq">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lojë Quiz</title>
-    
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
+	<title>Lojë Quiz</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -30,9 +10,9 @@ HTML
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: white;
+			background: white;
         }
-        
+		
         .quiz-container {
             background: #21CBF3;
             padding: 20px;
@@ -40,7 +20,7 @@ HTML
             border-radius: 30px;
             text-align: center;
         }
-        
+		
         button {
             display: block;
             width: 100%;
@@ -48,8 +28,8 @@ HTML
             padding: 10px;
             font-size: 16px;
             cursor: pointer;
-            background: white;
-            border-radius: 15px;
+			background: white;
+			border-radius: 15px;
         }
 
         .correct {
@@ -67,22 +47,22 @@ HTML
             background: white;
             color: black;
         }
-        
-        a{
-            color:black;
-        }
-        
+		
+		a{
+		color:black;
+		}
+		
         #timer {
             font-weight: bold;
             margin-bottom: 10px;
         }
 
-        .menu button{
-            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+		.menu button{
+		 box-shadow: 0 6px 15px rgba(0,0,0,0.2);
             transition: transform 0.3s, box-shadow 0.3s;
         }
-        
-        .menu button:hover {
+		
+		.menu button:hover {
             transform: scale(1.05);
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
         }
@@ -95,8 +75,8 @@ HTML
     <div id="timer">Koha: 40</div>
     <div id="answers"></div>
     <div class="menu">
-        <button id="nextBtn" onclick="nextQuestion()">Pyetja tjetër</button>
-    </div>
+    <button id="nextBtn" onclick="nextQuestion()">Pyetja tjetër</button>
+	</div>
 </div>
 
 <script>
@@ -106,17 +86,17 @@ HTML
             answers: ["A) mbaresë;", "B) prapashtesë;", "C) parashtesë;", "D) temë."],
             correct: 0
         },
-        {
+		{
             question: "2. Cila fjalë është futur gabim sipas klasës ku bën pjesë?",
             answers: ["A) bukur;", "B) i trëndafiltë;", "C) ftohtë;", "D) lehtë."],
             correct: 1
         },
-        {
+		{
             question: "3. Dalloni grupin e emrave:",
             answers: ["A) vrapon, mëson, dëgjon;", "B) bukur, mirë, qartë;", "C) të ecurit, të ngrohtët, të folurit;", "D) i shpejtë, e mirë, e qetë."],
             correct: 2
         },
-        {
+		{
             question: "4. Në cilën alternativë ka folje në kohën e tashme, mënyra dëftore?",
             answers: ["A) shkroi;", "B) shkruan;", "C) do të shkruaj;", "D) kishte shkruar."],
             correct: 1
@@ -126,7 +106,7 @@ HTML
             answers: ["A) ndaj, andaj, apo, por, edhe;", "B) se, që, në, nëse, nga;", "C) porsi, sa, si, sesa, sepse;", "D) që, ku, kur, me qëllim që."],
             correct: 0
         },
-        {
+		{
             question: "6. Dalloni fjalinë dëftore.",
             answers: ["A) A po vjen?", "B) Sa bukur!", "C) Nxënësit janë në klasë.", "D) Qetësi!"],
             correct: 2
@@ -136,19 +116,19 @@ HTML
             answers: ["A) kallëzuesi dhe kundrinori;", "B) kryefjala dhe kallëzuesi;", "C) ndajshtimi dhe rrethanori;", "D) përcaktori dhe kundrinori."],
             correct: 1
         },
-        {
+		{
             question: "8. Ai veronte në një kasolle kashte pranë lumit. Fjala ''kashte'' kryen funksionin si: ",
             answers: ["A) rrethanor;", "B) pëcaktor me përshtatje;", "C) përcaktor me bashkim;", "D) përcaktor me drejtim."],
             correct: 3
         },
-        {
+		{
             question: "9. Ai u nis me vrap drejt mësuesit. Fjala ''me vrap'' kryen funksionin si:",
             answers: ["A) rrethanor;", "B) kundrinor;", "C) ndajshtim;", "D) përcaktor me drejtim."],
             correct: 0
         },
-        {
+		{
             question: "10. Dalloni fjalinë e thjeshtë.",
-            answers: ["A) Kodrinat ishin të pjerrëta dhe majat e mbuluar me borë dukeshin më larg.", "B) Luani i plagosur nuk dinte se ç'ishte frika e vdekjes.", "C) Me mijëra anije janë mbytur në këtë ngushtice të zymtë.", "D) Magelani ishte i primi që kaloi përmes asaj ngushtice."],
+            answers: ["A) Kodrinat ishin të pjerrëta dhe majat e mbuluar me borë dukeshin më larg.", "B) Luani i plagosur nuk dinte se ç'ishte frika e vdekjes.", "C) Me mijëra anije janë mbytur në këtë ngushtice të zymtë.", "D) Magelani ishte i pari që kaloi përmes asaj ngushtice."],
             correct: 2
         }
     ];
@@ -210,72 +190,60 @@ HTML
     }
 
     function nextQuestion() {
-        currentQuestion++;
+    currentQuestion++;
 
-        if (currentQuestion < quiz.length) {
-            loadQuestion();
-        } else {
-            // Stop the countdown timer when quiz ends
-            clearInterval(timer);
+    if (currentQuestion < quiz.length) {
+        loadQuestion();
+    } else {
 
-            let content = `
-                <h2>Quiz përfundoi 🎉</h2>
-                <p>Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
-            `;
+        let content = `
+            <h2>Quiz përfundoi 🎉</h2>
+            <p>Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
+        `;
 
-            // Cleaned up conditions to prevent redundant code blocks
-            if (score === 10) {
-                content += `<p>Suksesi është fryt i dijes. Urime për arritjen maksimale! 🏆</p>`;
-                // Triggers firework animation
-                fireworks();
-            } else if (score === 9 || score === 8) {
-                content += `<p>Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;
-            } else if (score >= 5 && score <= 7) {
-                content += `<p>Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
-            } else if (score >= 0 && score <= 4) {
-                content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
-            }
-
-            content += `
-                <button onclick="window.location.href='../index.html'">
-                    Kthehuni në faqen kryesore
-                </button>
-            `;
-
-            document.querySelector(".quiz-container").innerHTML = content;
-        }
-    }
-
-    // 2. ADDED: The missing helper function to make fireworks work smoothly
-    function fireworks() {
-        var duration = 5 * 1000; // Plays for 5 seconds
-        var animationEnd = Date.now() + duration;
-        var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999 };
-
-        function randomInRange(min, max) {
-            return Math.random() * (max - min) + min;
+        if (score === 10) {
+            content += `<p>Suksesi është fryt i dijes. Urime për arritjen maksimale! 🏆</p>`;
+		} else if (score === 9) {
+			content += `<p>Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;
+		} else if (score === 8) {
+			content += `<p>Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;
+		} else if (score === 7) {
+			content += `<p>Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
+		} else if (score === 6) {
+			content += `<p>Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
+		} else if (score === 5) {
+			content += `<p>Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
+		} else if (score === 4) {
+			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
+		} else if (score === 3) {
+			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
+		} else if (score === 2) {
+			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
+		} else if (score === 1) {
+			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
+        } else if (score === 0) {
+            content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
         }
 
-        var interval = setInterval(function() {
-            var timeLeft = animationEnd - Date.now();
+        content += `
+            <button onclick="window.location.href='../index.html'">
+                Kthehuni në faqen kryesore
+            </button>
+        `;
 
-            if (timeLeft <= 0) {
-                return clearInterval(interval);
-            }
-
-            var particleCount = 50 * (timeLeft / duration);
-            
-            // Fires explosions from random sides of the screen
-            confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
-            confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
-        }, 250);
+        document.querySelector(".quiz-container").innerHTML = content;
     }
+}
+
 
     loadQuestion();
+
 </script>
 
 </body>
+
 </html>
+
 
 
 
