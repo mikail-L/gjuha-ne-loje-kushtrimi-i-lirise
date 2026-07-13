@@ -232,15 +232,8 @@
         `;
 
         document.querySelector(".quiz-container").innerHTML = content;
-        if (score === 10) {
-        if (typeof confetti === "function") {
-            fireworks();
-        } else {
-            console.error("Canvas-confetti library is missing or didn't load properly in index.html.");
-        }
     }
 }
-
 
 
     loadQuestion();
