@@ -10,7 +10,7 @@
 /* --- BASE STYLES --- */
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
-    background-color: var(--bg-light); /* Clean light background instead of heavy blue */
+    background-color: var(--bg-light);
     min-height: 100vh;
     margin: 0;
     text-align: center;
@@ -25,7 +25,7 @@ header {
     background: white;
     width: 100%;
     padding: 30px 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* Softer shadow */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     box-sizing: border-box;
 }
 
@@ -46,7 +46,7 @@ header p {
     display: inline-block;
     margin: 20px 0 10px;
     font-size: 15px;
-    color: var(--text-gray); /* Changed to dark grey so you can read it on the light background */
+    color: var(--text-gray);
     text-decoration: none;
     font-weight: bold;
 }
@@ -63,7 +63,7 @@ header p {
     margin: 10px auto;
     padding: 25px;
     border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08); /* Modern, soft floating effect */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
     text-align: center;
     animation: fadeIn 0.8s ease;
 }
@@ -73,29 +73,23 @@ header p {
     to { opacity: 1; transform: translateY(0); }
 }
 
-.button-grid {
-    display: grid;
-    gap: 12px;
-}
-
-/* --- BUTTONS --- */
-/* --- BUTTONS & GRID --- */
+/* --- BUTTONS & 2x2 GRID --- */
 .button-grid {
     display: grid;
     grid-template-columns: 1fr 1fr; /* Creates a 2-column grid */
     gap: 12px;
 }
 
-/* Sleek, minimal style for the classes */
+/* Sleek, minimal style for the normal classes (Klasa 6-9) */
 .entry-button {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     padding: 16px 10px;
-    background-color: #f8fafc; /* Very light, soft gray-blue */
+    background-color: #f8fafc;
     color: var(--text-dark);
-    border: 1px solid #e2e8f0; /* Soft border */
+    border: 1px solid #e2e8f0;
     border-radius: 12px;
     font-size: 15px;
     font-weight: 600;
@@ -118,7 +112,13 @@ header p {
     transform: scale(0.96);
 }
 
-/* Make the Games button wide and special */
+/* --- THE BREATHING ANIMATION (For Lojëra gjuhësore) --- */
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 0 0 rgba(33, 150, 243, 0.6); }
+    70% { box-shadow: 0 0 0 15px rgba(33, 150, 243, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(33, 150, 243, 0); }
+}
+
 .entry-button.secondary {
     grid-column: span 2; /* Stretches across both columns */
     background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
@@ -126,18 +126,20 @@ header p {
     border: none;
     margin-top: 8px;
     font-size: 16px;
-    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.2);
+    animation: pulseGlow 2s infinite; /* Connects the breathing animation */
 }
 
 .entry-button.secondary:hover {
     background: linear-gradient(135deg, var(--primary-dark), #0d47a1);
+    animation: none; /* Stops the animation when hovering */
+    transform: scale(1.02);
     box-shadow: 0 10px 25px rgba(33, 150, 243, 0.4);
 }
 
 /* --- FOOTER & IMAGES --- */
 .students {
     margin: 30px 0;
-    flex: 1; /* Pushes the footer down */
+    flex: 1;
 }
 
 footer {
