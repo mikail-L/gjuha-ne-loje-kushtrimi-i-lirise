@@ -1,0 +1,134 @@
+/* --- CSS VARIABLES --- */
+:root {
+    --primary-blue: #2196F3;
+    --primary-dark: #1565c0;
+    --bg-light: #f4f7f6;
+    --text-dark: #2d3748;
+    --text-gray: #718096;
+}
+
+/* --- BASE STYLES --- */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: var(--bg-light); /* Clean light background instead of heavy blue */
+    min-height: 100vh;
+    margin: 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--text-dark);
+}
+
+/* --- HEADER --- */
+header {
+    background: white;
+    width: 100%;
+    padding: 30px 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* Softer shadow */
+    box-sizing: border-box;
+}
+
+header h1 {
+    font-size: 30px;
+    color: var(--primary-blue);
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 15px;
+    color: var(--text-gray);
+    margin: 0;
+}
+
+/* --- MAIN CONTENT & LINKS --- */
+.top-link {
+    display: inline-block;
+    margin: 20px 0 10px;
+    font-size: 15px;
+    color: var(--text-gray); /* Changed to dark grey so you can read it on the light background */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.top-link:hover {
+    color: var(--primary-blue);
+    text-decoration: underline;
+}
+
+/* --- THE MENU CARD --- */
+.entry-card {
+    background: white;
+    width: 360px;
+    margin: 10px auto;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08); /* Modern, soft floating effect */
+    text-align: center;
+    animation: fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.button-grid {
+    display: grid;
+    gap: 12px;
+}
+
+/* --- BUTTONS --- */
+.entry-button {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background-color: var(--primary-blue);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.entry-button:hover {
+    transform: translateY(-3px); /* Smooth lift effect */
+    background-color: var(--primary-dark);
+    box-shadow: 0 6px 15px rgba(33, 150, 243, 0.3);
+}
+
+.entry-button:active {
+    transform: scale(0.98);
+}
+
+/* Ghost Button for Games */
+.entry-button.secondary {
+    background: transparent;
+    color: var(--primary-blue);
+    border: 2px solid var(--primary-blue);
+    margin-top: 5px;
+}
+
+.entry-button.secondary:hover {
+    background: var(--primary-blue);
+    color: white;
+}
+
+/* --- FOOTER & IMAGES --- */
+.students {
+    margin: 30px 0;
+    flex: 1; /* Pushes the footer down */
+}
+
+footer {
+    background: #333;
+    color: white;
+    padding: 20px;
+    width: 100%;
+    font-size: 14px;
+    box-sizing: border-box;
+}
