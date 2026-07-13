@@ -1,11 +1,12 @@
-<html>
+<!DOCTYPE html>
+<html lang="sq">
 <head>
     <meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lojë Quiz</title>
-     <style>
+    <style>
         /* =========================================
-           All CSS Included Directly to Fix Linking
+           All CSS Included Directly
            ========================================= */
         :root {
             --primary-blue: #1a73e8;       
@@ -135,14 +136,19 @@
 </head>
 <body>
 
-<div class="quiz-container">
-    <h2 id="question">Pyetja</h2>
-    <div id="timer">Koha: 40</div>
-    <div id="answers"></div>
-<div class="menu">
-    <button id="nextBtn" onclick="nextQuestion()">Pyetja tjetër</button>
-	</div>
+<!-- Notice how the classes here match the CSS now -->
+<div class="main-content">
+    <div class="card" id="quiz-card">
+        <h2 id="question">Pyetja</h2>
+        <div id="timer">Koha: 40</div>
+        <div id="answers"></div>
+        <button id="nextBtn" class="btn btn-primary" onclick="nextQuestion()">Pyetja tjetër</button>
+    </div>
 </div>
+
+<footer>
+    © Gjuha në lojë - 2026
+</footer>
 
 <script>
     const quiz = [
@@ -176,12 +182,12 @@
             answers: ["A) Naim Frashëri;", "B) Ndre Mjeda;", "C) Lasgush Poradeci;", "D) Ismail Kadare."],
             correct: 2
         },
-		{
+        {
             question: "7. Mesazhi se e ardhmja e një kombi varet nga brezi i ri që ai edukon, del te poezia:",
             answers: ["A) ''Deti'' F.Arapi;", "B) ''Me jetue'' A.Podrimja;", "C) ''Atdheu'' N.Frashëri;", "D) ''Pamje'' Asdreni."],
             correct: 1
         },
-		{
+        {
             question: "8. Figura letrare ''dielli u shua në mal'' është:",
             answers: ["A) metaforë;", "B) personifikim;", "C) epitet;", "D) hiperbolë."],
             correct: 0
@@ -217,6 +223,8 @@
         q.answers.forEach((answer, index) => {
             const btn = document.createElement("button");
             btn.innerText = answer;
+            // Added the CSS class so the javascript generates styled buttons
+            btn.className = "btn btn-outline"; 
             btn.onclick = () => checkAnswer(index, btn);
             answersDiv.appendChild(btn);
         });
@@ -245,53 +253,43 @@
     }
 
     function nextQuestion() {
-    currentQuestion++;
+        currentQuestion++;
 
-    if (currentQuestion < quiz.length) {
-        loadQuestion();
-    } else {
+        if (currentQuestion < quiz.length) {
+            loadQuestion();
+        } else {
+            // Formatted the results screen to match the clean card style
+            let content = `
+                <h2>Quiz përfundoi 🎉</h2>
+                <p style="margin-bottom: 24px; color: var(--text-muted);">Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
+            `;
 
-        let content = `
-            <h2>Quiz përfundoi 🎉</h2>
-            <p>Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
-        `;
+            if (score === 8) {
+                content += `<p style="margin-bottom: 24px;">Suksesi është fryt i dijes. Urime për arritjen maksimale! 🏆</p>`;
+            } else if (score >= 6) {
+                content += `<p style="margin-bottom: 24px;">Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;
+            } else if (score >= 4) {
+                content += `<p style="margin-bottom: 24px;">Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
+            } else {
+                content += `<p style="margin-bottom: 24px;">Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
+            }
 
-        if (score === 8) {
-            content += `<p>Suksesi është fryt i dijes. Urime për arritjen maksimale! 🏆</p>`;
-		} else if (score === 7) {
-			content += `<p>Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;
-		} else if (score === 6) {
-			content += `<p>Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;
-		} else if (score === 5) {
-			content += `<p>Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
-		} else if (score === 4) {
-			content += `<p>Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
-		} else if (score === 3) {
-			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
-		} else if (score === 2) {
-			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
-		} else if (score === 1) {
-			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
-        } else if (score === 0) {
-            content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
+            // Styled the return button using our btn classes
+            content += `
+                <button class="btn btn-primary" onclick="window.location.href='../index.html'">
+                    Kthehuni në faqen kryesore
+                </button>
+            `;
+
+            document.getElementById("quiz-card").innerHTML = content;
         }
-
-        content += `
-            <button onclick="window.location.href='../index.html'">
-                Kthehuni në faqen kryesore
-            </button>
-        `;
-
-        document.querySelector(".quiz-container").innerHTML = content;
     }
-}
 
     loadQuestion();
 
 </script>
 
 </body>
-
 </html>
 
 
