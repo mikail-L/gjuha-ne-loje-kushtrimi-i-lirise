@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lojë Quiz</title>
+    <title>Lojë Quiz - Gramatikë dhe Sintaksë</title>
     <style>
         /* =========================================
            All CSS Included Directly to Fix Linking
@@ -153,16 +153,16 @@
 
 <script>
     const quiz = [
-        { question: "1. Në legjenda përgjithësisht flitet për krijimin e lumenjve, liqeneve, qyteteve, kështjellave, si edhe për heronj e ngjarje që kanë bazë reale.", answers: ["E saktë", "E gabuar"], correct: 0 },
-        { question: "2. Në përrallë NUK mbizotëron elementi fantastik.", answers: ["E saktë", "E gabuar"], correct: 1 },
-        { question: "3. Te shprehja '....me sy si pishtarë' kemi figurën e krahasimit.", answers: ["E saktë", "E gabuar"], correct: 0 },
-        { question: "4. 'Formula e pagëzimit', e vitit 1462, është dokumenti më i vjetër i shqipes së shkruar.", answers: ["E saktë", "E gabuar"], correct: 0 },
-        { question: "5. Sipas të dhënave shkencore të deritanishme, libri i parë i shkruar shqip është 'Meshari' i Gjon Buzukut, i botuar më 1555.", answers: ["E saktë", "E gabuar"], correct: 0 },
-        { question: "6. Miti 'Përbindëshi i labirintit' i përket mitologjisë shqiptare.", answers: ["E saktë", "E gabuar"], correct: 1 },
-        { question: "7. Në tekstin udhëzues ne e marrim mesazhin në formë udhëzimesh ose rregullash, që ndihmon të kuptojmë funksionimin e diçkaje.", answers: ["E saktë", "E gabuar"], correct: 0 },
-        { question: "8. 'Fuqia e Mujit' NUK është shkëputur nga libri 'Tregime të moçme shqiptare'.", answers: ["E saktë", "E gabuar"], correct: 1 },
-        { question: "9. Metafora është figurë e ngjashme me krahasimin, por që nuk përdoret lidhëza 'si'.", answers: ["E saktë", "E gabuar"], correct: 0 },
-        { question: "10. Hiperbola është një figurë letrare, e cila ndërtohet duke zmadhuar tej mase qenie, sende, tiparet a veprimet e tyre.", answers: ["E saktë", "E gabuar"], correct: 0 }
+        { question: "1. Fjala përbëhet nga tema dhe mbaresa.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "2. Parashtesa është pjesa e fjalës që qëndron përpara temës, ndërsa prapashtesa është pjesa e fjalës që i shtohet pas temës. Shembuj: për-hap, vend-as.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "3. Shkruhen me \"e\" dhe jo me \"ë\" fjalët ku kjo zanore është e theksuar dhe ndiqet nga njëra prej bashkëtingëlloreve m, n, nj. Shembull: vend.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "4. Veglat muzikore NUK i përkasin fushës leksikore të muzikës.", answers: ["E saktë", "E gabuar"], correct: 1 },
+        { question: "5. Sipas kumtimit fjalitë mund të jenë: dëftore, pyetëse, dëshirore, nxitëse dhe thirrmore.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "6. Gjymtyrët kryesore të fjalisë janë kryefjala dhe kallëzuesi.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "7. Grupi emëror i kryefjalës përbëhet vetëm nga kryefjala.", answers: ["E saktë", "E gabuar"], correct: 1 },
+        { question: "8. Te grupi emëror \"bilbilat e pranverës\" fjala \"e pranverës\" është përcaktor me përshtatje.", answers: ["E saktë", "E gabuar"], correct: 1 },
+        { question: "9. Djali dalloi këmishën e bardhë. Fjala \"këmishën\" është kundrinor i drejtë.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "10. Fëmijët do të shkojnë në kinema. Fjala \"në kinema\" luan funksionin e rrethanorit të vendit.", answers: ["E saktë", "E gabuar"], correct: 0 }
     ];
 
     let currentQuestion = 0;
@@ -211,9 +211,6 @@
             score++;
         } else {
             button.classList.add("wrong");
-            // Opsionale: Mund të zbulosh përgjigjen e saktë kur përdoruesi gabon
-            // const buttons = document.querySelectorAll("#answers button");
-            // buttons[correctIndex].classList.add("correct");
         }
 
         disableButtons();

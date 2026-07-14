@@ -23,12 +23,12 @@ body {
 /* --- HEADER --- */
 /* --- HEADER --- */
 header {
-    background: white;
+    background: linear-gradient(135deg, #ffffff 0%, #f7fbfe 100%);
     width: 100%;
     padding: 40px 20px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.04);
     box-sizing: border-box;
-    border-bottom: 1px solid #e2e8f0; /* Crisp line at the bottom */
+    border-bottom: 1px solid #e2e8f0;
 }
 
 /* Upgrades the Logo */
@@ -57,11 +57,8 @@ header h1 {
     font-size: 34px;
     margin: 5px 0 10px;
     font-weight: 800;
-    /* This creates a sleek gradient text effect instead of a flat color */
-    background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--accent-2);
+    text-shadow: 0 1px 0 rgba(255,255,255,0.8);
 }
 
 /* Upgrades the Description (The second paragraph) */
@@ -95,7 +92,8 @@ header p:last-of-type {
     margin: 10px auto;
     padding: 25px;
     border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
     text-align: center;
     animation: fadeIn 0.8s ease;
 }
@@ -130,13 +128,13 @@ header p:last-of-type {
     box-sizing: border-box;
 }
 
-/* Hover effect: subtle red / black gradient and lift */
+/* Hover effect: friendly school-style lift */
 .entry-button:hover {
-    background: linear-gradient(90deg, rgba(199,46,46,0.95), rgba(20,20,20,0.9));
+    background: linear-gradient(90deg, var(--primary-blue), var(--accent-1));
     color: white;
     border-color: transparent;
     transform: translateY(-4px);
-    box-shadow: 0 12px 26px rgba(183,28,28,0.16);
+    box-shadow: 0 12px 24px rgba(51, 101, 138, 0.16);
 }
 
 .entry-button:active {
@@ -145,26 +143,26 @@ header p:last-of-type {
 
 /* --- THE BREATHING ANIMATION (For Lojëra gjuhësore) --- */
 @keyframes pulseGlow {
-    0% { box-shadow: 0 0 0 0 rgba(183, 28, 28, 0.6); }
-    70% { box-shadow: 0 0 0 15px rgba(183, 28, 28, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(183, 28, 28, 0); }
+    0% { box-shadow: 0 0 0 0 rgba(242, 184, 75, 0.4); }
+    70% { box-shadow: 0 0 0 12px rgba(242, 184, 75, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(242, 184, 75, 0); }
 }
 
 .entry-button.secondary {
-    grid-column: span 2; /* Stretches across both columns */
+    grid-column: span 2;
     background: linear-gradient(135deg, var(--primary-blue), var(--accent-2));
     color: white;
     border: none;
     margin-top: 8px;
     font-size: 16px;
-    animation: pulseGlow 2s infinite; /* Connects the breathing animation */
+    animation: pulseGlow 2s infinite;
 }
 
 .entry-button.secondary:hover {
-    background: linear-gradient(135deg, var(--primary-dark), var(--accent-2));
-    animation: none; /* Stops the animation when hovering */
+    background: linear-gradient(135deg, var(--accent-2), var(--primary-blue));
+    animation: none;
     transform: scale(1.02);
-    box-shadow: 0 10px 25px rgba(183,28,28,0.28);
+    box-shadow: 0 10px 25px rgba(242, 184, 75, 0.22);
 }
 
 /* --- FOOTER & IMAGES --- */
@@ -250,20 +248,20 @@ footer {
    Global Variables & Color Palette
    ========================================= */
 :root {
-    --primary-blue: #b71c1c; /* red accent (keeps var name for compatibility) */
-    --accent-1: #ff8a80; /* soft red */
-    --accent-2: #1f1f1f; /* dark/near-black accent */
-    --bg-light: #fbf6f6;
-    --bg-gradient: linear-gradient(135deg, #fbf6f6 0%, #fff5f5 50%, #fffaf0 100%);
+    --primary-blue: #33658a; /* friendly school blue */
+    --accent-1: #7ec8e3; /* light sky blue */
+    --accent-2: #f2b84b; /* warm fun accent */
+    --bg-light: #f6f9fc;
+    --bg-gradient: linear-gradient(135deg, #f8fbfd 0%, #eef5f8 50%, #fff8e8 100%);
     --card-bg: #ffffff;
-    --text-main: #222222;
-    --border-color: #f0e6e6;
+    --text-main: #2d3b45;
+    --border-color: #d9e4ea;
 
-    --footer-bg: #303134;
-    --footer-text: #e8eaed;
+    --footer-bg: #2f4651;
+    --footer-text: #f4f7f8;
 
     --border-radius: 12px;
-    --box-shadow: 0 6px 20px rgba(15, 32, 40, 0.06);
+    --box-shadow: 0 8px 24px rgba(31, 57, 72, 0.08);
     --transition-speed: 0.24s;
 }
 
@@ -292,9 +290,9 @@ body {
 }
 
 h1, h2, h3 {
-    color: var(--primary-blue);
-  margin-top: 0;
-  margin-bottom: 24px;
+    color: var(--accent-2);
+    margin-top: 0;
+    margin-bottom: 24px;
 }
 
 /* =========================================
@@ -304,10 +302,15 @@ h1, h2, h3 {
   background-color: var(--card-bg);
   padding: 32px;
   border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
   box-shadow: var(--box-shadow);
   text-align: center;
   width: 100%;
   max-width: 520px;
+}
+
+.content-card {
+    border-top: 4px solid var(--accent-2);
 }
 
 /* =========================================
@@ -341,7 +344,7 @@ h1, h2, h3 {
 }
 
 .btn-outline:hover {
-    background: linear-gradient(90deg, rgba(199,46,46,0.06), rgba(20,20,20,0.02));
+    background: linear-gradient(90deg, rgba(79, 107, 122, 0.08), rgba(47, 69, 82, 0.03));
     border-color: var(--primary-blue);
     color: var(--primary-blue);
 }
@@ -354,7 +357,7 @@ h1, h2, h3 {
 }
 
 .btn-primary:hover {
-    filter: brightness(0.95);
+    filter: brightness(0.97);
     transform: translateY(-2px);
 }
 

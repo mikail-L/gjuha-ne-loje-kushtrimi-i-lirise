@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lojë Quiz</title>
+    <title>Lojë Quiz - Llojet e Teksteve</title>
     <style>
         /* =========================================
            All CSS Included Directly to Fix Linking
@@ -153,16 +153,16 @@
 
 <script>
     const quiz = [
-        { question: "1. Në legjenda përgjithësisht flitet për krijimin e lumenjve, liqeneve, qyteteve, kështjellave, si edhe për heronj e ngjarje që kanë bazë reale.", answers: ["E saktë", "E gabuar"], correct: 0 },
-        { question: "2. Në përrallë NUK mbizotëron elementi fantastik.", answers: ["E saktë", "E gabuar"], correct: 1 },
-        { question: "3. Te shprehja '....me sy si pishtarë' kemi figurën e krahasimit.", answers: ["E saktë", "E gabuar"], correct: 0 },
-        { question: "4. 'Formula e pagëzimit', e vitit 1462, është dokumenti më i vjetër i shqipes së shkruar.", answers: ["E saktë", "E gabuar"], correct: 0 },
-        { question: "5. Sipas të dhënave shkencore të deritanishme, libri i parë i shkruar shqip është 'Meshari' i Gjon Buzukut, i botuar më 1555.", answers: ["E saktë", "E gabuar"], correct: 0 },
-        { question: "6. Miti 'Përbindëshi i labirintit' i përket mitologjisë shqiptare.", answers: ["E saktë", "E gabuar"], correct: 1 },
-        { question: "7. Në tekstin udhëzues ne e marrim mesazhin në formë udhëzimesh ose rregullash, që ndihmon të kuptojmë funksionimin e diçkaje.", answers: ["E saktë", "E gabuar"], correct: 0 },
-        { question: "8. 'Fuqia e Mujit' NUK është shkëputur nga libri 'Tregime të moçme shqiptare'.", answers: ["E saktë", "E gabuar"], correct: 1 },
-        { question: "9. Metafora është figurë e ngjashme me krahasimin, por që nuk përdoret lidhëza 'si'.", answers: ["E saktë", "E gabuar"], correct: 0 },
-        { question: "10. Hiperbola është një figurë letrare, e cila ndërtohet duke zmadhuar tej mase qenie, sende, tiparet a veprimet e tyre.", answers: ["E saktë", "E gabuar"], correct: 0 }
+        { question: "1. Përmbledhja është një punë me shkrim, e cila na sjell shkurtazi përmbajtjen e një teksti origjinal.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "2. Përmbledhja përbëhet nga tri pjesë: hyrja, zhvillimi dhe mbyllja.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "3. Të përshkruash do të thotë të vësh në pah karakteristikat e gjërave: të objekteve, vendeve, njerëzve, kafshëve etj.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "4. Teksti përshkrues është vetëm letrar.", answers: ["E saktë", "E gabuar"], correct: 1 },
+        { question: "5. Poezia shkruhet në vargje.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "6. Ritmi, rima, përsëritja e fjalëve etj., nuk janë veçori të poezisë.", answers: ["E saktë", "E gabuar"], correct: 1 },
+        { question: "7. Tregimi është një rrëfim i shkurtër në prozë, që shkruhet në vetën e parë dhe të tretë.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "8. Gjatë zhvillimit të tregimit duhet të paraqitësh një hollësi interesante që lidhet me personazhin, kohën dhe mjedisin ku zhvillohet ngjarja.", answers: ["E saktë", "E gabuar"], correct: 1 },
+        { question: "9. Letra personale i drejtohet një miku, një familjari ose një njeriu të njohur.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "10. Letra zyrtare i drejtohet një zyrtari, një institucioni, një kompanie etj.", answers: ["E saktë", "E gabuar"], correct: 0 }
     ];
 
     let currentQuestion = 0;
@@ -211,9 +211,6 @@
             score++;
         } else {
             button.classList.add("wrong");
-            // Opsionale: Mund të zbulosh përgjigjen e saktë kur përdoruesi gabon
-            // const buttons = document.querySelectorAll("#answers button");
-            // buttons[correctIndex].classList.add("correct");
         }
 
         disableButtons();

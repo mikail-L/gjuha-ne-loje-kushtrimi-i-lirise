@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lojë Quiz</title>
+    <title>Lojë Quiz - Letërsi</title>
     <style>
         /* =========================================
            All CSS Included Directly to Fix Linking
@@ -153,16 +153,16 @@
 
 <script>
     const quiz = [
-        { question: "1. Në legjenda përgjithësisht flitet për krijimin e lumenjve, liqeneve, qyteteve, kështjellave, si edhe për heronj e ngjarje që kanë bazë reale.", answers: ["E saktë", "E gabuar"], correct: 0 },
-        { question: "2. Në përrallë NUK mbizotëron elementi fantastik.", answers: ["E saktë", "E gabuar"], correct: 1 },
-        { question: "3. Te shprehja '....me sy si pishtarë' kemi figurën e krahasimit.", answers: ["E saktë", "E gabuar"], correct: 0 },
-        { question: "4. 'Formula e pagëzimit', e vitit 1462, është dokumenti më i vjetër i shqipes së shkruar.", answers: ["E saktë", "E gabuar"], correct: 0 },
-        { question: "5. Sipas të dhënave shkencore të deritanishme, libri i parë i shkruar shqip është 'Meshari' i Gjon Buzukut, i botuar më 1555.", answers: ["E saktë", "E gabuar"], correct: 0 },
-        { question: "6. Miti 'Përbindëshi i labirintit' i përket mitologjisë shqiptare.", answers: ["E saktë", "E gabuar"], correct: 1 },
-        { question: "7. Në tekstin udhëzues ne e marrim mesazhin në formë udhëzimesh ose rregullash, që ndihmon të kuptojmë funksionimin e diçkaje.", answers: ["E saktë", "E gabuar"], correct: 0 },
-        { question: "8. 'Fuqia e Mujit' NUK është shkëputur nga libri 'Tregime të moçme shqiptare'.", answers: ["E saktë", "E gabuar"], correct: 1 },
-        { question: "9. Metafora është figurë e ngjashme me krahasimin, por që nuk përdoret lidhëza 'si'.", answers: ["E saktë", "E gabuar"], correct: 0 },
-        { question: "10. Hiperbola është një figurë letrare, e cila ndërtohet duke zmadhuar tej mase qenie, sende, tiparet a veprimet e tyre.", answers: ["E saktë", "E gabuar"], correct: 0 }
+        { question: "1. Drama 'Vilhelm Teli' është shkruar nga F. Shiler.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "2. Në komedinë 'Borgjezi fisnik' Molieri NUK godet vese ose shfaqje negative të njeriut.", answers: ["E saktë", "E gabuar"], correct: 1 },
+        { question: "3. Naim Frashëri e shkroi poezinë 'Atdheu' në kohën kur shqiptarët kishin nevojë më tepër se kurrë për zgjimin e ndërgjegjes kombëtare.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "4. 'Andrra e jetës' e poetit Ndre Mjeda është poezi.", answers: ["E saktë", "E gabuar"], correct: 1 },
+        { question: "5. Kur në vargje përsëriten pranë e pranë bashkëtingëllore të njëjta, krijohet figura e aliteracionit.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "6. Tregimi është një rrëfim i shkurtër në prozë.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "7. Në tregimin 'Djali dhe deti' të shkrimtarit bashkëkohor Nasi Lera flitet për hapat e para që hedh djali vetë në jetë dhe që e bëjnë atë të ndihet i rritur.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "8. Në fragmentin e tregimit 'Poezia e parë' e autorit Ismail Kadare, dy shokët vendosën të shkruajnë një dramë.", answers: ["E saktë", "E gabuar"], correct: 1 },
+        { question: "9. Në udhëpërshkrim autori përshkruan karakteristika të vendeve ku ai ka udhëtuar dhe kultura të njerëzve që jetojnë atje, si dhe shpreh mbresat e tij për ato që ka parë.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "10. Romani është lloj i gjinisë epike.", answers: ["E saktë", "E gabuar"], correct: 0 }
     ];
 
     let currentQuestion = 0;
@@ -211,9 +211,6 @@
             score++;
         } else {
             button.classList.add("wrong");
-            // Opsionale: Mund të zbulosh përgjigjen e saktë kur përdoruesi gabon
-            // const buttons = document.querySelectorAll("#answers button");
-            // buttons[correctIndex].classList.add("correct");
         }
 
         disableButtons();

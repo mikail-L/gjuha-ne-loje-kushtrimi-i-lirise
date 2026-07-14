@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lojë Quiz - Gjuhë Shqipe</title>
+    <style>
+        /* =========================================
+           All CSS Included Directly to Fix Linking
+           ========================================= */
+        :root {
+            --primary-blue: #1a73e8;       
+            --bg-light: #f8f9fa;           
+            --card-bg: #ffffff;            
+            --text-main: #3c4043;          
+            --border-color: #dadce0;
+            --footer-bg: #303134;
+            --footer-text: #e8eaed;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --transition-speed: 0.2s;
+            --text-muted: #5f6368;
+        }
+
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-content {
+            flex: 1; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        h2 {
+            color: var(--primary-blue);
+            margin-top: 0;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 32px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            width: 100%;
+            max-width: 520px;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: block;
+            padding: 14px 16px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            box-sizing: border-box;
+            text-align: center;
+            width: 100%;
+            margin-bottom: 12px;
+        }
+
+        .btn-outline {
+            background: white;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-outline:hover:not(:disabled) {
+            background-color: var(--bg-light);
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #1557b0;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+            text-align: center;
+            padding: 16px;
+            font-size: 14px;
+            margin-top: auto;
+        }
+
+        /* Quiz Specific */
+        #timer {
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        #answers {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
+
+        .correct {
+            background-color: #34a853 !important; 
+            color: white !important;
+            border-color: #34a853 !important;
+        }
+
+        .wrong {
+            background-color: #ea4335 !important; 
+            color: white !important;
+            border-color: #ea4335 !important;
+        }
+
+        #nextBtn {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-content">
+    <div class="card" id="quiz-card">
+        <h2 id="question">Pyetja</h2>
+        <div id="timer">Koha: 40</div>
+        <div id="answers"></div>
+        <button id="nextBtn" class="btn btn-primary" onclick="nextQuestion()">Pyetja tjetër</button>
+    </div>
+</div>
+
+<footer>
+    © Gjuha në lojë - 2026
+</footer>
+
+<script>
+    const quiz = [
+        { question: "1. Emrat janë fjalë të ndryshueshme që emërtojnë frymorë (njerëz ose kafshë) ose jofrymorë (sende, gjëra konkrete ose koncepte abstrakte).", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "2. Emrat: gruaja, lule, fletore, janë emra të gjinisë mashkullore.", answers: ["E saktë", "E gabuar"], correct: 1 },
+        { question: "3. Emrat: të ecurit, të folurit, të mësuarit, janë emra të gjinisë asnjanëse.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "4. Shkurtimet e emrave të shteteve, partive, organizatave etj., shkruhen me shkronja të mëdha duke vendosur pikë ndërmjet tyre. Shembull: Sh.B.A", answers: ["E saktë", "E gabuar"], correct: 1 },
+        { question: "5. Emrat: errësirë, mjaltë, dëborë, kollë, përdoren vetëm në numrin njëjës.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "6. Emrat: zogu, miku, fiku, i përkasin lakimit të parë.", answers: ["E saktë", "E gabuar"], correct: 1 },
+        { question: "7. Përemrat: ai, ajo, ata, ato, janë vetorë kur përdoren me ndajfoljet aty, atje.", answers: ["E saktë", "E gabuar"], correct: 1 },
+        { question: "8. Në fjalinë: \"Ai nxënës fitoi vendin e parë.\", fjala \"ai\" është përemër dëftor.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "9. Përemri pyetës \"kush\" përdoret për të pyetur për një njeri ose send.", answers: ["E saktë", "E gabuar"], correct: 1 },
+        { question: "10. Përemri pyetës \"çfarë\" nuk e ka kategorinë gramatikore të gjinisë, numrit e të rasës.", answers: ["E saktë", "E gabuar"], correct: 0 }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let timeLeft = 40;
+    let timer;
+
+    function loadQuestion() {
+        clearInterval(timer);
+        timeLeft = 40;
+        document.getElementById("timer").innerText = "Koha: " + timeLeft;
+
+        timer = setInterval(() => {
+            timeLeft--;
+            document.getElementById("timer").innerText = "Koha: " + timeLeft;
+            if (timeLeft === 0) {
+                clearInterval(timer);
+                disableButtons();
+                document.getElementById("nextBtn").style.display = "block";
+            }
+        }, 1000);
+
+        const q = quiz[currentQuestion];
+        document.getElementById("question").innerText = q.question;
+
+        const answersDiv = document.getElementById("answers");
+        answersDiv.innerHTML = "";
+
+        q.answers.forEach((answer, index) => {
+            const btn = document.createElement("button");
+            btn.innerText = answer;
+            btn.className = "btn btn-outline"; 
+            btn.onclick = () => checkAnswer(index, btn);
+            answersDiv.appendChild(btn);
+        });
+
+        document.getElementById("nextBtn").style.display = "none";
+    }
+
+    function checkAnswer(index, button) {
+        clearInterval(timer);
+        const correctIndex = quiz[currentQuestion].correct;
+
+        if (index === correctIndex) {
+            button.classList.add("correct");
+            score++;
+        } else {
+            button.classList.add("wrong");
+        }
+
+        disableButtons();
+        document.getElementById("nextBtn").style.display = "block";
+    }
+
+    function disableButtons() {
+        const buttons = document.querySelectorAll("#answers button");
+        buttons.forEach(btn => btn.disabled = true);
+    }
+
+    function nextQuestion() {
+        currentQuestion++;
+
+        if (currentQuestion < quiz.length) {
+            loadQuestion();
+        } else {
+            let content = `
+                <h2>Quiz përfundoi 🎉</h2>
+                <p style="margin-bottom: 24px; color: var(--text-muted);">Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
+            `;
+
+            if (score === 10) {
+                content += `<p style="margin-bottom: 24px;">Suksesi është fryt i dijes. Urime për arritjen maksimale! 🏆</p>`;
+            } else if (score >= 8) {
+                content += `<p style="margin-bottom: 24px;">Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;
+            } else if (score >= 5) {
+                content += `<p style="margin-bottom: 24px;">Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
+            } else {
+                content += `<p style="margin-bottom: 24px;">Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
+            }
+
+            content += `
+                <button class="btn btn-primary" onclick="window.location.href='../index.html'">
+                    Kthehuni në faqen kryesore
+                </button>
+            `;
+
+            document.getElementById("quiz-card").innerHTML = content;
+        }
+    }
+
+    loadQuestion();
+</script>
+
+</body>
+</html>

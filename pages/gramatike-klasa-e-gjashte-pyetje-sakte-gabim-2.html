@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lojë Quiz</title>
+    <title>Lojë Quiz - Gramatikë</title>
     <style>
         /* =========================================
            All CSS Included Directly to Fix Linking
@@ -153,16 +153,16 @@
 
 <script>
     const quiz = [
-        { question: "1. Në legjenda përgjithësisht flitet për krijimin e lumenjve, liqeneve, qyteteve, kështjellave, si edhe për heronj e ngjarje që kanë bazë reale.", answers: ["E saktë", "E gabuar"], correct: 0 },
-        { question: "2. Në përrallë NUK mbizotëron elementi fantastik.", answers: ["E saktë", "E gabuar"], correct: 1 },
-        { question: "3. Te shprehja '....me sy si pishtarë' kemi figurën e krahasimit.", answers: ["E saktë", "E gabuar"], correct: 0 },
-        { question: "4. 'Formula e pagëzimit', e vitit 1462, është dokumenti më i vjetër i shqipes së shkruar.", answers: ["E saktë", "E gabuar"], correct: 0 },
-        { question: "5. Sipas të dhënave shkencore të deritanishme, libri i parë i shkruar shqip është 'Meshari' i Gjon Buzukut, i botuar më 1555.", answers: ["E saktë", "E gabuar"], correct: 0 },
-        { question: "6. Miti 'Përbindëshi i labirintit' i përket mitologjisë shqiptare.", answers: ["E saktë", "E gabuar"], correct: 1 },
-        { question: "7. Në tekstin udhëzues ne e marrim mesazhin në formë udhëzimesh ose rregullash, që ndihmon të kuptojmë funksionimin e diçkaje.", answers: ["E saktë", "E gabuar"], correct: 0 },
-        { question: "8. 'Fuqia e Mujit' NUK është shkëputur nga libri 'Tregime të moçme shqiptare'.", answers: ["E saktë", "E gabuar"], correct: 1 },
-        { question: "9. Metafora është figurë e ngjashme me krahasimin, por që nuk përdoret lidhëza 'si'.", answers: ["E saktë", "E gabuar"], correct: 0 },
-        { question: "10. Hiperbola është një figurë letrare, e cila ndërtohet duke zmadhuar tej mase qenie, sende, tiparet a veprimet e tyre.", answers: ["E saktë", "E gabuar"], correct: 0 }
+        { question: "1. Foljet 'kam' dhe 'jam' shërbejnë për të formuar kohët e përbëra të foljes.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "2. Në fjalinë: \"Unë kam blerë një top të kuq.\", folja \"kam\" është folje ndihmëse.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "3. Në fjalinë: \"Unë jam mësuar me ju.\", folja \"jam\" është folje me kuptim të plotë leksikor.", answers: ["E saktë", "E gabuar"], correct: 1 },
+        { question: "4. Koha e kryer e mënyrës dëftore shërben për të shprehur një veprim të përfunduar, para një çasti të caktuar të së shkuarës.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "5. Në fjalinë: \"Nxënësit mund të kishin arritur rezultate më të larta në provimin e gjuhës shqipe.\", folja \"të kishin arritur\" është në kohën e kryer, mënyra lidhore.", answers: ["E saktë", "E gabuar"], correct: 1 },
+        { question: "6. Ndajfolja shërben për të treguar një rrethanë të veprimit a të gjendjes së treguar kryesisht nga folja apo nga një emër ose mbiemër që e ka prejardhjen nga folja.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "7. Ndajfoljet e parme, të prejardhura e të përngjitura shkruhen njësh.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "8. Lidhëzat bëjnë pjesë në klasën e fjalëve të ndryshueshme.", answers: ["E saktë", "E gabuar"], correct: 1 },
+        { question: "9. Do të blej fustanin e kuq dhe fustanin blu. Lidhëza \"dhe\" është lidhëz bashkërenditëse shtuese.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "10. Blerta banon në një shtëpi pranë detit. Fjala \"në\" është parafjalë e rasës kallëzore.", answers: ["E saktë", "E gabuar"], correct: 0 }
     ];
 
     let currentQuestion = 0;
@@ -211,9 +211,6 @@
             score++;
         } else {
             button.classList.add("wrong");
-            // Opsionale: Mund të zbulosh përgjigjen e saktë kur përdoruesi gabon
-            // const buttons = document.querySelectorAll("#answers button");
-            // buttons[correctIndex].classList.add("correct");
         }
 
         disableButtons();
