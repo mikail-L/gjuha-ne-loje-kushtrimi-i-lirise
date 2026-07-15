@@ -2,7 +2,7 @@
 <html lang="sq">
 <head>
     <meta charset="UTF-8">
-    <title>Gjeni antonimet</title>
+    <title>Formoni fjalë të prejardhura</title>
     <style>
         body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #fafafa; }
         .game-card { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 500px; text-align: center; }
@@ -19,7 +19,7 @@
 <div class="game-card">
     <div class="stats">
         <div class="stat-item">Pikë<br><span id="score" class="stat-value">0/10</span></div>
-        <div class="stat-item">Koha<br><span id="timer-display" class="stat-value">20s</span></div>
+        <div class="stat-item">Koha e mbetur<br><span id="timer-display" class="stat-value">20s</span></div>
     </div>
 
     <h2 id="word-display">...</h2>
@@ -27,7 +27,7 @@
         <button onclick="insertChar('ë')" style="width: 45px; margin-right: 5px; padding: 5px; background-color: #f0f0f0; color: #333; border: 1px solid #d67d60;">ë</button>
         <button onclick="insertChar('ç')" style="width: 45px; padding: 5px; background-color: #f0f0f0; color: #333; border: 1px solid #d67d60;">ç</button>
     </div>
-    <input type="text" id="user-input" placeholder="Shkruani antonimin...">
+    <input type="text" id="user-input" placeholder="Shkruani fjalën e prejardhur...">
     <button onclick="checkAnswer()">Fjala tjetër</button>
     
     <div id="result-container" style="display: none; margin-top: 20px;">
@@ -40,16 +40,16 @@
 
 <script>
     const wordList = [
-        { word: "shkurt", antonym: "gjatë" },
-        { word: "qan", antonym: "qesh" },
-        { word: "natë", antonym: "ditë" },
-        { word: "i vogël", antonym: "i madh" },
-        { word: "vesh", antonym: "zhvesh" },
-        { word: "mirë", antonym: "keq" },
-        { word: "hap", antonym: "mbyll" },
-        { word: "i lig", antonym: "i mirë" },
-        { word: "dal", antonym: "hyj" },
-        { word: "dashuri", antonym: "urrejtje" }
+        { word: "palos", result: "shpalos" },
+        { word: "vesh", result: "zhvesh" },
+        { word: "organizoj", result: "çorganizoj" },
+        { word: "njerëzor", result: "çnjerëzor" },
+        { word: "liroj", result: "çliroj" },
+        { word: "bëj", result: "zhbëj" },
+        { word: "vendos", result: "zhvendos" },
+        { word: "thur", result: "shthur" },
+        { word: "armatim", result: "çarmatim" },
+        { word: "rregulloj", result: "çrregulloj" }
     ];
 
     let currentPair = {}, score = 0, total = 0, usedWords = [], wordTimer;
@@ -100,7 +100,7 @@
     function checkAnswer() {
         clearInterval(wordTimer);
         let input = document.getElementById("user-input").value.trim().toLowerCase();
-        if (input === currentPair.antonym.toLowerCase()) {
+        if (input === currentPair.result.toLowerCase()) {
             score++;
         }
         total++;

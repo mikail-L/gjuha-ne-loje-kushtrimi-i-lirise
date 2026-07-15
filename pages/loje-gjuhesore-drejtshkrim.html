@@ -2,14 +2,14 @@
 <html lang="sq">
 <head>
     <meta charset="UTF-8">
-    <title>Gjeni antonimet</title>
+    <title>Shkruani drejt fjalët</title>
     <style>
         body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #fafafa; }
         .game-card { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 500px; text-align: center; }
         .stats { display: flex; justify-content: space-between; margin-bottom: 30px; }
         .stat-item { text-align: center; }
         .stat-value { font-size: 1.5em; font-weight: bold; color: #d67d60; }
-        #word-display { font-size: 3em; color: #d67d60; margin: 40px 0; }
+        #word-display { font-size: 2.5em; color: #d67d60; margin: 40px 0; }
         input { width: 100%; padding: 15px; margin-bottom: 20px; border: 1px solid #d67d60; border-radius: 8px; box-sizing: border-box; }
         button { width: 100%; padding: 15px; background-color: #d67d60; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1em; }
     </style>
@@ -22,12 +22,13 @@
         <div class="stat-item">Koha<br><span id="timer-display" class="stat-value">20s</span></div>
     </div>
 
+    <p>Shkruani formën e saktë:</p>
     <h2 id="word-display">...</h2>
     <div id="char-buttons" style="margin-bottom: 10px;">
         <button onclick="insertChar('ë')" style="width: 45px; margin-right: 5px; padding: 5px; background-color: #f0f0f0; color: #333; border: 1px solid #d67d60;">ë</button>
         <button onclick="insertChar('ç')" style="width: 45px; padding: 5px; background-color: #f0f0f0; color: #333; border: 1px solid #d67d60;">ç</button>
     </div>
-    <input type="text" id="user-input" placeholder="Shkruani antonimin...">
+    <input type="text" id="user-input" placeholder="Shkruani fjalën saktë...">
     <button onclick="checkAnswer()">Fjala tjetër</button>
     
     <div id="result-container" style="display: none; margin-top: 20px;">
@@ -40,16 +41,16 @@
 
 <script>
     const wordList = [
-        { word: "shkurt", antonym: "gjatë" },
-        { word: "qan", antonym: "qesh" },
-        { word: "natë", antonym: "ditë" },
-        { word: "i vogël", antonym: "i madh" },
-        { word: "vesh", antonym: "zhvesh" },
-        { word: "mirë", antonym: "keq" },
-        { word: "hap", antonym: "mbyll" },
-        { word: "i lig", antonym: "i mirë" },
-        { word: "dal", antonym: "hyj" },
-        { word: "dashuri", antonym: "urrejtje" }
+        { word: "pjestim", correct: "pjesëtim" },
+        { word: "amëtar", correct: "amtar" },
+        { word: "ëndërra", correct: "ëndrra" },
+        { word: "i pjesëshëm", correct: "i pjesshëm" },
+        { word: "gjithësej", correct: "gjithsej" },
+        { word: "thellsi", correct: "thellësi" },
+        { word: "Antar", correct: "anëtar" },
+        { word: "gënjeshtëra", correct: "gënjeshtra" },
+        { word: "drejtsi", correct: "drejtësi" },
+        { word: "armiqsi", correct: "armiqësi" }
     ];
 
     let currentPair = {}, score = 0, total = 0, usedWords = [], wordTimer;
@@ -100,7 +101,7 @@
     function checkAnswer() {
         clearInterval(wordTimer);
         let input = document.getElementById("user-input").value.trim().toLowerCase();
-        if (input === currentPair.antonym.toLowerCase()) {
+        if (input === currentPair.correct.toLowerCase()) {
             score++;
         }
         total++;

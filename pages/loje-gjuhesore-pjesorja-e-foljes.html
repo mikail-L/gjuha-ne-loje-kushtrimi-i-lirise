@@ -2,7 +2,7 @@
 <html lang="sq">
 <head>
     <meta charset="UTF-8">
-    <title>Gjeni antonimet</title>
+    <title>Gjeni pjesoren</title>
     <style>
         body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #fafafa; }
         .game-card { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 500px; text-align: center; }
@@ -18,7 +18,9 @@
 
 <div class="game-card">
     <div class="stats">
-        <div class="stat-item">Pikë<br><span id="score" class="stat-value">0/10</span></div>
+        <div class="stat-item">Pikë<br><span id="score" class="stat-value">0</span></div>
+        <div class="stat-item">Saktë<br><span id="correct" class="stat-value">0/0</span></div>
+        <div class="stat-item">Radhazi<br><span id="streak" class="stat-value">0</span></div>
         <div class="stat-item">Koha<br><span id="timer-display" class="stat-value">20s</span></div>
     </div>
 
@@ -27,32 +29,32 @@
         <button onclick="insertChar('ë')" style="width: 45px; margin-right: 5px; padding: 5px; background-color: #f0f0f0; color: #333; border: 1px solid #d67d60;">ë</button>
         <button onclick="insertChar('ç')" style="width: 45px; padding: 5px; background-color: #f0f0f0; color: #333; border: 1px solid #d67d60;">ç</button>
     </div>
-    <input type="text" id="user-input" placeholder="Shkruani antonimin...">
+    <input type="text" id="user-input" placeholder="Shkruani pjesoren...">
     <button onclick="checkAnswer()">Fjala tjetër</button>
+    <button onclick="location.href='../index.html'" style="background-color: #999; margin-top: 10px;">Kthehuni në faqen kryesore</button>
     
     <div id="result-container" style="display: none; margin-top: 20px;">
         <h2>Loja përfundoi!</h2>
         <p id="final-score" style="font-size: 1.5em; font-weight: bold;"></p>
         <button onclick="location.reload()">Luani përsëri</button>
-        <button onclick="location.href='../index.html'" style="background-color: #999; margin-top: 10px;">Kthehuni në faqen kryesore</button>
     </div>
 </div>
 
 <script>
     const wordList = [
-        { word: "shkurt", antonym: "gjatë" },
-        { word: "qan", antonym: "qesh" },
-        { word: "natë", antonym: "ditë" },
-        { word: "i vogël", antonym: "i madh" },
-        { word: "vesh", antonym: "zhvesh" },
-        { word: "mirë", antonym: "keq" },
-        { word: "hap", antonym: "mbyll" },
-        { word: "i lig", antonym: "i mirë" },
-        { word: "dal", antonym: "hyj" },
-        { word: "dashuri", antonym: "urrejtje" }
+        { word: "punoj", participle: "punuar" },
+        { word: "jam", participle: "qenë" },
+        { word: "dal", participle: "dalë" },
+        { word: "kam", participle: "pasur" },
+        { word: "di", participle: "ditur" },
+        { word: "mësoj", participle: "mësuar" },
+        { word: "kap", participle: "kapur" },
+        { word: "bëj", participle: "bërë" },
+        { word: "përkrah", participle: "përkrahur" },
+        { word: "bisedoj", participle: "biseduar" }
     ];
 
-    let currentPair = {}, score = 0, total = 0, usedWords = [], wordTimer;
+    let currentPair = {}, score = 0, correct = 0, total = 0, streak = 0, usedWords = [], wordTimer;
     const TIME_LIMIT = 20;
 
     function startTimer() {
@@ -65,13 +67,14 @@
             if (timeLeft <= 0) {
                 clearInterval(wordTimer);
                 total++; 
+                document.getElementById("correct").innerText = `${correct}/${total}`;
                 loadNewWord();
             }
         }, 1000);
     }
 
     function loadNewWord() {
-        if (total >= wordList.length) {
+        if (usedWords.length === wordList.length) {
             clearInterval(wordTimer);
             document.getElementById("word-display").style.display = "none";
             document.getElementById("user-input").style.display = "none";
@@ -81,7 +84,7 @@
 
             const resCont = document.getElementById("result-container");
             resCont.style.display = "block";
-            document.getElementById("final-score").innerText = `Rezultati përfundimtar: ${score}/10`;
+            document.getElementById("final-score").innerText = `Rezultati përfundimtar: ${score} pikë`;
             return;
         }
 
@@ -100,11 +103,15 @@
     function checkAnswer() {
         clearInterval(wordTimer);
         let input = document.getElementById("user-input").value.trim().toLowerCase();
-        if (input === currentPair.antonym.toLowerCase()) {
-            score++;
+        if (input === currentPair.participle.toLowerCase()) {
+            score += 10; streak++; correct++;
+        } else {
+            streak = 0;
         }
         total++;
-        document.getElementById("score").innerText = score + "/10";
+        document.getElementById("score").innerText = score;
+        document.getElementById("correct").innerText = `${correct}/${total}`;
+        document.getElementById("streak").innerText = streak;
         loadNewWord();
     }
 
