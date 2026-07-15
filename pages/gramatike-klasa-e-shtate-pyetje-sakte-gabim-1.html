@@ -6,7 +6,7 @@
     <title>Lojë Quiz</title>
     <style>
         /* =========================================
-           All CSS Included Directly
+           All CSS Included Directly to Fix Linking
            ========================================= */
         :root {
             --primary-blue: #1a73e8;       
@@ -19,6 +19,7 @@
             --border-radius: 12px;
             --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             --transition-speed: 0.2s;
+            --text-muted: #5f6368;
         }
 
         body {
@@ -43,6 +44,7 @@
             color: var(--primary-blue);
             margin-top: 0;
             margin-bottom: 12px;
+            line-height: 1.4;
         }
 
         .card {
@@ -77,7 +79,7 @@
             border: 1px solid var(--border-color);
         }
 
-        .btn-outline:hover {
+        .btn-outline:hover:not(:disabled) {
             background-color: var(--bg-light);
             border-color: var(--primary-blue);
             color: var(--primary-blue);
@@ -106,7 +108,7 @@
         /* Quiz Specific */
         #timer {
             font-weight: 500;
-            color: #5f6368;
+            color: var(--text-muted);
             margin-bottom: 24px;
         }
 
@@ -136,7 +138,6 @@
 </head>
 <body>
 
-<!-- Notice how the classes here match the CSS now -->
 <div class="main-content">
     <div class="card" id="quiz-card">
         <h2 id="question">Pyetja</h2>
@@ -152,46 +153,16 @@
 
 <script>
     const quiz = [
-        {
-            question: "1. Ftesa është:",
-            answers: ["A) një tregim i shkurtër;", "B) një tekst funksional për të ftuar dikë;", "C) një mjet elektronik;", "D) një lajm."],
-            correct: 1
-        },
-        {
-            question: "2. Gjinitë letrare janë:",
-            answers: ["A) poezia, romani, tregimi;", "B) përralla, fabula, legjenda;", "C) epika, lirika, dramatika;", "D) komedia, tragjedia, drama."],
-            correct: 2
-        },
-        {
-            question: "3. Veprat që kanë si qëllim rrëfimin përfshihen në:",
-            answers: ["A) gjininë epike;", "B) gjininë dramatike;", "C) gjininë lirike;", "D) tekstin poetik."],
-            correct: 0
-        },
-        {
-            question: "4. Te fragmenti ''Kënga e Rolandit'', Rolandi nuk pranoi t'i binte bririt, sepse:",
-            answers: ["A) ishte krenar;", "B) ishte betuar që do të luftonte deri në vdekje për Francën;", "C) ishte mendjemadh;", "D) nuk i dhimbsej ushtria e tij."],
-            correct: 1
-        },
-        {
-            question: "5. I përket letërsisë gojore:",
-            answers: ["A) E bija e Hënës dhe e Diellit;", "B) Nuk është e lehtë të harrosh;", "C) Poezia e parë;", "D) Kënga e Rolandit."],
-            correct: 3
-        },
-        {
-            question: "6. Poezia ''Mëngjes'' është shkruar nga poeti:",
-            answers: ["A) Naim Frashëri;", "B) Ndre Mjeda;", "C) Lasgush Poradeci;", "D) Ismail Kadare."],
-            correct: 2
-        },
-        {
-            question: "7. Mesazhi se e ardhmja e një kombi varet nga brezi i ri që ai edukon, del te poezia:",
-            answers: ["A) ''Deti'' F.Arapi;", "B) ''Me jetue'' A.Podrimja;", "C) ''Atdheu'' N.Frashëri;", "D) ''Pamje'' Asdreni."],
-            correct: 1
-        },
-        {
-            question: "8. Figura letrare ''dielli u shua në mal'' është:",
-            answers: ["A) metaforë;", "B) personifikim;", "C) epitet;", "D) hiperbolë."],
-            correct: 0
-        }
+        { question: "1. Gjuha shqipe ka shtatë fonema zanore.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "2. Theksi në gjuhën shqipe mund të bjerë në rrokje të ndryshme.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "3. Te folja \"ndiej\", ku grupi zanor -ie ndiqet nga mbaresa -j, shkruhet me -ie.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "4. Rrënja e fjalëve gjendet duke i hequr fjalës mbaresën.", answers: ["E saktë", "E gabuar"], correct: 1 },
+        { question: "5. Fjala \"mikpritje\" është fjalë e përbërë.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "6. Fjala \"ripunoj\" është fjalë e përngjitur.", answers: ["E saktë", "E gabuar"], correct: 1 },
+        { question: "7. Fjalët: amtar, besnik, lojtar, shkruhen pa -ë.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "8. Një fjalë NUK mund të hyjë në një familje fjalësh me të cilën ka të përbashkët rrënjën.", answers: ["E saktë", "E gabuar"], correct: 1 },
+        { question: "9. Fjalët me përbërje tingëllore të ndryshme, por me kuptim të përafërt ose të njëjtë, quhen homonime.", answers: ["E saktë", "E gabuar"], correct: 1 },
+        { question: "10. Fjalët me kuptim të kundërt quhen antonime.", answers: ["E saktë", "E gabuar"], correct: 0 }
     ];
 
     let currentQuestion = 0;
@@ -223,7 +194,6 @@
         q.answers.forEach((answer, index) => {
             const btn = document.createElement("button");
             btn.innerText = answer;
-            // Added the CSS class so the javascript generates styled buttons
             btn.className = "btn btn-outline"; 
             btn.onclick = () => checkAnswer(index, btn);
             answersDiv.appendChild(btn);
@@ -258,23 +228,21 @@
         if (currentQuestion < quiz.length) {
             loadQuestion();
         } else {
-            // Formatted the results screen to match the clean card style
             let content = `
                 <h2>Quiz përfundoi 🎉</h2>
                 <p style="margin-bottom: 24px; color: var(--text-muted);">Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
             `;
 
-            if (score === 8) {
+            if (score === 10) {
                 content += `<p style="margin-bottom: 24px;">Suksesi është fryt i dijes. Urime për arritjen maksimale! 🏆</p>`;
-            } else if (score >= 6) {
+            } else if (score >= 8) {
                 content += `<p style="margin-bottom: 24px;">Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;
-            } else if (score >= 4) {
+            } else if (score >= 5) {
                 content += `<p style="margin-bottom: 24px;">Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
             } else {
                 content += `<p style="margin-bottom: 24px;">Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
             }
 
-            // Styled the return button using our btn classes
             content += `
                 <button class="btn btn-primary" onclick="window.location.href='../index.html'">
                     Kthehuni në faqen kryesore
@@ -286,17 +254,7 @@
     }
 
     loadQuestion();
-
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-

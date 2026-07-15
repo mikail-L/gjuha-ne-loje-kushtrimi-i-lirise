@@ -6,7 +6,7 @@
     <title>Lojë Quiz</title>
     <style>
         /* =========================================
-           All CSS Included Directly to Fix Linking
+           All CSS Included Directly
            ========================================= */
         :root {
             --primary-blue: #1a73e8;       
@@ -93,6 +93,10 @@
             background-color: #1557b0;
         }
 
+        .btn, .btn:visited, .btn:link {
+            color: var(--text-main) !important;
+        }
+
         /* Footer */
         footer {
             background-color: var(--footer-bg);
@@ -136,6 +140,7 @@
 </head>
 <body>
 
+<!-- Notice how the classes here match the CSS now -->
 <div class="main-content">
     <div class="card" id="quiz-card">
         <h2 id="question">Pyetja</h2>
@@ -151,16 +156,46 @@
 
 <script>
     const quiz = [
-        { question: "1. Te fjala ''rrufehedhësit'', -it është:", answers: ["A) mbaresë;", "B) prapashtesë;", "C) parashtesë;", "D) temë."], correct: 0 },
-        { question: "2. Cila fjalë është futur gabim sipas klasës ku bën pjesë?", answers: ["A) bukur;", "B) i trëndafiltë;", "C) ftohtë;", "D) lehtë."], correct: 1 },
-        { question: "3. Dalloni grupin e emrave:", answers: ["A) vrapon, mëson, dëgjon;", "B) bukur, mirë, qartë;", "C) të ecurit, të ngrohtët, të folurit;", "D) i shpejtë, e mirë, e qetë."], correct: 2 },
-        { question: "4. Në cilën alternativë ka folje në kohën e tashme, mënyra dëftore?", answers: ["A) shkroi;", "B) shkruan;", "C) do të shkruaj;", "D) kishte shkruar."], correct: 1 },
-        { question: "5. Në cilën prej alternativave kemi vetëm lidhëza bashkërenditëse?", answers: ["A) ndaj, andaj, apo, por, edhe;", "B) se, që, në, nëse, nga;", "C) porsi, sa, si, sesa, sepse;", "D) që, ku, kur, me qëllim që."], correct: 0 },
-        { question: "6. Dalloni fjalinë dëftore.", answers: ["A) A po vjen?", "B) Sa bukur!", "C) Nxënësit janë në klasë.", "D) Qetësi!"], correct: 2 },
-        { question: "7. Gjymtyrët kryesore të fjalisë janë:", answers: ["A) kallëzuesi dhe kundrinori;", "B) kryefjala dhe kallëzuesi;", "C) ndajshtimi dhe rrethanori;", "D) përcaktori dhe kundrinori."], correct: 1 },
-        { question: "8. Ai veronte në një kasolle kashte pranë lumit. Fjala ''kashte'' kryen funksionin si: ", answers: ["A) rrethanor;", "B) pëcaktor me përshtatje;", "C) përcaktor me bashkim;", "D) përcaktor me drejtim."], correct: 3 },
-        { question: "9. Ai u nis me vrap drejt mësuesit. Fjala ''me vrap'' kryen funksionin si:", answers: ["A) rrethanor;", "B) kundrinor;", "C) ndajshtim;", "D) përcaktor me drejtim."], correct: 0 },
-        { question: "10. Dalloni fjalinë e thjeshtë.", answers: ["A) Kodrinat ishin të pjerrëta dhe majat e mbuluar me borë dukeshin më larg.", "B) Luani i plagosur nuk dinte se ç'ishte frika e vdekjes.", "C) Me mijëra anije janë mbytur në këtë ngushtice të zymtë.", "D) Magelani ishte i pari që kaloi përmes asaj ngushtice."], correct: 2 }
+        {
+            question: "1. Teksti rrëfimtar letrar:",
+            answers: ["A) shpreh ndjenjat dhe sjell imazhe artistike;", "B) rrëfen ngjarje nga jeta e personazheve;", "C) përshkruan njerëz, kafshë, sende;", "D) sjell informacione nga fusha të ndryshme."],
+            correct: 1
+        },
+        {
+            question: "2. Lloj i tekstit letrar është:",
+            answers: ["A) biografia;", "B) autobiografia;", "C) novela;", "D) intervista."],
+            correct: 2
+        },
+        {
+            question: "3. Tekstet joletrare i përdorim:",
+            answers: ["A) për zhvillimin e imagjinatës;", "B) për edukimin e ndjenjave;", "C) për kënaqësinë e të lexuarit;", "D) për të pasuruar kulturën vetjake."],
+            correct: 3
+        },
+        {
+            question: "4. Njoftimi është një tekst joletrar, nëpërmjet të cilit, ai që shkruan:",
+            answers: ["A) shtjellon ngjarje të vërteta njëra pas tjetrës, sipas kohës kur kanë ndodhur;", "B) përcjell një mesazh në formën e lajmërimit për atë që e lexon;", "C) regjistron ditë për ditë gjërat që ai i konsideron më të rëndësishme;", "D) dëshiron t'i bëjë publike ngjarjet e jetës së tij."],
+            correct: 1
+        },
+        {
+            question: "5.Autori i romanit ''Hajdutja e librave'' është:",
+            answers: ["A) B.Brunet;", "B) M.Zusak;", "C) D.Hoshtfeld;", "D) M.Kuteli."],
+            correct: 1
+        },
+        {
+            question: "6. Tema e mjedisit trajtohet në tregimin:",
+            answers: ["A) ''Unë një e Çuli dy'' M.Kuteli;", "B) ''Marko Boçari'' F.Ballanca;", "C) ''Vdekja e lisnajës'' A.Papleka;", "D) ''Kërcimtarja e Dukagjinit'' E.Koliqi."],
+            correct: 2
+        },
+		{
+            question: "7. Në vargun ''E ka qerpikun si të dallëndyshes'', kemi:",
+            answers: ["A) metaforë;", "B) personfikim;", "C) epitet;", "D) krahasim."],
+            correct: 3
+        },
+		{
+            question: "8. Rima është:",
+            answers: ["A) përputhja e tingujve në fund të dy a më shumë vargjeve;", "B) përsëritja e rregullt e rrokjeve të dy a më shumë vargjeve;", "C) një grup vargjesh të lidhura ndërmjet tyre me anë të ritmit;", "D) njësi poetike që ka një ritëm."],
+            correct: 0
+        }
     ];
 
     let currentQuestion = 0;
@@ -191,8 +226,8 @@
 
         q.answers.forEach((answer, index) => {
             const btn = document.createElement("button");
+            btn.classList.add("btn", "btn-outline");
             btn.innerText = answer;
-            btn.className = "btn btn-outline"; 
             btn.onclick = () => checkAnswer(index, btn);
             answersDiv.appendChild(btn);
         });
@@ -221,46 +256,51 @@
     }
 
     function nextQuestion() {
-        currentQuestion++;
+    currentQuestion++;
 
-        if (currentQuestion < quiz.length) {
-            loadQuestion();
-        } else {
-            let content = `
-                <h2>Quiz përfundoi 🎉</h2>
-                <p style="margin-bottom: 24px; color: var(--text-muted);">Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
-            `;
+    if (currentQuestion < quiz.length) {
+        loadQuestion();
+    } else {
 
-            if (score === 10) {
-                content += `<p style="margin-bottom: 24px;">Suksesi është fryt i dijes. Urime për arritjen maksimale! 🏆</p>`;
-            } else if (score >= 8) {
-                content += `<p style="margin-bottom: 24px;">Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;
-            } else if (score >= 5) {
-                content += `<p style="margin-bottom: 24px;">Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
-            } else {
-                content += `<p style="margin-bottom: 24px;">Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
-            }
+        let content = `
+            <h2>Quiz përfundoi 🎉</h2>
+            <p>Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
+        `;
 
-            content += `
-                <button class="btn btn-primary" onclick="window.location.href='../index.html'">
-                    Kthehuni në faqen kryesore
-                </button>
-            `;
-
-            document.getElementById("quiz-card").innerHTML = content;
+        if (score === 8) {
+            content += `<p>Suksesi është fryt i dijes. Urime për arritjen maksimale! 🏆</p>`;
+		} else if (score === 7) {
+			content += `<p>Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;
+		} else if (score === 6) {
+			content += `<p>Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;
+		} else if (score === 5) {
+			content += `<p>Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
+		} else if (score === 4) {
+			content += `<p>Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
+		} else if (score === 3) {
+			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
+		} else if (score === 2) {
+			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
+		} else if (score === 1) {
+			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
+        } else if (score === 0) {
+            content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
         }
+
+        content += `
+            <button onclick="window.location.href='../index.html'">
+                Kthehuni në faqen kryesore
+            </button>
+        `;
+
+        document.querySelector(".quiz-container").innerHTML = content;
     }
+}
 
     loadQuestion();
+
 </script>
 
 </body>
+
 </html>
-
-
-
-
-
-
-
-

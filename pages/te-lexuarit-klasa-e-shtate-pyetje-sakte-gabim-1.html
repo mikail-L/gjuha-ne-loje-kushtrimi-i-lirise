@@ -6,19 +6,20 @@
     <title>Lojë Quiz</title>
     <style>
         /* =========================================
-           All CSS Included Directly to Fix Linking
-           ========================================= */
+            All CSS Included Directly to Fix Linking
+            ========================================= */
         :root {
-            --primary-blue: #1a73e8;       
-            --bg-light: #f8f9fa;           
+            --primary-blue: #1a73e8;        
+            --bg-light: #f8f9fa;            
             --card-bg: #ffffff;            
-            --text-main: #3c4043;          
+            --text-main: #3c4043;           
             --border-color: #dadce0;
             --footer-bg: #303134;
             --footer-text: #e8eaed;
             --border-radius: 12px;
             --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             --transition-speed: 0.2s;
+            --text-muted: #5f6368;
         }
 
         body {
@@ -43,6 +44,7 @@
             color: var(--primary-blue);
             margin-top: 0;
             margin-bottom: 12px;
+            line-height: 1.4;
         }
 
         .card {
@@ -77,7 +79,7 @@
             border: 1px solid var(--border-color);
         }
 
-        .btn-outline:hover {
+        .btn-outline:hover:not(:disabled) {
             background-color: var(--bg-light);
             border-color: var(--primary-blue);
             color: var(--primary-blue);
@@ -106,7 +108,7 @@
         /* Quiz Specific */
         #timer {
             font-weight: 500;
-            color: #5f6368;
+            color: var(--text-muted);
             margin-bottom: 24px;
         }
 
@@ -151,16 +153,16 @@
 
 <script>
     const quiz = [
-        { question: "1. Te fjala ''rrufehedhësit'', -it është:", answers: ["A) mbaresë;", "B) prapashtesë;", "C) parashtesë;", "D) temë."], correct: 0 },
-        { question: "2. Cila fjalë është futur gabim sipas klasës ku bën pjesë?", answers: ["A) bukur;", "B) i trëndafiltë;", "C) ftohtë;", "D) lehtë."], correct: 1 },
-        { question: "3. Dalloni grupin e emrave:", answers: ["A) vrapon, mëson, dëgjon;", "B) bukur, mirë, qartë;", "C) të ecurit, të ngrohtët, të folurit;", "D) i shpejtë, e mirë, e qetë."], correct: 2 },
-        { question: "4. Në cilën alternativë ka folje në kohën e tashme, mënyra dëftore?", answers: ["A) shkroi;", "B) shkruan;", "C) do të shkruaj;", "D) kishte shkruar."], correct: 1 },
-        { question: "5. Në cilën prej alternativave kemi vetëm lidhëza bashkërenditëse?", answers: ["A) ndaj, andaj, apo, por, edhe;", "B) se, që, në, nëse, nga;", "C) porsi, sa, si, sesa, sepse;", "D) që, ku, kur, me qëllim që."], correct: 0 },
-        { question: "6. Dalloni fjalinë dëftore.", answers: ["A) A po vjen?", "B) Sa bukur!", "C) Nxënësit janë në klasë.", "D) Qetësi!"], correct: 2 },
-        { question: "7. Gjymtyrët kryesore të fjalisë janë:", answers: ["A) kallëzuesi dhe kundrinori;", "B) kryefjala dhe kallëzuesi;", "C) ndajshtimi dhe rrethanori;", "D) përcaktori dhe kundrinori."], correct: 1 },
-        { question: "8. Ai veronte në një kasolle kashte pranë lumit. Fjala ''kashte'' kryen funksionin si: ", answers: ["A) rrethanor;", "B) pëcaktor me përshtatje;", "C) përcaktor me bashkim;", "D) përcaktor me drejtim."], correct: 3 },
-        { question: "9. Ai u nis me vrap drejt mësuesit. Fjala ''me vrap'' kryen funksionin si:", answers: ["A) rrethanor;", "B) kundrinor;", "C) ndajshtim;", "D) përcaktor me drejtim."], correct: 0 },
-        { question: "10. Dalloni fjalinë e thjeshtë.", answers: ["A) Kodrinat ishin të pjerrëta dhe majat e mbuluar me borë dukeshin më larg.", "B) Luani i plagosur nuk dinte se ç'ishte frika e vdekjes.", "C) Me mijëra anije janë mbytur në këtë ngushtice të zymtë.", "D) Magelani ishte i pari që kaloi përmes asaj ngushtice."], correct: 2 }
+        { question: "1. Tekstet joletrare i përdorim çdo ditë në marrëdhëniet e zakonshme shoqërore.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "2. Autobiografia është historia e vetë shkruesit, prandaj ajo shkruhet në vetën e parë.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "3. Intervista është lloj i tekstit letrar.", answers: ["E saktë", "E gabuar"], correct: 1 },
+        { question: "4. Qëllimi i udhëzuesit turistik është të bindë lexuesin për vlerat e një vendi dhe ta nxisë atë për ta vizituar atë vend.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "5. Legjenda është një rrëfim i shkurtër popullor, ku elementet reale ( vendet, heronjtë etj.) gërshetohen me elementet fantastike.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "6. Mesazhi që përmban reportazhi social ka për qëllim t'i bëjë njerëzit të vetëdijshëm për të ndryshuar situatën.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "7. \"Zëra nga Çernobili\" është shkruar nga gazetarja Svetlana Aleksieviç.", answers: ["E saktë", "E gabuar"], correct: 0 },
+        { question: "8. \"Zëra nga Çernobili\" NUK është libër me intervista në formë monologu.", answers: ["E saktë", "E gabuar"], correct: 1 },
+        { question: "9. Teksti enciklopedik është tekst letrar që përdoret për botime enciklopedike.", answers: ["E saktë", "E gabuar"], correct: 1 },
+        { question: "10. Botimet enciklopedike përfshijnë njohuri nga të gjitha fushat e dijes njerëzore: historia, arti, shkenca, teknologjia etj.", answers: ["E saktë", "E gabuar"], correct: 0 }
     ];
 
     let currentQuestion = 0;
@@ -256,11 +258,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-

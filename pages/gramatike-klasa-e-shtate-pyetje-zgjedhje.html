@@ -93,6 +93,10 @@
             background-color: #1557b0;
         }
 
+        .btn, .btn:visited, .btn:link {
+            color: var(--text-main) !important;
+        }
+
         /* Footer */
         footer {
             background-color: var(--footer-bg);
@@ -151,16 +155,56 @@
 
 <script>
     const quiz = [
-        { question: "1. Te fjala ''rrufehedhësit'', -it është:", answers: ["A) mbaresë;", "B) prapashtesë;", "C) parashtesë;", "D) temë."], correct: 0 },
-        { question: "2. Cila fjalë është futur gabim sipas klasës ku bën pjesë?", answers: ["A) bukur;", "B) i trëndafiltë;", "C) ftohtë;", "D) lehtë."], correct: 1 },
-        { question: "3. Dalloni grupin e emrave:", answers: ["A) vrapon, mëson, dëgjon;", "B) bukur, mirë, qartë;", "C) të ecurit, të ngrohtët, të folurit;", "D) i shpejtë, e mirë, e qetë."], correct: 2 },
-        { question: "4. Në cilën alternativë ka folje në kohën e tashme, mënyra dëftore?", answers: ["A) shkroi;", "B) shkruan;", "C) do të shkruaj;", "D) kishte shkruar."], correct: 1 },
-        { question: "5. Në cilën prej alternativave kemi vetëm lidhëza bashkërenditëse?", answers: ["A) ndaj, andaj, apo, por, edhe;", "B) se, që, në, nëse, nga;", "C) porsi, sa, si, sesa, sepse;", "D) që, ku, kur, me qëllim që."], correct: 0 },
-        { question: "6. Dalloni fjalinë dëftore.", answers: ["A) A po vjen?", "B) Sa bukur!", "C) Nxënësit janë në klasë.", "D) Qetësi!"], correct: 2 },
-        { question: "7. Gjymtyrët kryesore të fjalisë janë:", answers: ["A) kallëzuesi dhe kundrinori;", "B) kryefjala dhe kallëzuesi;", "C) ndajshtimi dhe rrethanori;", "D) përcaktori dhe kundrinori."], correct: 1 },
-        { question: "8. Ai veronte në një kasolle kashte pranë lumit. Fjala ''kashte'' kryen funksionin si: ", answers: ["A) rrethanor;", "B) pëcaktor me përshtatje;", "C) përcaktor me bashkim;", "D) përcaktor me drejtim."], correct: 3 },
-        { question: "9. Ai u nis me vrap drejt mësuesit. Fjala ''me vrap'' kryen funksionin si:", answers: ["A) rrethanor;", "B) kundrinor;", "C) ndajshtim;", "D) përcaktor me drejtim."], correct: 0 },
-        { question: "10. Dalloni fjalinë e thjeshtë.", answers: ["A) Kodrinat ishin të pjerrëta dhe majat e mbuluar me borë dukeshin më larg.", "B) Luani i plagosur nuk dinte se ç'ishte frika e vdekjes.", "C) Me mijëra anije janë mbytur në këtë ngushtice të zymtë.", "D) Magelani ishte i pari që kaloi përmes asaj ngushtice."], correct: 2 }
+        {
+            question: "1. Fjala e përngjitur është:",
+            answers: ["A) ulur;", "B) gjithmonë;", "C) punëtor;", "D) ribëj."],
+            correct: 1
+        },
+        {
+            question: "2. Dalloni fjalët e shkruara gabim:",
+            answers: ["A) baras, rishtas, fytas;", "B) barazi, rishtazi, haptazi;", "C) standarde, digjte, humbte;", "D) barasi, rishtasi, fytasi."],
+            correct: 3
+        },
+        {
+            question: "3. Emër i dygjinishëm është:",
+            answers: ["A) male;", "B) të mësuarit;", "C) shoqe;", "D) kodra."],
+            correct: 0
+        },
+        {
+            question: "4. Mbiemri në shkallën sipërore është në fjalinë:",
+            answers: ["A) Vajza dukej e bukur sot.", "B) Ajo ishte shumë e bukur.", "C) Sot i mbarova mësimet më shpejt se zakonisht.", "D) E veshi vajzën e vogël bukur dhe u nis për në festë."],
+            correct: 1
+        },
+        {
+            question: "5. Unë jam ulur në një stol. Folja ''jam'' është:",
+            answers: ["A) me kuptim të plotë leksikor;", "B) folje gjysmëndihmëse;", "C) folje ndihmëse;", "D) me vlerë modale."],
+            correct: 2
+        },
+		{
+            question: "6. Dalloni fjalinë ku është përdorur trajta e shkurtër.",
+            answers: ["A) Nëna u tregoi fëmijëve ushqimin.", "B) Ajo u nis për në punë.", "C) Ne kemi dëshirë ta shikojmë ndeshjen.", "D) Mos u mërzit, gjërat do të rregullohen."],
+            correct: 0
+        },
+		{
+            question: "7. Dalloni kundrinorin e zhdrejtë pa parafjalë.",
+            answers: ["A) Kjo gjë dihet nga të gjithë.", "B) Papritur e humba nga sytë, por e rigjeta përsëri.", "C) Jetoni për Shqipërinë dhe punoni për të.", "D) Atij i erdhi keq për nënën."],
+            correct: 3
+        },
+		{
+            question: "8. Cila nga alternativat ka kallëzues emëror?",
+            answers: ["A) Babai ishte nisur herët.", "B) Qielli ishte i vrenjtur.", "C) Fjala kishte marrë dhenë.", "D) Kjo detyrë qenka punuar me kujdes."],
+            correct: 1
+        },
+		{
+            question: "9. Cila fjali ka rrethanor shkaku?",
+            answers: ["A) Ata vijnë këtu për punë.", "B) Nesër kemi konkurs midis klasave.", "C) Nxënësja nga Durrësi u zgjodh fituese në atë konkurs.", "D) Sytë i shkëlqenin nga lumturia."],
+            correct: 3
+        },
+		{
+            question: "10. Dalloni fjalinë e përbërë me bashkërenditje.",
+            answers: ["A) Meqë ishte ftohtë, ndezëm dhe zjarrin.", "B) Dimë se Toka rrotullohet rreth Diellit.", "C) Dikush përshëndeti, por ai nuk e vuri re.", "D) Edhe historitë që unë tregoj i kam mësuar prej tij."],
+            correct: 2
+        }
     ];
 
     let currentQuestion = 0;
@@ -191,8 +235,8 @@
 
         q.answers.forEach((answer, index) => {
             const btn = document.createElement("button");
+            btn.classList.add("btn", "btn-outline");
             btn.innerText = answer;
-            btn.className = "btn btn-outline"; 
             btn.onclick = () => checkAnswer(index, btn);
             answersDiv.appendChild(btn);
         });
@@ -221,46 +265,55 @@
     }
 
     function nextQuestion() {
-        currentQuestion++;
+    currentQuestion++;
 
-        if (currentQuestion < quiz.length) {
-            loadQuestion();
-        } else {
-            let content = `
-                <h2>Quiz përfundoi 🎉</h2>
-                <p style="margin-bottom: 24px; color: var(--text-muted);">Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
-            `;
+    if (currentQuestion < quiz.length) {
+        loadQuestion();
+    } else {
 
-            if (score === 10) {
-                content += `<p style="margin-bottom: 24px;">Suksesi është fryt i dijes. Urime për arritjen maksimale! 🏆</p>`;
-            } else if (score >= 8) {
-                content += `<p style="margin-bottom: 24px;">Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;
-            } else if (score >= 5) {
-                content += `<p style="margin-bottom: 24px;">Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
-            } else {
-                content += `<p style="margin-bottom: 24px;">Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
-            }
+        let content = `
+            <h2>Quiz përfundoi 🎉</h2>
+            <p>Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
+        `;
 
-            content += `
-                <button class="btn btn-primary" onclick="window.location.href='../index.html'">
-                    Kthehuni në faqen kryesore
-                </button>
-            `;
-
-            document.getElementById("quiz-card").innerHTML = content;
+        if (score === 10) {
+            content += `<p>Suksesi është fryt i dijes. Urime për arritjen maksimale! 🏆</p>`;
+		} else if (score === 9) {
+			content += `<p>Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;
+		} else if (score === 8) {
+			content += `<p>Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;
+		} else if (score === 7) {
+			content += `<p>Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
+		} else if (score === 6) {
+			content += `<p>Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
+		} else if (score === 5) {
+			content += `<p>Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
+		} else if (score === 4) {
+			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
+		} else if (score === 3) {
+			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
+		} else if (score === 2) {
+			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
+		} else if (score === 1) {
+			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
+        } else if (score === 0) {
+            content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
         }
+
+        content += `
+            <button onclick="window.location.href='../index.html'">
+                Kthehuni në faqen kryesore
+            </button>
+        `;
+
+        document.querySelector(".quiz-container").innerHTML = content;
     }
+}
 
     loadQuestion();
+
 </script>
 
 </body>
+
 </html>
-
-
-
-
-
-
-
-

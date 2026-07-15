@@ -1,311 +1,118 @@
 <!DOCTYPE html>
 <html lang="sq">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lojë Quiz</title>
-    <style>
-        /* =========================================
-           All CSS Included Directly
-           ========================================= */
-        :root {
-            --primary-blue: #1a73e8;       
-            --bg-light: #f8f9fa;           
-            --card-bg: #ffffff;            
-            --text-main: #3c4043;          
-            --border-color: #dadce0;
-            --footer-bg: #303134;
-            --footer-text: #e8eaed;
-            --border-radius: 12px;
-            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            --transition-speed: 0.2s;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Klasa e shtatë</title>
+  <style>
+    :root {
+      --primary-blue: #1a73e8;       
+      --bg-light: #f8f9fa;           
+      --card-bg: #ffffff;            
+      --text-main: #3c4043;          
+      --border-color: #dadce0;
+      --footer-bg: #303134;
+      --footer-text: #e8eaed;
+      --border-radius: 12px;
+      --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      --transition-speed: 0.2s;
+    }
 
-        body {
-            margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-light);
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
-        .main-content {
-            flex: 1; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
+    .main-content {
+      flex: 1; 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
 
-        h2 {
-            color: var(--primary-blue);
-            margin-top: 0;
-            margin-bottom: 12px;
-        }
+    h1 {
+      color: var(--primary-blue);
+      margin-top: 0;
+      margin-bottom: 24px;
+    }
 
-        .card {
-            background-color: var(--card-bg);
-            padding: 32px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            text-align: center;
-            width: 100%;
-            max-width: 520px;
-        }
+    .card {
+      background-color: var(--card-bg);
+      padding: 32px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      text-align: center;
+      width: 100%;
+      max-width: 520px;
+    }
 
-        /* Button Styles */
-        .btn {
-            display: block;
-            padding: 14px 16px;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all var(--transition-speed) ease;
-            box-sizing: border-box;
-            text-align: center;
-            width: 100%;
-            margin-bottom: 12px;
-        }
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
 
-        .btn-outline {
-            background: white;
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-        }
+    .btn {
+      display: block;
+      padding: 14px 16px;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all var(--transition-speed) ease;
+      box-sizing: border-box;
+      text-align: center;
+      width: 100%;
+    }
 
-        .btn-outline:hover {
-            background-color: var(--bg-light);
-            border-color: var(--primary-blue);
-            color: var(--primary-blue);
-        }
+    .btn-outline {
+      background: white;
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+    }
 
-        .btn-primary {
-            background-color: var(--primary-blue);
-            color: white;
-            border: none;
-        }
+    .btn-outline:hover {
+      background-color: var(--bg-light);
+      border-color: var(--primary-blue);
+      color: var(--primary-blue);
+    }
 
-        .btn-primary:hover {
-            background-color: #1557b0;
-        }
-
-        .btn, .btn:visited, .btn:link {
-            color: var(--text-main) !important;
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--footer-bg);
-            color: var(--footer-text);
-            text-align: center;
-            padding: 16px;
-            font-size: 14px;
-            margin-top: auto;
-        }
-
-        /* Quiz Specific */
-        #timer {
-            font-weight: 500;
-            color: #5f6368;
-            margin-bottom: 24px;
-        }
-
-        #answers {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 10px;
-        }
-
-        .correct {
-            background-color: #34a853 !important; 
-            color: white !important;
-            border-color: #34a853 !important;
-        }
-
-        .wrong {
-            background-color: #ea4335 !important; 
-            color: white !important;
-            border-color: #ea4335 !important;
-        }
-
-        #nextBtn {
-            display: none;
-            margin-top: 20px;
-        }
-    </style>
+    footer {
+      background-color: var(--footer-bg);
+      color: var(--footer-text);
+      text-align: center;
+      padding: 16px;
+      font-size: 14px;
+      margin-top: auto;
+    }
+  </style>
 </head>
 <body>
-
-<!-- Notice how the classes here match the CSS now -->
-<div class="main-content">
-    <div class="card" id="quiz-card">
-        <h2 id="question">Pyetja</h2>
-        <div id="timer">Koha: 40</div>
-        <div id="answers"></div>
-        <button id="nextBtn" class="btn btn-primary" onclick="nextQuestion()">Pyetja tjetër</button>
+  
+  <div class="main-content">
+    <div class="card">
+      <h1>Te lexuarit e teksteve të ndryshme</h1>
+      <div class="button-group">
+        <a class="btn btn-outline" href="te-lexuarit-klasa-e-shtate-pyetje-zgjedhje.html
+">Pyetje me zgjedhje të shumëfishtë</a>
+        <a class="btn btn-outline" href="te-lexuarit-klasa-e-shtate-pyetje-sakte-gabim.html">Pyetje e saktë/e gabuar</a>
+      </div>
     </div>
-</div>
+  </div>
 
-<footer>
+  <footer>
     © Gjuha në lojë - 2026
-</footer>
-
-<script>
-    const quiz = [
-        {
-            question: "1. Teksti rrëfimtar letrar:",
-            answers: ["A) shpreh ndjenjat dhe sjell imazhe artistike;", "B) rrëfen ngjarje nga jeta e personazheve;", "C) përshkruan njerëz, kafshë, sende;", "D) sjell informacione nga fusha të ndryshme."],
-            correct: 1
-        },
-        {
-            question: "2. Lloj i tekstit letrar është:",
-            answers: ["A) biografia;", "B) autobiografia;", "C) novela;", "D) intervista."],
-            correct: 2
-        },
-        {
-            question: "3. Tekstet joletrare i përdorim:",
-            answers: ["A) për zhvillimin e imagjinatës;", "B) për edukimin e ndjenjave;", "C) për kënaqësinë e të lexuarit;", "D) për të pasuruar kulturën vetjake."],
-            correct: 3
-        },
-        {
-            question: "4. Njoftimi është një tekst joletrar, nëpërmjet të cilit, ai që shkruan:",
-            answers: ["A) shtjellon ngjarje të vërteta njëra pas tjetrës, sipas kohës kur kanë ndodhur;", "B) përcjell një mesazh në formën e lajmërimit për atë që e lexon;", "C) regjistron ditë për ditë gjërat që ai i konsideron më të rëndësishme;", "D) dëshiron t'i bëjë publike ngjarjet e jetës së tij."],
-            correct: 1
-        },
-        {
-            question: "5.Autori i romanit ''Hajdutja e librave'' është:",
-            answers: ["A) B.Brunet;", "B) M.Zusak;", "C) D.Hoshtfeld;", "D) M.Kuteli."],
-            correct: 1
-        },
-        {
-            question: "6. Tema e mjedisit trajtohet në tregimin:",
-            answers: ["A) ''Unë një e Çuli dy'' M.Kuteli;", "B) ''Marko Boçari'' F.Ballanca;", "C) ''Vdekja e lisnajës'' A.Papleka;", "D) ''Kërcimtarja e Dukagjinit'' E.Koliqi."],
-            correct: 2
-        },
-		{
-            question: "7. Në vargun ''E ka qerpikun si të dallëndyshes'', kemi:",
-            answers: ["A) metaforë;", "B) personfikim;", "C) epitet;", "D) krahasim."],
-            correct: 3
-        },
-		{
-            question: "8. Rima është:",
-            answers: ["A) përputhja e tingujve në fund të dy a më shumë vargjeve;", "B) përsëritja e rregullt e rrokjeve të dy a më shumë vargjeve;", "C) një grup vargjesh të lidhura ndërmjet tyre me anë të ritmit;", "D) njësi poetike që ka një ritëm."],
-            correct: 0
-        }
-    ];
-
-    let currentQuestion = 0;
-    let score = 0;
-    let timeLeft = 40;
-    let timer;
-
-    function loadQuestion() {
-        clearInterval(timer);
-        timeLeft = 40;
-        document.getElementById("timer").innerText = "Koha: " + timeLeft;
-
-        timer = setInterval(() => {
-            timeLeft--;
-            document.getElementById("timer").innerText = "Koha: " + timeLeft;
-            if (timeLeft === 0) {
-                clearInterval(timer);
-                disableButtons();
-                document.getElementById("nextBtn").style.display = "block";
-            }
-        }, 1000);
-
-        const q = quiz[currentQuestion];
-        document.getElementById("question").innerText = q.question;
-
-        const answersDiv = document.getElementById("answers");
-        answersDiv.innerHTML = "";
-
-        q.answers.forEach((answer, index) => {
-            const btn = document.createElement("button");
-            btn.classList.add("btn", "btn-outline");
-            btn.innerText = answer;
-            btn.onclick = () => checkAnswer(index, btn);
-            answersDiv.appendChild(btn);
-        });
-
-        document.getElementById("nextBtn").style.display = "none";
-    }
-
-    function checkAnswer(index, button) {
-        clearInterval(timer);
-        const correctIndex = quiz[currentQuestion].correct;
-
-        if (index === correctIndex) {
-            button.classList.add("correct");
-            score++;
-        } else {
-            button.classList.add("wrong");
-        }
-
-        disableButtons();
-        document.getElementById("nextBtn").style.display = "block";
-    }
-
-    function disableButtons() {
-        const buttons = document.querySelectorAll("#answers button");
-        buttons.forEach(btn => btn.disabled = true);
-    }
-
-    function nextQuestion() {
-    currentQuestion++;
-
-    if (currentQuestion < quiz.length) {
-        loadQuestion();
-    } else {
-
-        let content = `
-            <h2>Quiz përfundoi 🎉</h2>
-            <p>Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
-        `;
-
-        if (score === 8) {
-            content += `<p>Suksesi është fryt i dijes. Urime për arritjen maksimale! 🏆</p>`;
-		} else if (score === 7) {
-			content += `<p>Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;
-		} else if (score === 6) {
-			content += `<p>Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;
-		} else if (score === 5) {
-			content += `<p>Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
-		} else if (score === 4) {
-			content += `<p>Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
-		} else if (score === 3) {
-			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
-		} else if (score === 2) {
-			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
-		} else if (score === 1) {
-			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
-        } else if (score === 0) {
-            content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
-        }
-
-        content += `
-            <button onclick="window.location.href='../index.html'">
-                Kthehuni në faqen kryesore
-            </button>
-        `;
-
-        document.querySelector(".quiz-container").innerHTML = content;
-    }
-}
-
-    loadQuestion();
-
-</script>
+  </footer>
 
 </body>
-
 </html>
-
-
 
 
 
