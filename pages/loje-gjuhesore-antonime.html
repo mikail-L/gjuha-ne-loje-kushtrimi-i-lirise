@@ -104,7 +104,7 @@
     function checkAnswer() {
         clearInterval(wordTimer);
         let input = document.getElementById("user-input").value.trim().toLowerCase();
-        if (input === currentPair.synonym.toLowerCase()) {
+        if (input === currentPair.antonym.toLowerCase()) {
             score += 10; streak++; correct++;
         } else {
             streak = 0;
