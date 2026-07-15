@@ -18,10 +18,9 @@
 
 <div class="game-card">
     <div class="stats">
-        <div class="stat-item">Score<br><span id="score" class="stat-value">0</span></div>
-        <div class="stat-item">Correct<br><span id="correct" class="stat-value">0/0</span></div>
-        <div class="stat-item">Streak<br><span id="streak" class="stat-value">0</span></div>
-        <div class="stat-item">Time Left<br><span id="timer-display" class="stat-value">20s</span></div>
+        <div class="stat-item">Pikë<br><span id="score" class="stat-value">0</span></div>
+        <div class="stat-item">Saktë<br><span id="correct" class="stat-value">0/0</span></div>
+        <div class="stat-item">Koha e mbetur<br><span id="timer-display" class="stat-value">20s</span></div>
     </div>
 
     <h2 id="word-display">...</h2>
@@ -31,7 +30,7 @@
         <button onclick="insertChar('ç')" style="width: 45px; padding: 5px; background-color: #f0f0f0; color: #333; border: 1px solid #d67d60;">ç</button>
     </div>
     <input type="text" id="user-input" placeholder="Enter word...">
-    <button onclick="checkAnswer()">Submit Answer</button>
+    <button onclick="checkAnswer()">Fjala tjetër</button>
     <button onclick="resetGame()" style="background-color: #999; margin-top: 10px;">Luani përsëri</button>
     
     <div id="result-container" style="display: none; margin-top: 20px;">
@@ -51,6 +50,8 @@
         { word: "kohë", synonym: "vakt" },
         { word: "vajzë", synonym: "çupë" },
         { word: "djalë", synonym: "çun" }
+        { word: "kurriz", synonym: "shpinë" }
+        { word: "ngre", synonym: "çoj" }
     ];
 
     let currentPair = {}, score = 0, correct = 0, total = 0, streak = 0, usedWords = [], wordTimer;
