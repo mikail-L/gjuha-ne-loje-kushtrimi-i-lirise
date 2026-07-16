@@ -64,6 +64,13 @@
     let timeLeft = 20;
     let timerInterval;
 
+    function initializeLayout() {
+        const grid = document.getElementById('button-grid');
+        for (let i = grid.children.length; i >= 0; i--) {
+            grid.appendChild(grid.children[Math.random() * i | 0]);
+        }
+    }
+
     function startTimer() {
         timeLeft = 20;
         document.getElementById('timer').innerText = timeLeft + "s";
