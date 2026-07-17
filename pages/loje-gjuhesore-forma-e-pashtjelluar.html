@@ -62,7 +62,7 @@
 
     let currentIndex = 0;
     let score = 0;
-    let timeLeft = 20;
+    let timeLeft = 30;
     let timerInterval;
 
     function initializeLayout() {
@@ -80,7 +80,7 @@
     }
 
     function startTimer() {
-        timeLeft = 20;
+        timeLeft = 30;
         document.getElementById('timer').innerText = timeLeft + "s";
         timerInterval = setInterval(() => {
             timeLeft--;

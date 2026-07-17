@@ -31,10 +31,10 @@
     <h1 id="word-display">nga</h1>
 
     <div class="button-grid" id="button-grid">
-        <button class="game-btn" onclick="processAnswer('rasa emërore')">Emërore</button>
-        <button class="game-btn" onclick="processAnswer('rasa gjinore')">Gjinore</button>
-        <button class="game-btn" onclick="processAnswer('rasa kallëzore')">Kallëzore</button>
-        <button class="game-btn" onclick="processAnswer('rasa rrjedhore')">Rrjedhore</button>
+        <button class="game-btn" onclick="processAnswer('rasa emërore')">Rasa emërore</button>
+        <button class="game-btn" onclick="processAnswer('rasa gjinore')">Rasa gjinore</button>
+        <button class="game-btn" onclick="processAnswer('rasa kallëzore')">Rasa kallëzore</button>
+        <button class="game-btn" onclick="processAnswer('rasa rrjedhore')">Rasa rrjedhore</button>
     </div>
 </div>
 
@@ -62,11 +62,11 @@
 
     let currentIndex = 0;
     let score = 0;
-    let timeLeft = 20;
+    let timeLeft = 30;
     let timerInterval;
 
     function startTimer() {
-        timeLeft = 20;
+        timeLeft = 30;
         document.getElementById('timer').innerText = timeLeft + "s";
         timerInterval = setInterval(() => {
             timeLeft--;

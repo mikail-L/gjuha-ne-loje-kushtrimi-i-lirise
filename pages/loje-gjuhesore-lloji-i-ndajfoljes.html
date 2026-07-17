@@ -31,12 +31,12 @@
     <h1 id="word-display">qartë</h1>
 
     <div class="button-grid" id="button-grid">
-        <button class="game-btn" onclick="processAnswer('ndajfolje mënyre')">Mënyre</button>
-        <button class="game-btn" onclick="processAnswer('ndajfolje kohe')">Kohe</button>
-        <button class="game-btn" onclick="processAnswer('ndajfolje vendi')">Vendi</button>
-        <button class="game-btn" onclick="processAnswer('ndajfolje sasie')">Sasie</button>
-        <button class="game-btn" onclick="processAnswer('ndajfolje shkaku')">Shkaku</button>
-        <button class="game-btn" onclick="processAnswer('ndajfolje qëllimi')">Qëllimi</button>
+        <button class="game-btn" onclick="processAnswer('ndajfolje mënyre')">Ndajfolje mënyre</button>
+        <button class="game-btn" onclick="processAnswer('ndajfolje kohe')">Ndajfolje kohe</button>
+        <button class="game-btn" onclick="processAnswer('ndajfolje vendi')">Ndajfolje vendi</button>
+        <button class="game-btn" onclick="processAnswer('ndajfolje sasie')">Ndajfolje sasie</button>
+        <button class="game-btn" onclick="processAnswer('ndajfolje shkaku')">Ndajfolje shkaku</button>
+        <button class="game-btn" onclick="processAnswer('ndajfolje qëllimi')">Ndajfolje qëllimi</button>
     </div>
 </div>
 
@@ -64,11 +64,11 @@
 
     let currentIndex = 0;
     let score = 0;
-    let timeLeft = 20;
+    let timeLeft = 30;
     let timerInterval;
 
     function startTimer() {
-        timeLeft = 20;
+        timeLeft = 30;
         document.getElementById('timer').innerText = timeLeft + "s";
         timerInterval = setInterval(() => {
             timeLeft--;
