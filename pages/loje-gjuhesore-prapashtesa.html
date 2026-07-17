@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <title>Formoni fjalë me prapashtesa</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #fafafa; }
+        .game-card { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 500px; text-align: center; }
+        .stats { display: flex; justify-content: space-between; margin-bottom: 30px; }
+        .stat-item { text-align: center; }
+        .stat-value { font-size: 1.5em; font-weight: bold; color: #d67d60; }
+        #word-display { font-size: 3em; color: #d67d60; margin: 40px 0; }
+        input { width: 100%; padding: 15px; margin-bottom: 20px; border: 1px solid #d67d60; border-radius: 8px; box-sizing: border-box; }
+        button { width: 100%; padding: 15px; background-color: #d67d60; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1em; }
+    </style>
+</head>
+<body>
+
+<div class="game-card">
+    <div class="stats">
+        <div class="stat-item">Pikë<br><span id="score" class="stat-value">0/10</span></div>
+        <div class="stat-item">Koha e mbetur<br><span id="timer-display" class="stat-value">20s</span></div>
+    </div>
+
+    <p>Formoni fjalë të reja me prapashtesat: -si, -ri, -shëm, -të, -tar, -tor, -ro(j)</p>
+
+    <h2 id="word-display">...</h2>
+    <div id="char-buttons" style="margin-bottom: 10px;">
+        <button onclick="insertChar('ë')" style="width: 45px; margin-right: 5px; padding: 5px; background-color: #f0f0f0; color: #333; border: 1px solid #d67d60;">ë</button>
+        <button onclick="insertChar('ç')" style="width: 45px; padding: 5px; background-color: #f0f0f0; color: #333; border: 1px solid #d67d60;">ç</button>
+    </div>
+    <input type="text" id="user-input" placeholder="Shkruani fjalën e prejardhur...">
+    <button onclick="checkAnswer()">Fjala tjetër</button>
+    
+    <div id="result-container" style="display: none; margin-top: 20px;">
+        <h2>Loja përfundoi!</h2>
+        <p id="final-score" style="font-size: 1.5em; font-weight: bold;"></p>
+        <button onclick="location.reload()">Luani përsëri</button>
+        <button onclick="location.href='index.html'" style="background-color: #999; margin-top: 10px;">Kthehuni në faqen kryesore</button>
+    </div>
+</div>
+
+<script>
+    const wordList = [
+        { word: "mirë", result: "mirësi" },
+        { word: "punë", result: "punëtor" },
+        { word: "vjershë", result: "vjershëtor" },
+        { word: "vajzë", result: "vajzëri" },
+        { word: "famë", result: "i famshëm" },
+        { word: "pesë", result: "i pestë" },
+        { word: "djalë", result: "djalëri" },
+        { word: "anë", result: "anëtar" },
+        { word: "pleh", result: "plehëroj" },
+        { word: "udhë", result: "udhëtar" }
+    ];
+
+    let currentIndex = 0, score = 0, usedIndices = [], wordTimer;
+    const TIME_LIMIT = 20;
+
+    function startTimer() {
+        let timeLeft = TIME_LIMIT;
+        document.getElementById("timer-display").innerText = timeLeft + "s";
+        clearInterval(wordTimer);
+        wordTimer = setInterval(() => {
+            timeLeft--;
+            document.getElementById("timer-display").innerText = timeLeft + "s";
+            if (timeLeft <= 0) {
+                clearInterval(wordTimer);
+                checkAnswer(); // Auto-check when time runs out
+            }
+        }, 1000);
+    }
+
+    function loadNewWord() {
+        if (usedIndices.length >= wordList.length) {
+            clearInterval(wordTimer);
+            document.getElementById("word-display").style.display = "none";
+            document.getElementById("user-input").style.display = "none";
+            document.getElementById("char-buttons").style.display = "none";
+            document.querySelector("button[onclick='checkAnswer()']").style.display = "none";
+            document.getElementById("timer-display").innerText = "0s";
+
+            const resCont = document.getElementById("result-container");
+            resCont.style.display = "block";
+            document.getElementById("final-score").innerText = `Rezultati përfundimtar: ${score}/10`;
+            return;
+        }
+
+        let index;
+        do {
+            index = Math.floor(Math.random() * wordList.length);
+        } while (usedIndices.includes(index));
+
+        usedIndices.push(index);
+        currentIndex = index;
+        document.getElementById("word-display").innerText = wordList[currentIndex].word;
+        document.getElementById("user-input").value = "";
+        startTimer(); 
+    }
+
+    function checkAnswer() {
+        clearInterval(wordTimer);
+        let input = document.getElementById("user-input").value.trim().toLowerCase();
+        if (input === wordList[currentIndex].result.toLowerCase()) {
+            score++;
+        }
+        document.getElementById("score").innerText = score + "/10";
+        loadNewWord();
+    }
+
+    function insertChar(char) {
+        const input = document.getElementById("user-input");
+        input.value += char;
+        input.focus();
+    }
+
+    document.getElementById("user-input").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") checkAnswer();
+    });
+
+    loadNewWord();
+</script>
+</body>
+</html>

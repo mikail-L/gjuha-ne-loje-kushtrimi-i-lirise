@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <title>Lojë: Dalloni llojin e lidhëzës</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #fafafa; }
+        .game-container { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 500px; text-align: center; }
+        
+        .stats { display: flex; justify-content: space-between; margin-bottom: 30px; font-weight: bold; color: #888; }
+        #word-display { font-size: 2.2rem; color: #d36a4a; margin: 20px 0; }
+        
+        .button-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 30px; }
+        .game-btn { padding: 15px 10px; background: #f5f2ed; border: 1px solid #e0dcd5; border-radius: 10px; cursor: pointer; font-weight: bold; }
+        .game-btn:hover { background: #e8e4dc; }
+        
+        #game-over { display: none; }
+        .nav-btn { margin-top: 10px; padding: 10px 20px; cursor: pointer; display: block; width: 100%; border: none; border-radius: 10px; background: #eee; }
+        .restart-btn { background: #d36a4a; color: white; }
+    </style>
+</head>
+<body>
+
+<div class="game-container" id="game-ui">
+    <div class="stats">
+        <div>Pikë: <span id="score">0</span>/10</div>
+        <div>Koha e mbetur: <span id="timer">20s</span></div>
+    </div>
+
+    <p>Dalloni llojin e lidhëzës bashkërenditëse:</p>
+    <h1 id="word-display">dhe</h1>
+
+    <div class="button-grid" id="button-grid">
+        <button class="game-btn" onclick="processAnswer('lidhëz shtuese')">Shtuese</button>
+        <button class="game-btn" onclick="processAnswer('lidhëz veçuese')">Veçuese</button>
+        <button class="game-btn" onclick="processAnswer('lidhëz kundërshtore')">Kundërshtore</button>
+        <button class="game-btn" onclick="processAnswer('lidhëz përmbyllëse')">Përmbyllëse</button>
+    </div>
+</div>
+
+<div class="game-container" id="game-over">
+    <h1>Loja përfundoi!</h1>
+    <p>Pikët tuaja përfundimtare: <span id="final-score">0</span>/10</p>
+    
+    <button class="nav-btn restart-btn" onclick="location.reload()">Luani përsëri</button>
+    <button class="nav-btn" onclick="window.location.href='index.html'">Kthehuni në faqen kryesore</button>
+</div>
+
+<script>
+    const gameData = [
+        {word: "dhe", type: "lidhëz shtuese"},
+        {word: "apo", type: "lidhëz veçuese"},
+        {word: "hem...hem", type: "lidhëz shtuese"},
+        {word: "andaj", type: "lidhëz përmbyllëse"},
+        {word: "por", type: "lidhëz kundërshtore"},
+        {word: "qoftë...qoftë", type: "lidhëz veçuese"},
+        {word: "megjithatë", type: "lidhëz kundërshtore"},
+        {word: "prandaj", type: "lidhëz përmbyllëse"},
+        {word: "as...as", type: "lidhëz shtuese"},
+        {word: "Veçse", type: "lidhëz kundërshtore"}
+    ];
+
+    let currentIndex = 0;
+    let score = 0;
+    let timeLeft = 20;
+    let timerInterval;
+
+    function startTimer() {
+        timeLeft = 20;
+        document.getElementById('timer').innerText = timeLeft + "s";
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            document.getElementById('timer').innerText = timeLeft + "s";
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                processAnswer(null);
+            }
+        }, 1000);
+    }
+
+    function processAnswer(selected) {
+        clearInterval(timerInterval);
+        if (selected === gameData[currentIndex].type) {
+            score++;
+            document.getElementById('score').innerText = score;
+        }
+        
+        currentIndex++;
+        if (currentIndex < gameData.length) {
+            document.getElementById('word-display').innerText = gameData[currentIndex].word;
+            startTimer();
+        } else {
+            document.getElementById('game-ui').style.display = 'none';
+            document.getElementById('game-over').style.display = 'block';
+            document.getElementById('final-score').innerText = score;
+        }
+    }
+
+    startTimer();
+</script>
+
+</body>
+</html>
