@@ -18,9 +18,7 @@
 
 <div class="game-card">
     <div class="stats">
-        <div class="stat-item">Pikë<br><span id="score" class="stat-value">0</span></div>
-        <div class="stat-item">Saktë<br><span id="correct" class="stat-value">0/0</span></div>
-        <div class="stat-item">Radhazi<br><span id="streak" class="stat-value">0</span></div>
+        <div class="stat-item">Pikë<br><span id="score" class="stat-value">0/10</span></div>
         <div class="stat-item">Koha<br><span id="timer-display" class="stat-value">20s</span></div>
     </div>
 
@@ -31,12 +29,12 @@
     </div>
     <input type="text" id="user-input" placeholder="Shkruani pjesoren...">
     <button onclick="checkAnswer()">Fjala tjetër</button>
-    <button onclick="location.href='../index.html'" style="background-color: #999; margin-top: 10px;">Kthehuni në faqen kryesore</button>
     
     <div id="result-container" style="display: none; margin-top: 20px;">
         <h2>Loja përfundoi!</h2>
         <p id="final-score" style="font-size: 1.5em; font-weight: bold;"></p>
         <button onclick="location.reload()">Luani përsëri</button>
+        <button onclick="location.href='index.html'" style="background-color: #999; margin-top: 10px;">Kthehuni në faqen kryesore</button>
     </div>
 </div>
 
@@ -54,7 +52,7 @@
         { word: "bisedoj", participle: "biseduar" }
     ];
 
-    let currentPair = {}, score = 0, correct = 0, total = 0, streak = 0, usedWords = [], wordTimer;
+    let currentPair = {}, score = 0, total = 0, usedWords = [], wordTimer;
     const TIME_LIMIT = 30;
 
     function startTimer() {
@@ -67,14 +65,13 @@
             if (timeLeft <= 0) {
                 clearInterval(wordTimer);
                 total++; 
-                document.getElementById("correct").innerText = `${correct}/${total}`;
                 loadNewWord();
             }
         }, 1000);
     }
 
     function loadNewWord() {
-        if (usedWords.length === wordList.length) {
+        if (total >= wordList.length) {
             clearInterval(wordTimer);
             document.getElementById("word-display").style.display = "none";
             document.getElementById("user-input").style.display = "none";
@@ -84,7 +81,7 @@
 
             const resCont = document.getElementById("result-container");
             resCont.style.display = "block";
-            document.getElementById("final-score").innerText = `Rezultati përfundimtar: ${score} pikë`;
+            document.getElementById("final-score").innerText = `Rezultati përfundimtar: ${score}/10`;
             return;
         }
 
@@ -104,14 +101,10 @@
         clearInterval(wordTimer);
         let input = document.getElementById("user-input").value.trim().toLowerCase();
         if (input === currentPair.participle.toLowerCase()) {
-            score += 10; streak++; correct++;
-        } else {
-            streak = 0;
+            score++;
         }
         total++;
-        document.getElementById("score").innerText = score;
-        document.getElementById("correct").innerText = `${correct}/${total}`;
-        document.getElementById("streak").innerText = streak;
+        document.getElementById("score").innerText = score + "/10";
         loadNewWord();
     }
 
@@ -122,7 +115,10 @@
     }
 
     document.getElementById("user-input").addEventListener("keypress", function(event) {
-        if (event.key === "Enter") checkAnswer();
+        if (event.key === "Enter") {
+            event.preventDefault();
+            checkAnswer();
+        }
     });
 
     loadNewWord();
