@@ -231,7 +231,7 @@
             correct: 1
         },
         {
-            question: "16. Çfarë kuptimi ka fjala e urtë ''Mos i bëj gropën tjetrit, se bie vetë brenda''?",
+            question: "16. Çfarë kuptimi ka fjala e urtë: ''Mos i bëj gropën tjetrit, se bie vetë brenda''?",
             answers: ["A) E keqja kthehet tek ai që e bën.", "B) Të mos bëjmë shaka.", "C) Gropa është e rrezikshme.", "D) Duhet të punosh fort."],
             correct: 0
         },
@@ -336,18 +336,17 @@
             content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
 		}
 
-        content += `
-            <button onclick="window.location.href='../index.html'">
-                Kthehuni në faqen kryesore
-            </button>
-        `;
+       content += `
+                <button class="btn btn-primary" onclick="window.location.href='../index.html'">
+                    Kthehuni në faqen kryesore
+                </button>
+            `;
 
-        document.querySelector(".quiz-container").innerHTML = content;
+            document.getElementById("quiz-card").innerHTML = content;
+        }
     }
-}
 
     loadQuestion();
-
 </script>
 
 </body>

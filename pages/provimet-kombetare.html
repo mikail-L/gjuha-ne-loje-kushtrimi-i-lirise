@@ -355,14 +355,14 @@
         else { content += "<p>Besoni në aftësitë tuaja! Çdo fillim është një hap drejt përmirësimit.  😊💡</p>"; }
 
         content += `
-            <button onclick="window.location.href='../index.html'">
-                Kthehuni në faqen kryesore
-            </button>
-        `;
+                <button class="btn btn-primary" onclick="window.location.href='../index.html'">
+                    Kthehuni në faqen kryesore
+                </button>
+            `;
 
-        document.querySelector(".quiz-container").innerHTML = content;
+            document.getElementById("quiz-card").innerHTML = content;
+        }
     }
-}
 
     loadQuestion();
 
