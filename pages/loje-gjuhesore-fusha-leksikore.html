@@ -2,14 +2,14 @@
 <html lang="sq">
 <head>
     <meta charset="UTF-8">
-    <title>Gjeni pjesoren e foljes</title>
+    <title>Përcaktoni fushën leksikore</title>
     <style>
         body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #fafafa; }
         .game-card { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 500px; text-align: center; }
         .stats { display: flex; justify-content: space-between; margin-bottom: 30px; }
         .stat-item { text-align: center; }
         .stat-value { font-size: 1.5em; font-weight: bold; color: #d67d60; }
-        #word-display { font-size: 3em; color: #d67d60; margin: 40px 0; }
+        #word-display { font-size: 2.2em; color: #d67d60; margin: 40px 0; }
         input { width: 100%; padding: 15px; margin-bottom: 20px; border: 1px solid #d67d60; border-radius: 8px; box-sizing: border-box; }
         button { width: 100%; padding: 15px; background-color: #d67d60; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1em; }
     </style>
@@ -19,17 +19,16 @@
 <div class="game-card">
     <div class="stats">
         <div class="stat-item">Pikë<br><span id="score" class="stat-value">0/10</span></div>
-        <div class="stat-item">Koha<br><span id="timer-display" class="stat-value">20s</span></div>
+        <div class="stat-item">Koha<br><span id="timer-display" class="stat-value">30s</span></div>
     </div>
 
-    <p>Shkruani pjesoren e foljes:</p>
-
-    <h2 id="word-display">...</h2>
+<p>Përcaktoni fushën leksikore të fjalëve:</p>
+<h2 id="word-display">...</h2>
     <div id="char-buttons" style="margin-bottom: 10px;">
         <button onclick="insertChar('ë')" style="width: 45px; margin-right: 5px; padding: 5px; background-color: #f0f0f0; color: #333; border: 1px solid #d67d60;">ë</button>
         <button onclick="insertChar('ç')" style="width: 45px; padding: 5px; background-color: #f0f0f0; color: #333; border: 1px solid #d67d60;">ç</button>
     </div>
-    <input type="text" id="user-input" placeholder="Shkruani pjesoren...">
+    <input type="text" id="user-input" placeholder="Shkruani fushën leksikore...">
     <button onclick="checkAnswer()">Fjala tjetër</button>
     
     <div id="result-container" style="display: none; margin-top: 20px;">
@@ -42,16 +41,16 @@
 
 <script>
     const wordList = [
-        { word: "punoj", participle: "punuar" },
-        { word: "jam", participle: "qenë" },
-        { word: "dal", participle: "dalë" },
-        { word: "kam", participle: "pasur" },
-        { word: "di", participle: "ditur" },
-        { word: "mësoj", participle: "mësuar" },
-        { word: "kap", participle: "kapur" },
-        { word: "bëj", participle: "bërë" },
-        { word: "përkrah", participle: "përkrahur" },
-        { word: "bisedoj", participle: "biseduar" }
+        { word: "ilaç, gjilpërë, mjek", answer: "spital" },
+        { word: "laps, gomë, vizore", answer: "mjete shkollore" },
+        { word: "portokall, mandarinë, limon", answer: "agrume" },
+        { word: "i kuq, blu, i verdhë", answer: "ngjyrë" },
+        { word: "tigër, luan, ujk", answer: "kafshë" },
+        { word: "flutur, mizë, karkalec", answer: "insekte" },
+        { word: "piano, klarinetë, kitarë", answer: "vegla muzikore" },
+        { word: "bluzë, fustan, këmishë", answer: "veshje" },
+        { word: "kompjuter, celular, postë elektronike", answer: "teknologji" },
+        { word: "shkollë, nxënës, mësim", answer: "institucion" }
     ];
 
     let currentPair = {}, score = 0, total = 0, usedWords = [], wordTimer;
@@ -102,7 +101,7 @@
     function checkAnswer() {
         clearInterval(wordTimer);
         let input = document.getElementById("user-input").value.trim().toLowerCase();
-        if (input === currentPair.participle.toLowerCase()) {
+        if (input === currentPair.answer.toLowerCase()) {
             score++;
         }
         total++;
@@ -117,10 +116,7 @@
     }
 
     document.getElementById("user-input").addEventListener("keypress", function(event) {
-        if (event.key === "Enter") {
-            event.preventDefault();
-            checkAnswer();
-        }
+        if (event.key === "Enter") checkAnswer();
     });
 
     loadNewWord();

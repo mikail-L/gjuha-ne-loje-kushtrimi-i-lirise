@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <title>Dalloni funksionin e fjalëve</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #fafafa; }
+        .game-container { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 650px; text-align: center; }
+        
+        .stats { display: flex; justify-content: space-between; margin-bottom: 30px; font-weight: bold; color: #888; }
+        #word-display { font-size: 1.5rem; color: #d36a4a; margin: 20px 0; min-height: 60px; display: flex; align-items: center; justify-content: center;}
+        
+        .button-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 30px; }
+        .game-btn { padding: 12px 8px; background: #f5f2ed; border: 1px solid #e0dcd5; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 0.95rem; }
+        .game-btn:hover { background: #e8e4dc; }
+        
+        #game-over { display: none; }
+        .nav-btn { margin-top: 15px; padding: 12px 20px; cursor: pointer; display: block; width: 100%; border: none; border-radius: 10px; background: #eee; font-size: 1rem; font-weight: bold; }
+        .restart-btn { background: #d36a4a; color: white; }
+    </style>
+</head>
+<body>
+
+<div class="game-container" id="game-ui">
+    <div class="stats">
+        <div>Pikë: <span id="score">0</span>/10</div>
+        <div>Koha e mbetur: <span id="timer">30s</span></div>
+    </div>
+
+    <p>Dalloni funksionet që kryejnë fjalët brenda thonjëzave:</p>
+    <h1 id="word-display">Ai po punonte "me shokët".</h1>
+
+    <div class="button-grid" id="button-grid">
+        <button class="game-btn" onclick="processAnswer('Kundrinor i drejtë')">Kundrinor i drejtë</button>
+        <button class="game-btn" onclick="processAnswer('Kundrinor i zhdrejtë pa parafjalë')">Kundrinor i zhdrejtë pa parafjalë</button>
+        <button class="game-btn" onclick="processAnswer('Kundrinor i zhdrejtë me parafjalë')">Kundrinor i zhdrejtë me parafjalë</button>
+        <button class="game-btn" onclick="processAnswer('Rrethanor vendi')">Rrethanor vendi</button>
+        <button class="game-btn" onclick="processAnswer('Rrethanor kohe')">Rrethanor kohe</button>
+        <button class="game-btn" onclick="processAnswer('Rrethanor shkaku')">Rrethanor shkaku</button>
+        <button class="game-btn" onclick="processAnswer('Rrethanor mënyre')">Rrethanor mënyre</button>
+        <button class="game-btn" onclick="processAnswer('Rrethanor sasie')">Rrethanor sasie</button>
+        <button class="game-btn" onclick="processAnswer('Rrethanor qëllimi')" style="grid-column: span 2;">Rrethanor qëllimi</button>
+    </div>
+</div>
+
+<div class="game-container" id="game-over">
+    <h1>Loja përfundoi!</h1>
+    <p style="font-size: 1.2rem;">Pikët tuaja përfundimtare: <span id="final-score">0</span>/10</p>
+    
+    <button class="nav-btn restart-btn" onclick="location.reload()">Luani përsëri</button>
+    <button class="nav-btn" onclick="window.location.href='../index.html'">Kthehuni në faqen kryesore</button>
+</div>
+
+<script>
+    const gameData = [
+        {word: "Ai po punonte \"me shokët\".", type: "Kundrinor i zhdrejtë me parafjalë"},
+        {word: "\"Atyre u\" pëlqeu propozimi i mësuesit.", type: "Kundrinor i zhdrejtë pa parafjalë"},
+        {word: "\"Poezinë\" e recitoi bukur.", type: "Kundrinor i drejtë"},
+        {word: "Po shkojmë \"në Tiranë\".", type: "Rrethanor vendi"},
+        {word: "Ai lexon \"çdo mbrëmje\".", type: "Rrethanor kohe"},
+        {word: "\"Pse\" u vonove?", type: "Rrethanor shkaku"},
+        {word: "Djali po ecte \"shpejt\".", type: "Rrethanor mënyre"},
+        {word: "Je stërvitur \"shumë\".", type: "Rrethanor sasie"},
+        {word: "Pema u rrëzua \"nga era\".", type: "Rrethanor shkaku"},
+        {word: "\"Përse\" do të shkosh në mal?", type: "Rrethanor qëllimi"}
+    ];
+
+    let currentIndex = 0;
+    let score = 0;
+    let timeLeft = 30;
+    let timerInterval;
+
+    function startTimer() {
+        timeLeft = 30;
+        document.getElementById('timer').innerText = timeLeft + "s";
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            document.getElementById('timer').innerText = timeLeft + "s";
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                processAnswer(null);
+            }
+        }, 1000);
+    }
+
+    function processAnswer(selected) {
+        clearInterval(timerInterval);
+        if (selected === gameData[currentIndex].type) {
+            score++;
+            document.getElementById('score').innerText = score;
+        }
+        
+        currentIndex++;
+        if (currentIndex < gameData.length) {
+            document.getElementById('word-display').innerText = gameData[currentIndex].word;
+            startTimer();
+        } else {
+            document.getElementById('game-ui').style.display = 'none';
+            document.getElementById('game-over').style.display = 'block';
+            document.getElementById('final-score').innerText = score;
+        }
+    }
+
+    startTimer();
+</script>
+
+</body>
+</html>
