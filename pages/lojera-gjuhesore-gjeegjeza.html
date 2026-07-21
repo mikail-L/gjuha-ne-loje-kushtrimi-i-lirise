@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gjëegjëza</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f9f9fb;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #2c3e50;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .game-container {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            width: 90%;
+            max-width: 550px;
+            padding: 40px;
+            text-align: center;
+            box-sizing: border-box;
+            border: 1px solid #eaeaea;
+        }
+
+        .header-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #d97757;
+        }
+
+        .instruction {
+            font-size: 1rem;
+            color: #495057;
+            margin-bottom: 15px;
+        }
+
+        .riddle-box {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #d97757;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            padding: 10px;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            white-space: pre-line;
+        }
+
+        .special-chars {
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .char-btn {
+            background-color: #ffffff;
+            color: #d97757;
+            border: 1px solid #d97757;
+            padding: 6px 14px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .char-btn:hover {
+            background-color: #fdf0ec;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 1rem;
+            border: 1px solid #d97757;
+            border-radius: 10px;
+            background: #ffffff;
+            color: #2c3e50;
+            text-align: center;
+            outline: none;
+            box-sizing: border-box;
+            transition: box-shadow 0.2s;
+        }
+
+        input[type="text"]:focus {
+            box-shadow: 0 0 0 3px rgba(217, 119, 87, 0.15);
+        }
+
+        .action-btn {
+            background-color: #d97757;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .action-btn:hover {
+            background-color: #c46545;
+        }
+
+        .action-btn:active {
+            transform: scale(0.99);
+        }
+
+        .feedback {
+            margin-top: 15px;
+            font-weight: bold;
+            min-height: 24px;
+            font-size: 0.95rem;
+        }
+
+        .correct {
+            color: #27ae60;
+        }
+
+        .incorrect {
+            color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="game-container">
+        <div class="header-info">
+            <div class="stat-box">
+                <div class="stat-label"><b>Pikë</b></div>
+                <div class="stat-value" id="score-display">0/10</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label"><b>Koha</b></div>
+                <div class="stat-value" id="timer">30s</div>
+            </div>
+        </div>
+        
+        <div class="instruction">A e gjeni dot?</div>
+        
+        <div class="riddle-box" id="riddle-text">
+            Duke ngarkuar...
+        </div>
+
+        <div class="special-chars">
+            <button class="char-btn" onclick="insertChar('ë')">ë</button>
+            <button class="char-btn" onclick="insertChar('ç')">ç</button>
+        </div>
+
+        <div class="input-group" id="input-section">
+            <input type="text" id="user-answer" placeholder="Shkruani përgjigjen..." autocomplete="off">
+            <br><br>
+            <button class="action-btn" id="action-btn" onclick="handleAction()">Vazhdoni</button>
+        </div>
+
+        <div class="feedback" id="feedback"></div>
+    </div>
+
+    <script>
+        const riddles = [
+            { text: "Jam lot që rrjedh nga qielli,\nmë than vetëm dielli.", answer: "shiu" },
+            { text: "Të lodh shumë me të vërtetë,\npor gëzim të jep në jetë.", answer: "puna" },
+            { text: "Nëse e kam nuk e ndaj,\nnëse e ndaj nuk e kam.", answer: "sekreti" },
+            { text: "Si sahati tik e tak,\npunon ditë e natë,\npor po ndali sadopak,\nnuk kurdiset prapë.", answer: "zemra" },
+            { text: "Hap e mbyll, ndrit si yll.", answer: "sytë" },
+            { text: "Pa zë heshtur numëron,\naskush punën s'ia mohon.", answer: "ora" },
+            { text: "Kur i lidh ikin, kur i zgjidh rrinë.", answer: "këpucët" },
+            { text: "Rrumbullak, strumbullak,\nka shtatë vrima rreth e qark.", answer: "koka" },
+            { text: "Është një kullë e bardhë, pa dritare pa shkallë.", answer: "veza" },
+            { text: "Gjatë ditës të ndjek kudo, por sapo vjen nata zhduket.", answer: "hija" }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let state = 'checking'; // 'checking' or 'next'
+        let timeLeft = 30;
+        let timerInterval = null;
+
+        const riddleTextEl = document.getElementById('riddle-text');
+        const userAnswerEl = document.getElementById('user-answer');
+        const actionBtnEl = document.getElementById('action-btn');
+        const feedbackEl = document.getElementById('feedback');
+        const scoreDisplayEl = document.getElementById('score-display');
+        const timerEl = document.getElementById('timer');
+
+        function insertChar(char) {
+            const start = userAnswerEl.selectionStart;
+            const end = userAnswerEl.selectionEnd;
+            const val = userAnswerEl.value;
+            userAnswerEl.value = val.substring(0, start) + char + val.substring(end);
+            userAnswerEl.focus();
+            userAnswerEl.setSelectionRange(start + 1, start + 1);
+        }
+
+        function startTimer() {
+            timeLeft = 30;
+            timerEl.innerText = `${timeLeft}s`;
+            clearInterval(timerInterval);
+            
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timerEl.innerText = `${timeLeft}s`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    handleTimeout();
+                }
+            }, 1000);
+        }
+
+        function handleTimeout() {
+            if (state === 'checking') {
+                feedbackEl.innerText = `Koha mbaroi! Përgjigja e saktë ishte: ${riddles[currentQuestion].answer}`;
+                feedbackEl.className = "feedback incorrect";
+                userAnswerEl.disabled = true;
+                currentQuestion++;
+
+                if (currentQuestion < riddles.length) {
+                    actionBtnEl.innerText = 'Vazhdoni';
+                    state = 'next';
+                } else {
+                    actionBtnEl.innerText = 'Shiko Rezultatin';
+                    state = 'results';
+                }
+            }
+        }
+
+        function loadRiddle() {
+            if (currentQuestion < riddles.length) {
+                scoreDisplayEl.innerText = `${score}/${riddles.length}`;
+                riddleTextEl.innerText = riddles[currentQuestion].text;
+                userAnswerEl.value = '';
+                timerEl.style.display = 'block';
+                feedbackEl.innerText = '';
+                userAnswerEl.disabled = false;
+                actionBtnEl.innerText = 'Vazhdoni';
+                state = 'checking';
+                userAnswerEl.focus();
+                startTimer();
+            } else {
+                showResults();
+            }
+        }
+
+        function handleAction() {
+            if (state === 'checking') {
+                clearInterval(timerInterval);
+                const userVal = userAnswerEl.value.trim().toLowerCase();
+                const correctVal = riddles[currentQuestion].answer.toLowerCase();
+
+                if (userVal === "") {
+                    feedbackEl.innerText = "Ju lutem shkruani një përgjigje!";
+                    feedbackEl.className = "feedback incorrect";
+                    startTimer(); 
+                    return;
+                }
+
+                if (userVal === correctVal) {
+                    feedbackEl.innerText = "Saktë! 🌟";
+                    feedbackEl.className = "feedback correct";
+                    score++;
+                } else {
+                    feedbackEl.innerText = `Gabim! Përgjigja e saktë është: ${riddles[currentQuestion].answer}`;
+                    feedbackEl.className = "feedback incorrect";
+                }
+
+                scoreDisplayEl.innerText = `${score}/${riddles.length}`;
+                userAnswerEl.disabled = true;
+                currentQuestion++;
+
+                if (currentQuestion < riddles.length) {
+                    actionBtnEl.innerText = 'Vazhdoni';
+                    state = 'next';
+                } else {
+                    actionBtnEl.innerText = 'Shiko Rezultatin';
+                    state = 'results';
+                }
+            } else if (state === 'next') {
+                loadRiddle();
+            } else if (state === 'results') {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            clearInterval(timerInterval);
+            scoreDisplayEl.innerText = `${score}/${riddles.length}`;
+            timerEl.style.display = 'none';
+            riddleTextEl.innerHTML = `Loja përfundoi!<br><span style="font-size: 1.2rem; color: #495057;"> Keni fituar ${score} nga ${riddles.length} pikë.</span>`;
+            document.querySelector('.special-chars').style.display = 'none';
+            
+            // Replace input section with action buttons (Luani përsëri & Kthehuni në faqen kryesore)
+            const inputSection = document.getElementById('input-section');
+            inputSection.innerHTML = `
+                <button class="action-btn" onclick="restartGame()" style="background-color: #d97757; margin-bottom: 10px;">
+                    Luani përsëri
+                </button>
+                <button class="action-btn" onclick="window.location.href='../index.html'" style="background-color: #27ae60;">
+                    Kthehuni në faqen kryesore
+                </button>
+            `;
+            feedbackEl.innerText = "";
+        }
+
+        function restartGame() {
+            currentQuestion = 0;
+            score = 0;
+            state = 'checking';
+            timerEl.style.display = 'block';
+            document.querySelector('.special-chars').style.display = 'flex';
+            
+            // Restore input section HTML structure
+            const inputSection = document.getElementById('input-section');
+            inputSection.innerHTML = `
+                <input type="text" id="user-answer" placeholder="Shkruani përgjigjen..." autocomplete="off">
+                <br><br>
+                <button class="action-btn" id="action-btn" onclick="handleAction()">Vazhdoni</button>
+            `;
+            
+            // Re-assign element references since innerHTML replaced them
+            window.userAnswerEl = document.getElementById('user-answer');
+            window.actionBtnEl = document.getElementById('action-btn');
+            
+            userAnswerEl.addEventListener("keypress", function(event) {
+                if (event.key === "Enter") {
+                    handleAction();
+                }
+            });
+            
+            loadRiddle();
+        }
+
+        userAnswerEl.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                handleAction();
+            }
+        });
+
+        // Initialize the first question
+        loadRiddle();
+    </script>
+</body>
+</html>
