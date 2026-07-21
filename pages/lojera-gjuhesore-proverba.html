@@ -242,7 +242,7 @@
 
         function handleTimeout() {
             if (state === 'checking') {
-                feedbackEl.innerText = `Koha mbaroi! Përgjigja e saktë ishte: ${riddles[currentQuestion].answer}`;
+                feedbackEl.innerText = `Koha mbaroi! Përgjigja e saktë është: ${riddles[currentQuestion].answer}`;
                 feedbackEl.className = "feedback incorrect";
                 userAnswerEl.disabled = true;
                 currentQuestion++;
@@ -318,7 +318,7 @@
             clearInterval(timerInterval);
             scoreDisplayEl.innerText = `${score}/${riddles.length}`;
             timerEl.style.display = 'none';
-            riddleTextEl.innerHTML = `Loja përfundoi!<br><span style="font-size: 1.2rem; color: #495057;"> Keni fituar ${score} nga ${riddles.length} pikë.</span>`;
+            riddleTextEl.innerHTML = `Loja përfundoi! <br><span style="font-size: 1.2rem; color: #495057;"> Keni fituar ${score} nga ${riddles.length} pikë.</span>`;
             document.querySelector('.special-chars').style.display = 'none';
             
             // Replace input section with action buttons (Luani përsëri & Kthehuni në faqen kryesore)

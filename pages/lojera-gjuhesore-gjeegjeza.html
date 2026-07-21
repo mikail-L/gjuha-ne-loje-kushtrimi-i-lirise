@@ -242,7 +242,7 @@
 
         function handleTimeout() {
             if (state === 'checking') {
-                feedbackEl.innerText = `Koha mbaroi! Përgjigja e saktë ishte: ${riddles[currentQuestion].answer}`;
+                feedbackEl.innerText = `Koha mbaroi! Përgjigja e saktë është: ${riddles[currentQuestion].answer}`;
                 feedbackEl.className = "feedback incorrect";
                 userAnswerEl.disabled = true;
                 currentQuestion++;
