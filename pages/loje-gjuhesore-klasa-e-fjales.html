@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <title>Gjeni klasën e fjalës</title>
     <style>
-        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #fafafa; margin: 0; }
-        .game-container { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 500px; text-align: center; position: relative; z-index: 2; }
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #fafafa; }
+        .game-container { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 500px; text-align: center; }
         
         .stats { display: flex; justify-content: space-between; margin-bottom: 30px; font-weight: bold; color: #888; }
         #word-display { font-size: 3rem; color: #d36a4a; margin: 20px 0; }
@@ -20,16 +20,6 @@
         #game-over { display: none; }
         .nav-btn { margin-top: 10px; padding: 10px 20px; cursor: pointer; display: block; width: 100%; border: none; border-radius: 10px; background: #eee; }
         .restart-btn { background: #d36a4a; color: white; }
-
-        #fireworks-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 1;
-        }
     </style>
     <script type="module">
         import { inject } from 'https://cdn.jsdelivr.net/npm/@vercel/analytics@2/dist/index.mjs';
@@ -37,8 +27,6 @@
     </script>
 </head>
 <body>
-
-<canvas id="fireworks-canvas"></canvas>
 
 <div class="game-container" id="game-ui">
     
@@ -140,77 +128,13 @@
                 document.getElementById('game-ui').style.display = 'none';
                 document.getElementById('game-over').style.display = 'block';
                 document.getElementById('final-score').innerText = score;
-
-                if (score === gameData.length) {
-                    launchFireworks();
-                }
             }
         }, 800); 
     }
 
-    // ---- Fireworks effect (canvas-based, no external libs) ----
-    const fwCanvas = document.getElementById('fireworks-canvas');
-    const fwCtx = fwCanvas.getContext('2d');
-    let fwParticles = [];
-    let fwAnimationId = null;
-    let fwLaunchInterval = null;
-
-    function resizeFwCanvas() {
-        fwCanvas.width = window.innerWidth;
-        fwCanvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeFwCanvas);
-    resizeFwCanvas();
-
-    function randomColor() {
-        const colors = ['#ff595e', '#ffca3a', '#8ac926', '#1982c4', '#6a4c93', '#ff924c', '#ff5cad', '#00f5d4', '#f15bb5', '#fee440'];
-        return colors[Math.floor(Math.random() * colors.length)];
-    }
-
-    // A rocket that shoots up, then explodes into a firework burst
-    function createRocket() {
-        const x = Math.random() * fwCanvas.width * 0.8 + fwCanvas.width * 0.1;
-        const targetY = Math.random() * fwCanvas.height * 0.35 + fwCanvas.height * 0.12;
-        fwParticles.push({
-            type: 'rocket',
-            x, y: fwCanvas.height + 10,
-            targetY,
-            vx: (Math.random() - 0.5) * 0.6,
-            vy: -(9 + Math.random() * 3),
-            color: randomColor(),
-            size: 2.5,
-            trail: []
-        });
-    }
-
-    function explode(x, y, color) {
-        const particleCount = 90 + Math.floor(Math.random() * 40);
-        const isRing = Math.random() < 0.35;
-        for (let i = 0; i < particleCount; i++) {
-            const angle = (Math.PI * 2 * i) / particleCount + Math.random() * 0.1;
-            const speed = isRing ? (4.5 + Math.random() * 0.8) : (1 + Math.random() * 5.5);
-            fwParticles.push({
-                type: 'spark',
-                x, y,
-                vx: Math.cos(angle) * speed,
-                vy: Math.sin(angle) * speed,
-                alpha: 1,
-                color,
-                gravity: 0.045,
-                friction: 0.975,
-                size: 1.5 + Math.random() * 2,
-                flicker: Math.random() < 0.3
-            });
-        }
-        // bright flash core
-        fwParticles.push({
-            type: 'flash',
-            x, y,
-            alpha: 0.8,
-            size: 4
-        });
-    }
-
+    // Initialize game
+    initializeLayout();
+    startTimer();
     function animateFireworks() {
         // trailing fade instead of full clear, for glowing streak effect
         fwCtx.fillStyle = 'rgba(0, 0, 0, 0.18)';
