@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="sq">
-<head>
+<script src="../assets/fireworks.js"></script></head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lojë Quiz</title>
@@ -272,6 +272,7 @@
         `;
 
         if (score === 8) {
+            if (typeof window.startFireworks === 'function') window.startFireworks();
             content += `<p>Suksesi është fryt i dijes. Urime për arritjen maksimale! 🏆</p>`;
 		} else if (score === 7) {
 			content += `<p>Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;

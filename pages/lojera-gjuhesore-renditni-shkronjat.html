@@ -14,7 +14,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
+            overflow: hidden;
         }
 
         .game-container {
@@ -27,6 +28,8 @@
             text-align: center;
             box-sizing: border-box;
             border: 1px solid #eaeaea;
+            position: relative;
+            z-index: 10;
         }
 
         .header-info {
@@ -153,6 +156,16 @@
         .incorrect {
             color: #c0392b;
         }
+
+        #fireworks-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
     </style>
     <script type="module">
         import { inject } from 'https://cdn.jsdelivr.net/npm/@vercel/analytics@2/dist/index.mjs';
@@ -160,6 +173,8 @@
     </script>
 </head>
 <body>
+
+    <canvas id="fireworks-canvas"></canvas>
 
     <div class="game-container">
         <div class="header-info">
@@ -173,24 +188,33 @@
             </div>
         </div>
         
-        <div class="instruction">Renditni shkronjat për të formuar një fjalë.</div>
-        
-        <div class="riddle-box" id="riddle-text">
-            Duke ngarkuar...
+        <div id="game-play-section">
+            <div class="instruction">Renditni shkronjat për të formuar një fjalë.</div>
+            
+            <div class="riddle-box" id="riddle-text">
+                Duke ngarkuar...
+            </div>
+
+            <div class="special-chars" id="special-chars">
+                <button class="char-btn" onclick="insertChar('ë')">ë</button>
+                <button class="char-btn" onclick="insertChar('ç')">ç</button>
+            </div>
+
+            <div class="input-group" id="input-section">
+                <input type="text" id="user-answer" placeholder="Shkruani fjalën..." autocomplete="off">
+                <br><br>
+                <button class="action-btn" id="action-btn" onclick="handleAction()">Kontrollo</button>
+            </div>
+
+            <div class="feedback" id="feedback"></div>
         </div>
 
-        <div class="special-chars">
-            <button class="char-btn" onclick="insertChar('ë')">ë</button>
-            <button class="char-btn" onclick="insertChar('ç')">ç</button>
+        <div id="result-container" style="display: none; margin-top: 10px;">
+            <h2 style="color: #2c3e50;">Loja përfundoi!</h2>
+            <p id="final-score" style="font-size: 1.3rem; color: #495057; font-weight: bold; margin-bottom: 25px;"></p>
+            <button class="action-btn" onclick="restartGame()" style="margin-bottom: 12px;">Luani përsëri</button>
+            <button class="action-btn" onclick="window.location.href='../index.html'" style="background-color: #27ae60;">Kthehuni në faqen kryesore</button>
         </div>
-
-        <div class="input-group" id="input-section">
-            <input type="text" id="user-answer" placeholder="Shkruani fjalën..." autocomplete="off">
-            <br><br>
-            <button class="action-btn" id="action-btn" onclick="handleAction()">Vazhdoni</button>
-        </div>
-
-        <div class="feedback" id="feedback"></div>
     </div>
 
     <script>
@@ -209,7 +233,7 @@
 
         let currentQuestion = 0;
         let score = 0;
-        let state = 'checking'; // 'checking' or 'next'
+        let state = 'checking'; // 'checking', 'next', or 'results'
         let timeLeft = 30;
         let timerInterval = null;
 
@@ -219,6 +243,9 @@
         const feedbackEl = document.getElementById('feedback');
         const scoreDisplayEl = document.getElementById('score-display');
         const timerEl = document.getElementById('timer');
+        const gamePlaySection = document.getElementById('game-play-section');
+        const resultContainer = document.getElementById('result-container');
+        const finalScoreEl = document.getElementById('final-score');
 
         function insertChar(char) {
             const start = userAnswerEl.selectionStart;
@@ -267,10 +294,9 @@
                 scoreDisplayEl.innerText = `${score}/${riddles.length}`;
                 riddleTextEl.innerText = riddles[currentQuestion].text;
                 userAnswerEl.value = '';
-                timerEl.style.display = 'block';
                 feedbackEl.innerText = '';
                 userAnswerEl.disabled = false;
-                actionBtnEl.innerText = 'Vazhdoni';
+                actionBtnEl.innerText = 'Kontrollo';
                 state = 'checking';
                 userAnswerEl.focus();
                 startTimer();
@@ -281,16 +307,16 @@
 
         function handleAction() {
             if (state === 'checking') {
-                clearInterval(timerInterval);
                 const userVal = userAnswerEl.value.trim().toLowerCase();
                 const correctVal = riddles[currentQuestion].answer.toLowerCase();
 
                 if (userVal === "") {
                     feedbackEl.innerText = "Ju lutem shkruani një përgjigje!";
                     feedbackEl.className = "feedback incorrect";
-                    startTimer(); 
                     return;
                 }
+
+                clearInterval(timerInterval);
 
                 if (userVal === correctVal) {
                     feedbackEl.innerText = "Saktë! 🌟";
@@ -322,56 +348,187 @@
         function showResults() {
             clearInterval(timerInterval);
             scoreDisplayEl.innerText = `${score}/${riddles.length}`;
-            timerEl.style.display = 'none';
-            riddleTextEl.innerHTML = `<br><span style="font-size: 1.2rem; color: #495057;">Loja përfundoi! Keni fituar ${score} nga ${riddles.length} pikë.</span>`;
-            document.querySelector('.special-chars').style.display = 'none';
+            timerEl.innerText = '0s';
             
-            // Replace input section with action buttons (Luani përsëri & Kthehuni në faqen kryesore)
-            const inputSection = document.getElementById('input-section');
-            inputSection.innerHTML = `
-                <button class="action-btn" onclick="restartGame()" style="background-color: #d97757; margin-bottom: 10px;">
-                    Luani përsëri
-                </button>
-                <button class="action-btn" onclick="window.location.href='../index.html'" style="background-color: #27ae60;">
-                    Kthehuni në faqen kryesore
-                </button>
-            `;
-            feedbackEl.innerText = "";
+            gamePlaySection.style.display = 'none';
+            resultContainer.style.display = 'block';
+            finalScoreEl.innerText = `Keni fituar ${score} nga ${riddles.length} pikë.`;
+
+            if (score >= Math.ceil(riddles.length / 2)) {
+                triggerFireworks();
+            }
         }
 
         function restartGame() {
             currentQuestion = 0;
             score = 0;
             state = 'checking';
-            timerEl.style.display = 'block';
-            document.querySelector('.special-chars').style.display = 'flex';
             
-            // Restore input section HTML structure
-            const inputSection = document.getElementById('input-section');
-            inputSection.innerHTML = `
-                <input type="text" id="user-answer" placeholder="Shkruani fjalën..." autocomplete="off">
-                <br><br>
-                <button class="action-btn" id="action-btn" onclick="handleAction()">Vazhdoni</button>
-            `;
-            
-            // Re-assign element references since innerHTML replaced them
-            window.userAnswerEl = document.getElementById('user-answer');
-            window.actionBtnEl = document.getElementById('action-btn');
-            
-            userAnswerEl.addEventListener("keypress", function(event) {
-                if (event.key === "Enter") {
-                    handleAction();
-                }
-            });
+            resultContainer.style.display = 'none';
+            gamePlaySection.style.display = 'block';
             
             loadRiddle();
         }
 
         userAnswerEl.addEventListener("keypress", function(event) {
             if (event.key === "Enter") {
+                event.preventDefault();
                 handleAction();
             }
         });
+
+        /* Embedded Physics Fireworks Engine */
+        function triggerFireworks() {
+            const canvas = document.getElementById('fireworks-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            let rockets = [];
+            let particles = [];
+            
+            const colors = [
+                '#ff4757', '#ff6b81', '#ffa502', '#eccc68', 
+                '#2ed573', '#7bed9f', '#1e90ff', '#70a1ff', 
+                '#5352ed', '#3742fa', '#ff78ae', '#e84393'
+            ];
+
+            class Rocket {
+                constructor() {
+                    this.x = Math.random() * (canvas.width * 0.8) + canvas.width * 0.1;
+                    this.y = canvas.height;
+                    this.targetY = Math.random() * (canvas.height * 0.35) + canvas.height * 0.1;
+                    this.speed = Math.random() * 3 + 10;
+                    this.angle = Math.atan2(this.targetY - this.y, (Math.random() - 0.5) * 80);
+                    this.vx = Math.cos(this.angle) * this.speed;
+                    this.vy = -Math.sin(Math.abs(this.angle)) * this.speed;
+                    this.trail = [];
+                    this.color = colors[Math.floor(Math.random() * colors.length)];
+                }
+
+                update() {
+                    this.trail.push({ x: this.x, y: this.y });
+                    if (this.trail.length > 8) this.trail.shift();
+                    
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    this.vy += 0.08; 
+
+                    return this.y <= this.targetY || this.vy >= -1;
+                }
+
+                draw() {
+                    if (this.trail.length > 1) {
+                        ctx.beginPath();
+                        ctx.moveTo(this.trail[0].x, this.trail[0].y);
+                        for (let i = 1; i < this.trail.length; i++) {
+                            ctx.lineTo(this.trail[i].x, this.trail[i].y);
+                        }
+                        ctx.strokeStyle = this.color;
+                        ctx.lineWidth = 2.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            class Particle {
+                constructor(x, y, color) {
+                    this.x = x;
+                    this.y = y;
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = Math.random() * 7 + 1.5;
+                    this.vx = Math.cos(angle) * speed;
+                    this.vy = Math.sin(angle) * speed;
+                    this.alpha = 1;
+                    this.decay = Math.random() * 0.012 + 0.008;
+                    this.color = color;
+                    this.trail = [];
+                    this.friction = 0.96;
+                    this.gravity = 0.1;
+                }
+
+                update() {
+                    this.trail.push({ x: this.x, y: this.y });
+                    if (this.trail.length > 6) this.trail.shift();
+
+                    this.vx *= this.friction;
+                    this.vy *= this.friction;
+                    this.vy += this.gravity;
+
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    this.alpha -= this.decay;
+                    
+                    return this.alpha > 0;
+                }
+
+                draw() {
+                    ctx.save();
+                    ctx.globalAlpha = Math.max(0, this.alpha);
+                    
+                    if (this.trail.length > 1) {
+                        ctx.beginPath();
+                        ctx.moveTo(this.trail[0].x, this.trail[0].y);
+                        for (let i = 1; i < this.trail.length; i++) {
+                            ctx.lineTo(this.trail[i].x, this.trail[i].y);
+                        }
+                        ctx.strokeStyle = this.color;
+                        ctx.lineWidth = 1.8;
+                        ctx.stroke();
+                    }
+
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fill();
+                    ctx.restore();
+                }
+            }
+
+            function createExplosion(x, y, color) {
+                const count = Math.floor(Math.random() * 40) + 60;
+                for (let i = 0; i < count; i++) {
+                    particles.push(new Particle(x, y, color));
+                }
+            }
+
+            function launchRocket() {
+                rockets.push(new Rocket());
+                setTimeout(launchRocket, Math.random() * 400 + 200);
+            }
+
+            launchRocket();
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                for (let i = rockets.length - 1; i >= 0; i--) {
+                    const rocket = rockets[i];
+                    rocket.draw();
+                    if (rocket.update()) {
+                        createExplosion(rocket.x, rocket.y, rocket.color);
+                        rockets.splice(i, 1);
+                    }
+                }
+
+                for (let i = particles.length - 1; i >= 0; i--) {
+                    const particle = particles[i];
+                    particle.draw();
+                    if (!particle.update()) {
+                        particles.splice(i, 1);
+                    }
+                }
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        }
 
         // Initialize the first question
         loadRiddle();

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="sq">
-<head>
+<script src="../assets/fireworks.js"></script></head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lojë Quiz - Gramatikë</title>
@@ -238,6 +238,7 @@
             `;
 
             if (score === 10) {
+    if (typeof window.startFireworks === 'function') window.startFireworks();
                 content += `<p style="margin-bottom: 24px;">Suksesi është fryt i dijes. Urime për arritjen maksimale! 🏆</p>`;
             } else if (score >= 8) {
                 content += `<p style="margin-bottom: 24px;">Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;

@@ -2,26 +2,53 @@
 <html lang="sq">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dalloni llojin e kallëzuesit</title>
     <style>
-        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #fafafa; }
-        .game-container { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 600px; text-align: center; }
+        body { 
+            font-family: sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            background-color: #fafafa; 
+            margin: 0; 
+            overflow: hidden;
+        }
+        .game-container { 
+            background: white; 
+            padding: 40px; 
+            border-radius: 15px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+            width: 600px; 
+            text-align: center; 
+            z-index: 10; 
+            position: relative; 
+        }
         
         .stats { display: flex; justify-content: space-between; margin-bottom: 30px; font-weight: bold; color: #888; }
         #word-display { font-size: 1.6rem; color: #d36a4a; margin: 20px 0; min-height: 60px; display: flex; align-items: center; justify-content: center;}
         
         .button-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 10px; margin-top: 30px; }
-        /* Added transition to make the color change smooth */
         .game-btn { padding: 15px 10px; background: #f5f2ed; border: 1px solid #e0dcd5; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 1.1rem; transition: background-color 0.2s, color 0.2s; }
         .game-btn:hover { background: #e8e4dc; }
         
-        /* New classes for correct and incorrect answers */
         .correct { background-color: #4caf50 !important; color: white !important; border-color: #4caf50 !important; }
         .incorrect { background-color: #f44336 !important; color: white !important; border-color: #f44336 !important; }
         
         #game-over { display: none; }
         .nav-btn { margin-top: 15px; padding: 12px 20px; cursor: pointer; display: block; width: 100%; border: none; border-radius: 10px; background: #eee; font-size: 1rem; font-weight: bold; }
         .restart-btn { background: #d36a4a; color: white; }
+
+        #fireworks-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
     </style>
     <script type="module">
         import { inject } from 'https://cdn.jsdelivr.net/npm/@vercel/analytics@2/dist/index.mjs';
@@ -29,6 +56,8 @@
     </script>
 </head>
 <body>
+
+<canvas id="fireworks-canvas"></canvas>
 
 <div class="game-container" id="game-ui">
     <div class="stats">
@@ -39,7 +68,6 @@
     <p>Dalloni llojin e kallëzuesit në fjalinë e mëposhtme.</p>
     <h1 id="word-display">Nxënësit po lexonin.</h1>
 
-    <!-- Added 'this' to pass the button element to the function -->
     <div class="button-grid" id="button-grid">
         <button class="game-btn" onclick="processAnswer('Kallëzues foljor i thjeshtë', this)">Kallëzues foljor i thjeshtë</button>
         <button class="game-btn" onclick="processAnswer('Kallëzues foljor i përbërë', this)">Kallëzues foljor i përbërë</button>
@@ -77,12 +105,13 @@
     function startTimer() {
         timeLeft = 30;
         document.getElementById('timer').innerText = timeLeft + "s";
+        clearInterval(timerInterval);
         timerInterval = setInterval(() => {
             timeLeft--;
             document.getElementById('timer').innerText = timeLeft + "s";
             if (timeLeft <= 0) {
                 clearInterval(timerInterval);
-                processAnswer(null, null); // Handles timeout
+                processAnswer(null, null);
             }
         }, 1000);
     }
@@ -90,7 +119,6 @@
     function processAnswer(selected, btnElement) {
         clearInterval(timerInterval);
         
-        // Temporarily disable buttons to prevent double-clicking
         const buttons = document.querySelectorAll('.game-btn');
         buttons.forEach(btn => btn.style.pointerEvents = 'none');
 
@@ -101,7 +129,6 @@
             document.getElementById('score').innerText = score;
         }
 
-        // Apply colors if a button was clicked
         if (btnElement) {
             if (isCorrect) {
                 btnElement.classList.add('correct');
@@ -110,9 +137,7 @@
             }
         }
 
-        // Wait 800 milliseconds before moving to the next question
         setTimeout(() => {
-            // Remove colors and re-enable clicks
             if (btnElement) {
                 btnElement.classList.remove('correct', 'incorrect');
             }
@@ -126,8 +151,165 @@
                 document.getElementById('game-ui').style.display = 'none';
                 document.getElementById('game-over').style.display = 'block';
                 document.getElementById('final-score').innerText = score;
+
+                if (score === gameData.length) {
+                    triggerFireworks();
+                }
             }
         }, 800); 
+    }
+
+    /* Embedded Physics Fireworks Engine */
+    function triggerFireworks() {
+        const canvas = document.getElementById('fireworks-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        let rockets = [];
+        let particles = [];
+        
+        const colors = [
+            '#ff4757', '#ff6b81', '#ffa502', '#eccc68', 
+            '#2ed573', '#7bed9f', '#1e90ff', '#70a1ff', 
+            '#5352ed', '#3742fa', '#ff78ae', '#e84393'
+        ];
+
+        class Rocket {
+            constructor() {
+                this.x = Math.random() * (canvas.width * 0.8) + canvas.width * 0.1;
+                this.y = canvas.height;
+                this.targetY = Math.random() * (canvas.height * 0.35) + canvas.height * 0.1;
+                this.speed = Math.random() * 3 + 10;
+                this.angle = Math.atan2(this.targetY - this.y, (Math.random() - 0.5) * 80);
+                this.vx = Math.cos(this.angle) * this.speed;
+                this.vy = -Math.sin(Math.abs(this.angle)) * this.speed;
+                this.trail = [];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+            }
+
+            update() {
+                this.trail.push({ x: this.x, y: this.y });
+                if (this.trail.length > 8) this.trail.shift();
+                
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vy += 0.08; 
+
+                return this.y <= this.targetY || this.vy >= -1;
+            }
+
+            draw() {
+                if (this.trail.length > 1) {
+                    ctx.beginPath();
+                    ctx.moveTo(this.trail[0].x, this.trail[0].y);
+                    for (let i = 1; i < this.trail.length; i++) {
+                        ctx.lineTo(this.trail[i].x, this.trail[i].y);
+                    }
+                    ctx.strokeStyle = this.color;
+                    ctx.lineWidth = 2.5;
+                    ctx.stroke();
+                }
+            }
+        }
+
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 7 + 1.5;
+                this.vx = Math.cos(angle) * speed;
+                this.vy = Math.sin(angle) * speed;
+                this.alpha = 1;
+                this.decay = Math.random() * 0.012 + 0.008;
+                this.color = color;
+                this.trail = [];
+                this.friction = 0.96;
+                this.gravity = 0.1;
+            }
+
+            update() {
+                this.trail.push({ x: this.x, y: this.y });
+                if (this.trail.length > 6) this.trail.shift();
+
+                this.vx *= this.friction;
+                this.vy *= this.friction;
+                this.vy += this.gravity;
+
+                this.x += this.vx;
+                this.y += this.vy;
+                this.alpha -= this.decay;
+                
+                return this.alpha > 0;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, this.alpha);
+                
+                if (this.trail.length > 1) {
+                    ctx.beginPath();
+                    ctx.moveTo(this.trail[0].x, this.trail[0].y);
+                    for (let i = 1; i < this.trail.length; i++) {
+                        ctx.lineTo(this.trail[i].x, this.trail[i].y);
+                    }
+                    ctx.strokeStyle = this.color;
+                    ctx.lineWidth = 1.8;
+                    ctx.stroke();
+                }
+
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+                ctx.fillStyle = '#ffffff';
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        function createExplosion(x, y, color) {
+            const count = Math.floor(Math.random() * 40) + 60;
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle(x, y, color));
+            }
+        }
+
+        function launchRocket() {
+            rockets.push(new Rocket());
+            setTimeout(launchRocket, Math.random() * 400 + 200);
+        }
+
+        launchRocket();
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = rockets.length - 1; i >= 0; i--) {
+                const rocket = rockets[i];
+                rocket.draw();
+                if (rocket.update()) {
+                    createExplosion(rocket.x, rocket.y, rocket.color);
+                    rockets.splice(i, 1);
+                }
+            }
+
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const particle = particles[i];
+                particle.draw();
+                if (!particle.update()) {
+                    particles.splice(i, 1);
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
     }
 
     startTimer();

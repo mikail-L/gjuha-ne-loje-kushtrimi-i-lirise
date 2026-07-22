@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lojë Quiz</title>
+    <script src="../assets/fireworks.js" onerror="console.error('Failed to load fireworks.js');"></script>
     <style>
         /* =========================================
            All CSS Included Directly to Fix Linking
@@ -53,6 +54,7 @@
             text-align: center;
             width: 100%;
             max-width: 520px;
+            box-sizing: border-box;
         }
 
         /* Button Styles */
@@ -85,7 +87,7 @@
 
         .btn-primary {
             background-color: var(--primary-blue);
-            color: white;
+            color: white !important;
             border: none;
         }
 
@@ -93,7 +95,7 @@
             background-color: #1557b0;
         }
 
-        .btn, .btn:visited, .btn:link {
+        .btn-outline, .btn-outline:visited, .btn-outline:link {
             color: var(--text-main) !important;
         }
 
@@ -135,6 +137,18 @@
         #nextBtn {
             display: none;
             margin-top: 20px;
+        }
+
+        .score-text {
+            font-size: 1.1rem;
+            color: #3c4043;
+            margin: 16px 0;
+        }
+
+        .result-msg {
+            font-size: 1rem;
+            color: #5f6368;
+            margin-bottom: 24px;
         }
     </style>
     <script type="module">
@@ -189,22 +203,22 @@
             answers: ["A) Cila është gjëja më e rëndëshishme në jetë?", "B) Babai ka punuar tërë jetën me ndershmëri.", "C) Shtëpia qe plot dritë.", "D) Ai nisi të këndonte shumë bukur."],
             correct: 3
         },
-		{
+        {
             question: "7. Gjeni ndajshtimin në alternativat e dhëna.",
             answers: ["A) Ti i the nënës se të solli yt vëlla?", "B) Ajo është me origjinë shqiptare.", "C) Mësuese Mira vjen të hënën në mësim.", "D) Unë e dua këtë qytet."],
             correct: 2
         },
-		{
+        {
             question: "8. Dalloni kundrinorin e drejtë:",
             answers: ["A) U çoi bukë miqve.", "B) Nxënësit e lavdëruan të gjithë.", "C) Të foli nëna?", "D) Më erdhi keq për gjyshen."],
             correct: 1
         },
-		{
+        {
             question: "9. Në cilën alternativë është përdorur fjalia me pjesë të nënrenditur ftilluese?",
             answers: ["A) E mira do të ishte që ju të punoni çdo ditë për këtë projekt.", "B) Në vesh kam shprehjet që ai i përdorte gjithmonë.", "C) Ishte përqafimi i tim eti, që më bënte të lumtur.", "D) Kur fillova të lexoja, të gjithë heshtën."],
             correct: 0
         },
-		{
+        {
             question: "10. Ata lanë punën, kur dielli kishte perënduar. Pjesa e nënrenditur është:",
             answers: ["A) vendore;", "B) qëllimore;", "C) kohore;", "D) përcaktore."],
             correct: 2
@@ -269,61 +283,39 @@
     }
 
     function nextQuestion() {
-    currentQuestion++;
+        currentQuestion++;
 
-    if (currentQuestion < quiz.length) {
-        loadQuestion();
-    } else {
+        if (currentQuestion < quiz.length) {
+            loadQuestion();
+        } else {
+            let content = `
+                <h2>Quiz përfundoi 🎉</h2>
+                <p class="score-text">Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
+            `;
 
-        let content = `
-            <h2>Quiz përfundoi 🎉</h2>
-            <p>Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
-        `;
+            if (score === 10) {
+                if (typeof window.startFireworks === 'function') window.startFireworks();
+                content += `<p class="result-msg">Suksesi është fryt i dijes. Urime për arritjen maksimale! 🏆</p>`;
+            } else if (score >= 8) {
+                content += `<p class="result-msg">Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥</p>`;
+            } else if (score >= 5) {
+                content += `<p class="result-msg">Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
+            } else {
+                content += `<p class="result-msg">Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
+            }
 
-        if (score === 10) {
-            content += `<p>Suksesi është fryt i dijes. Urime për arritjen maksimale! 🏆</p>`;
-		} else if (score === 9) {
-			content += `<p>Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;
-		} else if (score === 8) {
-			content += `<p>Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;
-		} else if (score === 7) {
-			content += `<p>Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
-		} else if (score === 6) {
-			content += `<p>Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
-		} else if (score === 5) {
-			content += `<p>Rezultat i mirë! Suksesi ndërtohet hap pas hapi. 🌟📈</p>`;
-		} else if (score === 4) {
-			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
-		} else if (score === 3) {
-			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
-		} else if (score === 2) {
-			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
-		} else if (score === 1) {
-			content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
-        } else if (score === 0) {
-            content += `<p>Çdo sfidë është një mundësi për të mësuar. Provojeni sërish dhe do të shihni përmirësim! 😊</p>`;
+            content += `
+                <button class="btn btn-primary" style="margin-top: 20px; margin-bottom: 0;" onclick="window.location.href='../index.html'">
+                    Kthehuni në faqen kryesore
+                </button>
+            `;
+
+            document.getElementById("quiz-card").innerHTML = content;
         }
-
-        content += `
-            <button onclick="window.location.href='../index.html'">
-                Kthehuni në faqen kryesore
-            </button>
-        `;
-
-        document.querySelector(".quiz-container").innerHTML = content;
     }
-}
 
     loadQuestion();
-
 </script>
 
 </body>
-
 </html>
-
-
-
-
-
-

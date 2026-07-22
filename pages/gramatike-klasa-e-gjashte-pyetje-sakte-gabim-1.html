@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="sq">
-<head>
+<script src="../assets/fireworks.js"></script></html>head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lojë Quiz - Gjuhë Shqipe</title>
@@ -139,6 +139,7 @@
         import { inject } from 'https://cdn.jsdelivr.net/npm/@vercel/analytics@2/dist/index.mjs';
         inject();
     </script>
+    <script src="../assets/fireworks.js"></script>
 </head>
 <body>
 
@@ -237,7 +238,12 @@
                 <p style="margin-bottom: 24px; color: var(--text-muted);">Ke marrë <strong>${score}</strong> pikë nga <strong>${quiz.length}</strong></p>
             `;
 
-            if (score === 10) {
+            // Trigger fireworks for a perfect score using the exact name from fireworks.js
+            if (score === quiz.length) {
+    if (typeof window.startFireworks === 'function') window.startFireworks();
+                if (typeof window.startFireworks === 'function') {
+                    window.startFireworks();
+                }
                 content += `<p style="margin-bottom: 24px;">Suksesi është fryt i dijes. Urime për arritjen maksimale! 🏆</p>`;
             } else if (score >= 8) {
                 content += `<p style="margin-bottom: 24px;">Rezultat shumë i mirë! Jeni një hap larg rezultatit maksimal. Vazhdoni të punoni me përkushtim! 👏🔥 </p>`;
