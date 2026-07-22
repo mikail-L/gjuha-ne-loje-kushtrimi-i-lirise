@@ -11,8 +11,11 @@
         #word-display { font-size: 1.5rem; color: #d36a4a; margin: 20px 0; min-height: 60px; display: flex; align-items: center; justify-content: center;}
         
         .button-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 30px; }
-        .game-btn { padding: 12px 8px; background: #f5f2ed; border: 1px solid #e0dcd5; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 0.95rem; }
+        .game-btn { padding: 12px 8px; background: #f5f2ed; border: 1px solid #e0dcd5; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 0.95rem; transition: background-color 0.2s, color 0.2s; }
         .game-btn:hover { background: #e8e4dc; }
+        
+        .correct { background-color: #4caf50 !important; color: white !important; border-color: #4caf50 !important; }
+        .incorrect { background-color: #f44336 !important; color: white !important; border-color: #f44336 !important; }
         
         #game-over { display: none; }
         .nav-btn { margin-top: 15px; padding: 12px 20px; cursor: pointer; display: block; width: 100%; border: none; border-radius: 10px; background: #eee; font-size: 1rem; font-weight: bold; }
@@ -35,15 +38,15 @@
     <h1 id="word-display">Ai po punonte "me shokët".</h1>
 
     <div class="button-grid" id="button-grid">
-        <button class="game-btn" onclick="processAnswer('Kundrinor i drejtë')">Kundrinor i drejtë</button>
-        <button class="game-btn" onclick="processAnswer('Kundrinor i zhdrejtë pa parafjalë')">Kundrinor i zhdrejtë pa parafjalë</button>
-        <button class="game-btn" onclick="processAnswer('Kundrinor i zhdrejtë me parafjalë')">Kundrinor i zhdrejtë me parafjalë</button>
-        <button class="game-btn" onclick="processAnswer('Rrethanor vendi')">Rrethanor vendi</button>
-        <button class="game-btn" onclick="processAnswer('Rrethanor kohe')">Rrethanor kohe</button>
-        <button class="game-btn" onclick="processAnswer('Rrethanor shkaku')">Rrethanor shkaku</button>
-        <button class="game-btn" onclick="processAnswer('Rrethanor mënyre')">Rrethanor mënyre</button>
-        <button class="game-btn" onclick="processAnswer('Rrethanor sasie')">Rrethanor sasie</button>
-        <button class="game-btn" onclick="processAnswer('Rrethanor qëllimi')" style="grid-column: span 2;">Rrethanor qëllimi</button>
+        <button class="game-btn" onclick="processAnswer('Kundrinor i drejtë', this)">Kundrinor i drejtë</button>
+        <button class="game-btn" onclick="processAnswer('Kundrinor i zhdrejtë pa parafjalë', this)">Kundrinor i zhdrejtë pa parafjalë</button>
+        <button class="game-btn" onclick="processAnswer('Kundrinor i zhdrejtë me parafjalë', this)">Kundrinor i zhdrejtë me parafjalë</button>
+        <button class="game-btn" onclick="processAnswer('Rrethanor vendi', this)">Rrethanor vendi</button>
+        <button class="game-btn" onclick="processAnswer('Rrethanor kohe', this)">Rrethanor kohe</button>
+        <button class="game-btn" onclick="processAnswer('Rrethanor shkaku', this)">Rrethanor shkaku</button>
+        <button class="game-btn" onclick="processAnswer('Rrethanor mënyre', this)">Rrethanor mënyre</button>
+        <button class="game-btn" onclick="processAnswer('Rrethanor sasie', this)">Rrethanor sasie</button>
+        <button class="game-btn" onclick="processAnswer('Rrethanor qëllimi', this)" style="grid-column: span 2;">Rrethanor qëllimi</button>
     </div>
 </div>
 
@@ -82,27 +85,48 @@
             document.getElementById('timer').innerText = timeLeft + "s";
             if (timeLeft <= 0) {
                 clearInterval(timerInterval);
-                processAnswer(null);
+                processAnswer(null, null);
             }
         }, 1000);
     }
 
-    function processAnswer(selected) {
+    function processAnswer(selected, btnElement) {
         clearInterval(timerInterval);
-        if (selected === gameData[currentIndex].type) {
+        
+        const buttons = document.querySelectorAll('.game-btn');
+        buttons.forEach(btn => btn.style.pointerEvents = 'none');
+
+        const isCorrect = selected === gameData[currentIndex].type;
+
+        if (isCorrect) {
             score++;
             document.getElementById('score').innerText = score;
         }
         
-        currentIndex++;
-        if (currentIndex < gameData.length) {
-            document.getElementById('word-display').innerText = gameData[currentIndex].word;
-            startTimer();
-        } else {
-            document.getElementById('game-ui').style.display = 'none';
-            document.getElementById('game-over').style.display = 'block';
-            document.getElementById('final-score').innerText = score;
+        if (btnElement) {
+            if (isCorrect) {
+                btnElement.classList.add('correct');
+            } else {
+                btnElement.classList.add('incorrect');
+            }
         }
+
+        setTimeout(() => {
+            if (btnElement) {
+                btnElement.classList.remove('correct', 'incorrect');
+            }
+            buttons.forEach(btn => btn.style.pointerEvents = 'auto');
+
+            currentIndex++;
+            if (currentIndex < gameData.length) {
+                document.getElementById('word-display').innerText = gameData[currentIndex].word;
+                startTimer();
+            } else {
+                document.getElementById('game-ui').style.display = 'none';
+                document.getElementById('game-over').style.display = 'block';
+                document.getElementById('final-score').innerText = score;
+            }
+        }, 800); 
     }
 
     startTimer();

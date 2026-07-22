@@ -11,8 +11,11 @@
         #word-display { font-size: 3rem; color: #d36a4a; margin: 20px 0; }
         
         .button-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 30px; }
-        .game-btn { padding: 15px 5px; background: #f5f2ed; border: 1px solid #e0dcd5; border-radius: 10px; cursor: pointer; font-weight: bold; }
+        .game-btn { padding: 15px 5px; background: #f5f2ed; border: 1px solid #e0dcd5; border-radius: 10px; cursor: pointer; font-weight: bold; transition: background-color 0.2s, color 0.2s; }
         .game-btn:hover { background: #e8e4dc; }
+        
+        .correct { background-color: #4caf50 !important; color: white !important; border-color: #4caf50 !important; }
+        .incorrect { background-color: #f44336 !important; color: white !important; border-color: #f44336 !important; }
         
         #game-over { display: none; }
         .nav-btn { margin-top: 10px; padding: 10px 20px; cursor: pointer; display: block; width: 100%; border: none; border-radius: 10px; background: #eee; }
@@ -36,15 +39,15 @@
     <h1 id="word-display">dëshirë</h1>
 
     <div class="button-grid" id="button-grid">
-        <button class="game-btn" onclick="processAnswer('emër')">emër</button>
-        <button class="game-btn" onclick="processAnswer('përemër')">përemër</button>
-        <button class="game-btn" onclick="processAnswer('mbiemër')">mbiemër</button>
-        <button class="game-btn" onclick="processAnswer('ndajfolje')">ndajfolje</button>
-        <button class="game-btn" onclick="processAnswer('lidhëz')">lidhëz</button>
-        <button class="game-btn" onclick="processAnswer('pjesëz')">pjesëz</button>
-        <button class="game-btn" onclick="processAnswer('pasthirrmë')">pasthirrmë</button>
-        <button class="game-btn" onclick="processAnswer('folje')">folje</button>
-        <button class="game-btn" onclick="processAnswer('numëror')">numëror</button>
+        <button class="game-btn" onclick="processAnswer('emër', this)">emër</button>
+        <button class="game-btn" onclick="processAnswer('përemër', this)">përemër</button>
+        <button class="game-btn" onclick="processAnswer('mbiemër', this)">mbiemër</button>
+        <button class="game-btn" onclick="processAnswer('ndajfolje', this)">ndajfolje</button>
+        <button class="game-btn" onclick="processAnswer('lidhëz', this)">lidhëz</button>
+        <button class="game-btn" onclick="processAnswer('pjesëz', this)">pjesëz</button>
+        <button class="game-btn" onclick="processAnswer('pasthirrmë', this)">pasthirrmë</button>
+        <button class="game-btn" onclick="processAnswer('folje', this)">folje</button>
+        <button class="game-btn" onclick="processAnswer('numëror', this)">numëror</button>
     </div>
 </div>
 
@@ -85,27 +88,48 @@
             document.getElementById('timer').innerText = timeLeft + "s";
             if (timeLeft <= 0) {
                 clearInterval(timerInterval);
-                processAnswer(null);
+                processAnswer(null, null);
             }
         }, 1000);
     }
 
-    function processAnswer(selected) {
+    function processAnswer(selected, btnElement) {
         clearInterval(timerInterval);
-        if (selected === gameData[currentIndex].type) {
+        
+        const buttons = document.querySelectorAll('.game-btn');
+        buttons.forEach(btn => btn.style.pointerEvents = 'none');
+
+        const isCorrect = selected === gameData[currentIndex].type;
+
+        if (isCorrect) {
             score++;
             document.getElementById('score').innerText = score;
         }
         
-        currentIndex++;
-        if (currentIndex < gameData.length) {
-            document.getElementById('word-display').innerText = gameData[currentIndex].word;
-            startTimer();
-        } else {
-            document.getElementById('game-ui').style.display = 'none';
-            document.getElementById('game-over').style.display = 'block';
-            document.getElementById('final-score').innerText = score;
+        if (btnElement) {
+            if (isCorrect) {
+                btnElement.classList.add('correct');
+            } else {
+                btnElement.classList.add('incorrect');
+            }
         }
+
+        setTimeout(() => {
+            if (btnElement) {
+                btnElement.classList.remove('correct', 'incorrect');
+            }
+            buttons.forEach(btn => btn.style.pointerEvents = 'auto');
+
+            currentIndex++;
+            if (currentIndex < gameData.length) {
+                document.getElementById('word-display').innerText = gameData[currentIndex].word;
+                startTimer();
+            } else {
+                document.getElementById('game-ui').style.display = 'none';
+                document.getElementById('game-over').style.display = 'block';
+                document.getElementById('final-score').innerText = score;
+            }
+        }, 800); 
     }
 
     // Initialize game

@@ -10,8 +10,14 @@
         .stat-item { text-align: center; }
         .stat-value { font-size: 1.5em; font-weight: bold; color: #d67d60; }
         #word-display { font-size: 3em; color: #d67d60; margin: 40px 0; }
-        input { width: 100%; padding: 15px; margin-bottom: 20px; border: 1px solid #d67d60; border-radius: 8px; box-sizing: border-box; }
-        button { width: 100%; padding: 15px; background-color: #d67d60; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1em; }
+        input { width: 100%; padding: 15px; margin-bottom: 20px; border: 1px solid #d67d60; border-radius: 8px; box-sizing: border-box; font-size: 1em; text-align: center; outline: none; }
+        input:focus { box-shadow: 0 0 0 3px rgba(214, 125, 96, 0.15); }
+        button.action-btn { width: 100%; padding: 15px; background-color: #d67d60; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1em; font-weight: bold; transition: background 0.2s; }
+        button.action-btn:hover { background-color: #c06c50; }
+        
+        .feedback { margin-top: 15px; font-weight: bold; min-height: 24px; font-size: 1em; }
+        .correct { color: #27ae60; }
+        .incorrect { color: #c0392b; }
     </style>
     <script type="module">
         import { inject } from 'https://cdn.jsdelivr.net/npm/@vercel/analytics@2/dist/index.mjs';
@@ -23,24 +29,26 @@
 <div class="game-card">
     <div class="stats">
         <div class="stat-item">Pikë<br><span id="score" class="stat-value">0/10</span></div>
-        <div class="stat-item">Koha e mbetur<br><span id="timer-display" class="stat-value">20s</span></div>
+        <div class="stat-item">Koha e mbetur<br><span id="timer-display" class="stat-value">30s</span></div>
     </div>
 
     <p>Formoni fjalë të prejardhura me prapashtesat: -si, -ri, -shëm, -të, -tar, -tor, -ro(j)</p>
 
     <h2 id="word-display">...</h2>
     <div id="char-buttons" style="margin-bottom: 10px;">
-        <button onclick="insertChar('ë')" style="width: 45px; margin-right: 5px; padding: 5px; background-color: #f0f0f0; color: #333; border: 1px solid #d67d60;">ë</button>
-        <button onclick="insertChar('ç')" style="width: 45px; padding: 5px; background-color: #f0f0f0; color: #333; border: 1px solid #d67d60;">ç</button>
+        <button onclick="insertChar('ë')" style="width: 45px; margin-right: 5px; padding: 5px; background-color: #f0f0f0; color: #333; border: 1px solid #d67d60; border-radius: 8px; cursor: pointer; font-weight: bold;">ë</button>
+        <button onclick="insertChar('ç')" style="width: 45px; padding: 5px; background-color: #f0f0f0; color: #333; border: 1px solid #d67d60; border-radius: 8px; cursor: pointer; font-weight: bold;">ç</button>
     </div>
-    <input type="text" id="user-input" placeholder="Shkruani fjalën e prejardhur...">
-    <button onclick="checkAnswer()">Vazhdoni</button>
+    <input type="text" id="user-input" placeholder="Shkruani fjalën e prejardhur..." autocomplete="off">
+    <button id="action-btn" class="action-btn" onclick="checkAnswer()">Kontrollo</button>
+    
+    <div id="feedback" class="feedback"></div>
     
     <div id="result-container" style="display: none; margin-top: 20px;">
         <h2>Loja përfundoi!</h2>
         <p id="final-score" style="font-size: 1.5em; font-weight: bold;"></p>
-        <button onclick="location.reload()">Luani përsëri</button>
-        <button onclick="location.href='../index.html'" style="background-color: #999; margin-top: 10px;">Kthehuni në faqen kryesore</button>
+        <button class="action-btn" onclick="location.reload()" style="margin-bottom: 10px;">Luani përsëri</button>
+        <button class="action-btn" onclick="location.href='../index.html'" style="background-color: #999;">Kthehuni në faqen kryesore</button>
     </div>
 </div>
 
@@ -58,7 +66,8 @@
         { word: "udhë", result: "udhëtar" }
     ];
 
-    let currentIndex = 0, score = 0, usedIndices = [], wordTimer;
+    let currentPair = {}, score = 0, total = 0, usedWords = [], wordTimer;
+    let state = 'checking';
     const TIME_LIMIT = 30;
 
     function startTimer() {
@@ -70,56 +79,131 @@
             document.getElementById("timer-display").innerText = timeLeft + "s";
             if (timeLeft <= 0) {
                 clearInterval(wordTimer);
-                checkAnswer(); // Auto-check when time runs out
+                handleTimeout();
             }
         }, 1000);
     }
 
-    function loadNewWord() {
-        if (usedIndices.length >= wordList.length) {
-            clearInterval(wordTimer);
-            document.getElementById("word-display").style.display = "none";
-            document.getElementById("user-input").style.display = "none";
-            document.getElementById("char-buttons").style.display = "none";
-            document.querySelector("button[onclick='checkAnswer()']").style.display = "none";
-            document.getElementById("timer-display").innerText = "0s";
+    function handleTimeout() {
+        if (state === 'checking') {
+            const feedbackEl = document.getElementById("feedback");
+            feedbackEl.innerText = `Koha mbaroi! Përgjigja e saktë është: ${currentPair.result}`;
+            feedbackEl.className = "feedback incorrect";
+            document.getElementById("user-input").disabled = true;
+            
+            total++;
+            document.getElementById("score").innerText = score + "/10";
+            
+            const btn = document.getElementById("action-btn");
+            if (total < wordList.length) {
+                btn.innerText = 'Vazhdoni';
+                state = 'next';
+            } else {
+                btn.innerText = 'Shiko Rezultatin';
+                state = 'results';
+            }
+        }
+    }
 
-            const resCont = document.getElementById("result-container");
-            resCont.style.display = "block";
-            document.getElementById("final-score").innerText = `Rezultati përfundimtar: ${score}/10`;
+    function loadNewWord() {
+        if (total >= wordList.length) {
+            showResults();
             return;
         }
 
         let index;
         do {
             index = Math.floor(Math.random() * wordList.length);
-        } while (usedIndices.includes(index));
+        } while (usedWords.includes(index));
 
-        usedIndices.push(index);
-        currentIndex = index;
-        document.getElementById("word-display").innerText = wordList[currentIndex].word;
-        document.getElementById("user-input").value = "";
+        usedWords.push(index);
+        currentPair = wordList[index];
+        document.getElementById("word-display").innerText = currentPair.word;
+        
+        const input = document.getElementById("user-input");
+        input.value = "";
+        input.disabled = false;
+        input.focus();
+        
+        document.getElementById("feedback").innerText = "";
+        document.getElementById("action-btn").innerText = "Kontrollo";
+        
+        state = 'checking';
         startTimer(); 
     }
 
     function checkAnswer() {
-        clearInterval(wordTimer);
-        let input = document.getElementById("user-input").value.trim().toLowerCase();
-        if (input === wordList[currentIndex].result.toLowerCase()) {
-            score++;
+        if (state === 'checking') {
+            clearInterval(wordTimer);
+            let inputEl = document.getElementById("user-input");
+            let input = inputEl.value.trim().toLowerCase();
+            let feedbackEl = document.getElementById("feedback");
+
+            if (input === "") {
+                feedbackEl.innerText = "Ju lutem shkruani një përgjigje!";
+                feedbackEl.className = "feedback incorrect";
+                startTimer();
+                return;
+            }
+
+            if (input === currentPair.result.toLowerCase()) {
+                score++;
+                feedbackEl.innerText = "Saktë! 🌟";
+                feedbackEl.className = "feedback correct";
+            } else {
+                feedbackEl.innerText = `Gabim! Përgjigja e saktë është: ${currentPair.result}`;
+                feedbackEl.className = "feedback incorrect";
+            }
+
+            total++;
+            document.getElementById("score").innerText = score + "/10";
+            inputEl.disabled = true;
+
+            const btn = document.getElementById("action-btn");
+            if (total < wordList.length) {
+                btn.innerText = 'Vazhdoni';
+                state = 'next';
+            } else {
+                btn.innerText = 'Shiko Rezultatin';
+                state = 'results';
+            }
+
+        } else if (state === 'next') {
+            loadNewWord();
+        } else if (state === 'results') {
+            showResults();
         }
-        document.getElementById("score").innerText = score + "/10";
-        loadNewWord();
+    }
+
+    function showResults() {
+        clearInterval(wordTimer);
+        document.getElementById("word-display").style.display = "none";
+        document.getElementById("user-input").style.display = "none";
+        document.getElementById("char-buttons").style.display = "none";
+        document.getElementById("action-btn").style.display = "none";
+        document.getElementById("feedback").style.display = "none";
+        document.getElementById("timer-display").innerText = "0s";
+
+        const resCont = document.getElementById("result-container");
+        resCont.style.display = "block";
+        document.getElementById("final-score").innerText = `Rezultati përfundimtar: ${score}/10`;
     }
 
     function insertChar(char) {
         const input = document.getElementById("user-input");
-        input.value += char;
+        const start = input.selectionStart;
+        const end = input.selectionEnd;
+        const val = input.value;
+        input.value = val.substring(0, start) + char + val.substring(end);
         input.focus();
+        input.setSelectionRange(start + 1, start + 1);
     }
 
     document.getElementById("user-input").addEventListener("keypress", function(event) {
-        if (event.key === "Enter") checkAnswer();
+        if (event.key === "Enter") {
+            event.preventDefault();
+            checkAnswer();
+        }
     });
 
     loadNewWord();
