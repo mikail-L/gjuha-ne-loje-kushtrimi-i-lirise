@@ -346,6 +346,15 @@ h1, h2, h3 {
   border: 1px solid var(--border-color);
 }
 
+.button.featured {
+  background-color: #0000FF; /* Replace with your desired hex color */
+  color: #ffffff;            /* Text color */
+}
+
+.button.featured:hover {
+  background-color: #732d91; /* Darker shade on hover */
+}
+
 .btn-outline:hover {
     background: linear-gradient(90deg, rgba(79, 107, 122, 0.08), rgba(47, 69, 82, 0.03));
     border-color: var(--primary-blue);

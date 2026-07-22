@@ -1,13 +1,21 @@
 ﻿<!DOCTYPE html>
 <html lang="sq">
-<script src="../assets/fireworks.js"></script></head>
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lojëra gjuhësore</title>
+
+  <script src="../assets/fireworks.js"></script>
+  <script type="module">
+    import { inject } from 'https://cdn.jsdelivr.net/npm/@vercel/analytics@2/dist/index.mjs';
+    inject();
+  </script>
+
   <style>
+    /* --- BASE STYLES --- */
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Arial, sans-serif;
       background: linear-gradient(135deg, #e0f2fe, #f8fbff);
       color: #1f2937;
       min-height: 100vh;
@@ -16,6 +24,7 @@
       justify-content: center;
       padding: 20px;
     }
+
     .card {
       background: white;
       padding: 32px;
@@ -25,8 +34,19 @@
       width: 100%;
       max-width: 560px;
     }
-    h1 { margin-top: 0; color: #0f766e; }
-    .button-group { display: grid; gap: 12px; margin-top: 20px; }
+
+    h1 { 
+      margin-top: 0; 
+      color: #0f766e; 
+    }
+
+    .button-group { 
+      display: grid; 
+      gap: 12px; 
+      margin-top: 20px; 
+    }
+
+    /* Standard Button */
     .button {
       display: block;
       padding: 12px 16px;
@@ -35,10 +55,14 @@
       text-decoration: none;
       border-radius: 12px;
       font-weight: bold;
-      transition: transform 0.2s ease;
+      transition: transform 0.2s ease, background 0.2s ease;
     }
-    .button:hover { transform: scale(1.02); }
 
+    .button:hover { 
+      transform: scale(1.02); 
+    }
+
+    /* Highlighted Buttons (Gjëegjëza, Proverba, etc.) */
     .button.highlight {
       background: linear-gradient(135deg, #f59e0b, #d97706);
       box-shadow: 0 8px 20px rgba(217, 119, 6, 0.25);
@@ -48,13 +72,22 @@
     .button.highlight:hover {
       transform: translateY(-2px) scale(1.03);
     }
+
+    /* --- Custom Style for Figurat Letrare --- */
+    .button.featured {
+      background: #7c3aed; /* Purple color (change to any hex color you prefer) */
+      color: #ffffff;
+      box-shadow: 0 8px 20px rgba(124, 58, 237, 0.25);
+    }
+
+    .button.featured:hover {
+      background: #6d28d9; /* Darker shade on hover */
+      transform: translateY(-2px) scale(1.03);
+    }
   </style>
-    <script type="module">
-        import { inject } from 'https://cdn.jsdelivr.net/npm/@vercel/analytics@2/dist/index.mjs';
-        inject();
-    </script>
 </head>
 <body>
+
   <div class="card">
     <h1>Lojëra gjuhësore</h1>
     <div class="button-group">
@@ -62,12 +95,13 @@
       <a class="button" href="lojera-gjuhesore-morfologji.html">Morfologji</a>
       <a class="button" href="lojera-gjuhesore-sintakse.html">Sintaksë</a>
       <a class="button" href="lojera-gjuhesore-fjaleformim-dhe-drejtshkrim.html">Fjalëformim dhe drejtshkrim</a>
-      <a class="button" href="loje-gjuhesore-figurat-letrare.html">Figurat letrare</a>
-      <a class="button highlight" href="loje-gjuhesore-gjeegjeza.html">Gjëegjëza</a>
-      <a class="button highlight" href="loje-gjuhesore-proverba.html">Proverba</a>
-      <a class="button highlight" href="loje-gjuhesore-renditni-shkronjat.html">Renditni shkronjat</a>
+      <a class="button featured" href="lojera-gjuhesore-figurat-letrare.html">Figurat letrare</a>
+      <a class="button highlight" href="lojera-gjuhesore-gjeegjeza.html">Gjëegjëza</a>
+      <a class="button highlight" href="lojera-gjuhesore-proverba.html">Proverba</a>
+      <a class="button highlight" href="lojera-gjuhesore-renditni-shkronjat.html">Renditni shkronjat</a>
       <a class="button highlight" href="lojera-gjuhesore-fjalekryqe.html">Fjalëkryqe</a>
     </div>
   </div>
+
 </body>
 </html>
