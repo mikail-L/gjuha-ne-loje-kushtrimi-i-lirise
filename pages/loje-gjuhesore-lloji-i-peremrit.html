@@ -141,8 +141,161 @@
             }
         }, 800); 
     }
+        // ---- Fireworks effect (canvas-based, no external libs) ----
+    const fwCanvas = document.getElementById('fireworks-canvas');
+    const fwCtx = fwCanvas.getContext('2d');
+    let fwParticles = [];
+    let fwAnimationId = null;
+    let fwLaunchInterval = null;
 
+    function resizeFwCanvas() {
+        fwCanvas.width = window.innerWidth;
+        fwCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeFwCanvas);
+    resizeFwCanvas();
+
+    function randomColor() {
+        const colors = ['#ff595e', '#ffca3a', '#8ac926', '#1982c4', '#6a4c93', '#ff924c', '#ff5cad', '#00f5d4', '#f15bb5', '#fee440'];
+        return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    // A rocket that shoots up, then explodes into a firework burst
+    function createRocket() {
+        const x = Math.random() * fwCanvas.width * 0.8 + fwCanvas.width * 0.1;
+        const targetY = Math.random() * fwCanvas.height * 0.35 + fwCanvas.height * 0.12;
+        fwParticles.push({
+            type: 'rocket',
+            x, y: fwCanvas.height + 10,
+            targetY,
+            vx: (Math.random() - 0.5) * 0.6,
+            vy: -(9 + Math.random() * 3),
+            color: randomColor(),
+            size: 2.5,
+            trail: []
+        });
+    }
+
+    function explode(x, y, color) {
+        const particleCount = 90 + Math.floor(Math.random() * 40);
+        const isRing = Math.random() < 0.35;
+        for (let i = 0; i < particleCount; i++) {
+            const angle = (Math.PI * 2 * i) / particleCount + Math.random() * 0.1;
+            const speed = isRing ? (4.5 + Math.random() * 0.8) : (1 + Math.random() * 5.5);
+            fwParticles.push({
+                type: 'spark',
+                x, y,
+                vx: Math.cos(angle) * speed,
+                vy: Math.sin(angle) * speed,
+                alpha: 1,
+                color,
+                gravity: 0.045,
+                friction: 0.975,
+                size: 1.5 + Math.random() * 2,
+                flicker: Math.random() < 0.3
+            });
+        }
+        // bright flash core
+        fwParticles.push({
+            type: 'flash',
+            x, y,
+            alpha: 0.8,
+            size: 4
+        });
+    }
+
+    function animateFireworks() {
+        // trailing fade instead of full clear, for glowing streak effect
+        fwCtx.fillStyle = 'rgba(0, 0, 0, 0.18)';
+        fwCtx.globalCompositeOperation = 'destination-out';
+        fwCtx.fillRect(0, 0, fwCanvas.width, fwCanvas.height);
+        fwCtx.globalCompositeOperation = 'source-over';
+
+        fwParticles.forEach(p => {
+            if (p.type === 'rocket') {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += 0.12; // slight gravity slows the ascent
+                p.trail.push({ x: p.x, y: p.y });
+                if (p.trail.length > 6) p.trail.shift();
+                if (p.y <= p.targetY || p.vy >= -1) {
+                    p.dead = true;
+                    explode(p.x, p.y, p.color);
+                }
+            } else if (p.type === 'spark') {
+                p.vx *= p.friction;
+                p.vy *= p.friction;
+                p.vy += p.gravity;
+                p.x += p.vx;
+                p.y += p.vy;
+                p.alpha -= 0.011;
+            } else if (p.type === 'flash') {
+                p.alpha -= 0.15;
+                p.size += 3;
+            }
+        });
+
+        fwParticles = fwParticles.filter(p => {
+            if (p.type === 'rocket') return !p.dead;
+            return p.alpha > 0;
+        });
+
+        fwParticles.forEach(p => {
+            fwCtx.save();
+            if (p.type === 'rocket') {
+                fwCtx.strokeStyle = p.color;
+                fwCtx.lineWidth = p.size;
+                fwCtx.lineCap = 'round';
+                fwCtx.beginPath();
+                p.trail.forEach((pt, i) => {
+                    if (i === 0) fwCtx.moveTo(pt.x, pt.y);
+                    else fwCtx.lineTo(pt.x, pt.y);
+                });
+                fwCtx.lineTo(p.x, p.y);
+                fwCtx.stroke();
+            } else if (p.type === 'spark') {
+                const a = p.flicker ? Math.max(p.alpha * (0.5 + Math.random() * 0.5), 0) : Math.max(p.alpha, 0);
+                fwCtx.globalAlpha = a;
+                fwCtx.shadowBlur = 12;
+                fwCtx.shadowColor = p.color;
+                fwCtx.fillStyle = p.color;
+                fwCtx.beginPath();
+                fwCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                fwCtx.fill();
+            } else if (p.type === 'flash') {
+                fwCtx.globalAlpha = Math.max(p.alpha, 0);
+                fwCtx.fillStyle = '#ffffff';
+                fwCtx.shadowBlur = 20;
+                fwCtx.shadowColor = '#ffffff';
+                fwCtx.beginPath();
+                fwCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                fwCtx.fill();
+            }
+            fwCtx.restore();
+        });
+
+        fwAnimationId = requestAnimationFrame(animateFireworks);
+    }
+
+    function launchFireworks() {
+        if (fwAnimationId) cancelAnimationFrame(fwAnimationId);
+        if (fwLaunchInterval) clearInterval(fwLaunchInterval);
+        fwParticles = [];
+        fwCtx.clearRect(0, 0, fwCanvas.width, fwCanvas.height);
+        animateFireworks();
+
+        // Keep launching rockets forever (until the page is reloaded / left)
+        createRocket();
+        createRocket();
+        fwLaunchInterval = setInterval(() => {
+            createRocket();
+            if (Math.random() < 0.4) createRocket();
+        }, 550);
+    }
+
+    // Initialize game
     initializeLayout();
+
     startTimer();
 </script>
 
