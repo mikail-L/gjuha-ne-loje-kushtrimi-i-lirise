@@ -1,0 +1,15 @@
+{
+  "name": "gjuha-ne-loje-kushtrimi-i-lirise",
+  "version": "1.0.0",
+  "description": "Një platformë digjitale për zhvillimin e kompetencave gjuhësore përmes lojës",
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'Static site - no build needed'"
+  },
+  "keywords": ["education", "albanian", "language", "learning"],
+  "author": "Shkolla 9-vjeçare Kushtrimi i lirisë Durrës",
+  "license": "ISC",
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
+  }
+}
