@@ -5,7 +5,7 @@
     <title>Dalloni gjininë e emrit</title>
     <style>
         body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #fafafa; }
-        .game-container { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 500px; text-align: center; }
+        .game-container { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 500px; text-align: center; position: relative; z-index: 2; }
         
         .stats { display: flex; justify-content: space-between; margin-bottom: 30px; font-weight: bold; color: #888; }
         #word-display { font-size: 2.5rem; color: #d36a4a; margin: 20px 0; }
@@ -27,6 +27,9 @@
     </script>
 </head>
 <body>
+
+<!-- Fireworks Canvas -->
+<canvas id="fireworks-canvas" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; display:block; z-index:1;"></canvas>
 
 <div class="game-container" id="game-ui">
     <div class="stats">
@@ -119,10 +122,16 @@
                 document.getElementById('game-ui').style.display = 'none';
                 document.getElementById('game-over').style.display = 'block';
                 document.getElementById('final-score').innerText = score;
+                
+                // Trigger fireworks if user got 10/10!
+                if (score === gameData.length) {
+                    launchFireworks();
+                }
             }
         }, 800); 
     }
-        // ---- Fireworks effect (canvas-based, no external libs) ----
+
+    // ---- Fireworks effect ----
     const fwCanvas = document.getElementById('fireworks-canvas');
     const fwCtx = fwCanvas.getContext('2d');
     let fwParticles = [];
@@ -141,7 +150,6 @@
         return colors[Math.floor(Math.random() * colors.length)];
     }
 
-    // A rocket that shoots up, then explodes into a firework burst
     function createRocket() {
         const x = Math.random() * fwCanvas.width * 0.8 + fwCanvas.width * 0.1;
         const targetY = Math.random() * fwCanvas.height * 0.35 + fwCanvas.height * 0.12;
@@ -176,7 +184,6 @@
                 flicker: Math.random() < 0.3
             });
         }
-        // bright flash core
         fwParticles.push({
             type: 'flash',
             x, y,
@@ -186,7 +193,6 @@
     }
 
     function animateFireworks() {
-        // trailing fade instead of full clear, for glowing streak effect
         fwCtx.fillStyle = 'rgba(0, 0, 0, 0.18)';
         fwCtx.globalCompositeOperation = 'destination-out';
         fwCtx.fillRect(0, 0, fwCanvas.width, fwCanvas.height);
@@ -196,7 +202,7 @@
             if (p.type === 'rocket') {
                 p.x += p.vx;
                 p.y += p.vy;
-                p.vy += 0.12; // slight gravity slows the ascent
+                p.vy += 0.12;
                 p.trail.push({ x: p.x, y: p.y });
                 if (p.trail.length > 6) p.trail.shift();
                 if (p.y <= p.targetY || p.vy >= -1) {
@@ -265,7 +271,6 @@
         fwCtx.clearRect(0, 0, fwCanvas.width, fwCanvas.height);
         animateFireworks();
 
-        // Keep launching rockets forever (until the page is reloaded / left)
         createRocket();
         createRocket();
         fwLaunchInterval = setInterval(() => {
@@ -274,9 +279,7 @@
         }, 550);
     }
 
-    // Initialize game
-    initializeLayout();
-
+    // Initialize game timer
     startTimer();
 </script>
 
